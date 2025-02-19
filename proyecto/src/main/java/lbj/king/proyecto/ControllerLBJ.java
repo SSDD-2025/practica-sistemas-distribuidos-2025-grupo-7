@@ -30,8 +30,8 @@ public class ControllerLBJ {
     @GetMapping("/register")
     public String register(Model model) {
         return "register";
-    }
-    
+    }  
+
     @PostMapping("/procesarRegistro")
     public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {       
         usuario.setName(name);

@@ -5,6 +5,9 @@ function actua(){
 function redirigir(){
     window.location.href="/register";
 }
+function redirigirRuleta(){
+    window.location.href="rule2/rule2.html"
+}
 window.onload=function(){
     if(localStorage.getItem("boolean") === "true"){
         document.getElementById("boton-reg").style.display="none";
