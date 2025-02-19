@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8"> 
+        <link rel="stylesheet" href="/css/register.css">
+    </head>
+    <body>
+        <div id="all">
+            <div id="divCrown">
+                <img src="/imagenes/coronaDelKing.png" >
+            </div>
+            <div id="content">
+                <div id="inside">
+                    <h3>Registro</h3>
+                    <form action="/procesarRegistro" method="post">
+                        <p>Introduzca su nombre de usuario:</p>
+                        <input type="text" name="name">
+                        <p>Introduzca su contraseña:</p>
+                        <input type="text" name="psw">
+                        <pre>
+                        </pre>
+                        <input onclick="set()" type="submit" value="Crear usuario">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="/js/registro.js"></script>
+    </body>
+</html>

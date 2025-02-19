@@ -1,0 +1,60 @@
+body{
+    margin: 0;
+}
+h2{
+    text-align: center;
+}
+#container-main{
+    width: 100%;
+    background-color: rgb(49, 49, 49);
+    display: inline-block;
+    margin-left: 100px;
+}
+#contenedor-izq{
+    width: 15%;
+    height: 100%;
+    color: yellow;
+    background-color: rgb(71, 71, 71);
+    display: inline-block;
+}
+#boton-reg{
+    height: 20px;
+    width: 80px;
+    background-color: yellow;
+    border: 5px solid purple;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+#boton-ini{
+    height: 20px;
+    width: 80px;
+    background-color: yellow;
+    border: 5px solid purple;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+#welcome{
+    height: 40px;
+    width: 200px;
+    margin-top: 20px;
+    margin-right: 50px;
+    display: none;
+    color: blueviolet;
+}
+#lbj{
+    text-align: center;
+}
+.barra-arriba{
+    width: 100%;
+    height: 80px;
+    background-color: black;
+    padding-top: 20px;
+}
+td{
+    text-align: center;
+}
+.div-izq{
+    background-color: purple;
+    margin-left: 40px;
+    margin-top: 20px;
+}

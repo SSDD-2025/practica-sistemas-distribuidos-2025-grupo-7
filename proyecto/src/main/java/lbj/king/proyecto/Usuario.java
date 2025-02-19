@@ -7,23 +7,45 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class Usuario {
     private String DNI;
-    private String nombreUsuario;
-    private String contraseña;
+    private String name;
+    private String password;
+    private float currency;
 
-    public Usuario(String dni,String n,String c){
+
+    public Usuario(){
+        
+    }
+
+    public Usuario(String dni,String name,String psw){
         DNI=dni;
-        nombreUsuario=n;
-        contraseña=c;
+        this.name=name;
+        this.password=psw;
     }
 
     public void setdni(String dni){
         DNI=dni;
     }
-    public void setnombre(String n){
-        nombreUsuario=n;
+    public void setName(String name){
+        this.name=name;
     }
-    public void setcontraseña(String c){
-        contraseña=c;
+    public void setPassword(String psw){
+        this.password=psw;
+    }
+    public void setCurrency(float cv){
+        this.currency=cv;
+    }
+
+    public String getdni(){
+        return this.DNI;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public String getPassword(){
+        return this.password;
+    }
+    public float getCurrency(){
+        return this.currency;
     }
 
 }

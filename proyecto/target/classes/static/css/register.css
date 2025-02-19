@@ -1,0 +1,28 @@
+body{
+    background-color: rgb(49, 49, 49);
+    display: flex;
+    justify-content: center;
+}
+#all{
+    display: inline-block;
+    justify-content: center;
+}
+#divCrown{
+    justify-content: center;
+    display: flex;
+}
+#content{
+    width: 500px;
+    height: 600px;
+    border: 2px solid blueviolet;
+    background-color: rgb(134, 134, 4);
+    text-align: center;
+}
+img{
+    margin-top: 50px;
+    width: 150px;
+    height: 100px;
+}
+#inside{
+    margin-top: 100px;
+}
