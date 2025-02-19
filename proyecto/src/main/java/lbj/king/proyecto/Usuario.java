@@ -1,11 +1,23 @@
 package lbj.king.proyecto;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Indexed;
 import org.springframework.web.context.annotation.SessionScope;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Component
 @SessionScope
+@Entity
 public class Usuario {
+
+    @Id 
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    
     private String DNI;
     private String name;
     private String password;
