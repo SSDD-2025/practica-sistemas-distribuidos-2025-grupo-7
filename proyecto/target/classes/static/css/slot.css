@@ -12,7 +12,7 @@ a {
 	position: absolute;
 	width: 289px;
 	height: 129px;
-	background: #000 url(../images/frame.jpg);
+	background: #000 url(../imagenes/frame.jpg);
 	top: 100px;
 	left: 250px;
 	overflow: hidden;
@@ -23,7 +23,7 @@ a {
 	left: 0;
 	width: 289px;
 	height: 129px;
-	background: #000 url(../images/splash.jpg);
+	background: #000 url(../imagenes/splash.jpg);
 }
 
 #slotSplash a {
@@ -81,7 +81,7 @@ div.wheel img {
 	text-indent: -1000px;
 	top: 90px;
 	left: 77px;
-	background: url(../images/button.jpg) top no-repeat;
+	background: url(../imagenes/button.jpg) top no-repeat;
 	cursor: default;
 }
 #slotTrigger.slotTriggerDown {
