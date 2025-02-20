@@ -44,3 +44,12 @@ body {
     .left { transform: rotateY(-90deg) translateZ(100px); }
     .top { transform: rotateX(90deg) translateZ(100px); }
     .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+    #currentFace {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        font-size: 2rem;
+        color: white;
+    }
+    
