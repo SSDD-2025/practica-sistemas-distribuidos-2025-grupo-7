@@ -8,3 +8,9 @@ function redirigir_login(){
 function redirigirRuleta(){
     window.location.href="/rule"
 }
+function redirigirDados(){
+    window.location.href="/dados"
+}
+function redirigirSlot(){
+    window.location.href="/slot"
+}

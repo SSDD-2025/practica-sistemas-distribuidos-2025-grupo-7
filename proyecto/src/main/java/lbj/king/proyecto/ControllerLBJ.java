@@ -55,9 +55,17 @@ public class ControllerLBJ {
     public String getRule(Model model) {
         return "rule";
     }
-    
 
+    @GetMapping("/dados")
+    public String getDado(Model model) {
+        return "dados";
+    }
     
+    @GetMapping("/slot")
+    public String getSlot(Model model) {
+        return "slot";
+    }
+
     @PostMapping("/procesarRegistro")
     public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {      
         
