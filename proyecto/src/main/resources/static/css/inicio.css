@@ -5,17 +5,16 @@ h2{
     text-align: center;
 }
 #container-main{
-    width: 100%;
+    width: 80%;
     background-color: rgb(49, 49, 49);
     display: inline-block;
-    margin-left: 100px;
 }
 #contenedor-izq{
-    width: 15%;
-    height: 100%;
+    width: 20%;
     color: yellow;
     background-color: rgb(71, 71, 71);
     display: inline-block;
+    height: 100%;
 }
 #boton-reg{
     height: 20px;
