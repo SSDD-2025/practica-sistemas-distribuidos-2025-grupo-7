@@ -14,3 +14,5 @@ function redirigirDados(){
 function redirigirSlot(){
     window.location.href="/slot"
 }
+
+

@@ -32,6 +32,7 @@ public class Usuario {
         DNI=dni;
         this.name=name;
         this.password=psw;
+        this.currency=0;
     }
 
     public void setdni(String dni){
