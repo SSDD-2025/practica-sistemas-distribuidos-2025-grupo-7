@@ -19,6 +19,9 @@
                         <input type="text" name="psw">
                         <pre>
                         </pre>
+                        {{#error}}
+                        <span style="color: red;">Datos erroneos</span>
+                        {{/error}}
                         <input type="submit" value="Login">
                     </form>
                 </div>

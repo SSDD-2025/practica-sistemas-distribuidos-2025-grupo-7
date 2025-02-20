@@ -14,10 +14,13 @@
                 <div class="div-izq" style="height: 200px;width: 200px;">
                     <div style="text-align: center;">
                         <img src="/imagenes/icono_perfil.png" style="width: 50px;">
-                        <div class="boton-iniciar-sesion"></div>
-                        <div style="display: flex;">   
-                            <div></div>
-                            <div></div>
+                        <div>
+                            {{#userLogged}}   
+                            <p>Nombre: {{userLogged.name}}</p>
+                            <p>Saldo: {{userLogged.currency}}$</p>
+                            {{/userLogged}}
+                            {{^userLogged}}
+                            {{/userLogged}}
                         </div>
                     </div>
                 </div>  
@@ -29,16 +32,18 @@
                 </div>
                 <div class="div-izq" id="Lista" style="width: 200px;;">
                 <ul>
-                    <li>Rule</li>
-                    <li>Dados</li>
+                    <li onclick="redirigirRuleta()">Rule</li>
+                    <li onclick="redirigirDados()">Dados</li>
+                    <li onclick="redirigirSlot()">Slots</li>
                 </ul>
                 </div>
+                <img src="/imagenes/leOK.png" style="width: 150px;margin-left: 40px;margin-top: 100px;">
             </div>
             <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
             <div id="container-main">
             <div class="barra-arriba" style="display: flex;justify-content: end;" >
                 {{#userLogged}}
-                <div id="welcome">Bienvenido {{userLogged}} </div>
+                <div id="welcome">Bienvenido {{userLogged.name}} </div>
                 <div onclick="redirigir_logout()" id="boton-ini">Cerrar sesión</div>
                 {{/userLogged}}
                 {{^userLogged}}
@@ -47,8 +52,8 @@
                 {{/userLogged}}
                 
             </div>
-            <h2>LEKING JAMES</h2>
-            <h2>  CASINO</h2>
+            <h2 style="color: yellow;">LEKING JAMES</h2>
+            <h2 style="color: yellow;">  CASINO</h2>
             <div id="lbj">
                 <img id="lbj" src="/imagenes/pngwing.com.png" style="align-self: center;width: 150px;">
             </div>

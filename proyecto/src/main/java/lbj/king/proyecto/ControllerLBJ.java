@@ -34,11 +34,11 @@ public class ControllerLBJ {
         rep.save(u2);
     }
     
+    /* Index without logged user */
     @GetMapping("/")
-    public String greeting(Model model) {    
+    public String getIndex(Model model) {    
         return "inicio";
     }
-
     
     @GetMapping("/register")
     public String register(Model model) {
@@ -87,12 +87,13 @@ public class ControllerLBJ {
         for(Usuario u:userList){
             if(u.getName().equals(name)){
                 if(u.getPassword().equals(psw)){
-                    model.addAttribute("userLogged", u.getName());
+                    model.addAttribute("userLogged", u);
                     return "inicio";                    
                 }                
             }          
         }
-        return "error";
+        model.addAttribute("error", "true");
+        return "login";
     }
     
 
@@ -101,20 +102,6 @@ public class ControllerLBJ {
         model.addAttribute("usuarios", rep.findAll());
         return "usuarios";
     }
-
-    @GetMapping("/users/{id}")
-    public String getUser(@RequestParam Long id, Model model) {
-
-        Optional<Usuario> usuarioOp = rep.findById(id);
-        if(usuarioOp.isPresent()){
-            model.addAttribute("usuario", usuarioOp.get());
-            return "inicio";
-        }else{
-            return "No esta";
-        }
-    }
-    
-    
-    
+     
     
 }

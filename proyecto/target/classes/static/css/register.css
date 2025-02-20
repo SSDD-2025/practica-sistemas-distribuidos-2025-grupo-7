@@ -26,3 +26,19 @@ img{
 #inside{
     margin-top: 100px;
 }
+
+#bot-container{
+    display: flex;
+    margin-top: 40px;
+    align-items: center;
+    justify-content: center;
+}
+.bot{
+    width: 100px;
+    height: 50px;
+    border: 1px solid black;
+    display: inline-block; 
+    margin: 30px;
+    text-align: center;
+    align-content: center;
+}
