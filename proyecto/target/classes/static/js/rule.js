@@ -12,34 +12,15 @@ var ctx;
 
 document.getElementById("spin").addEventListener("click", spin);
 
-function byte2Hex(n) {
-  var nybHexString = "0123456789ABCDEF";
-  return String(nybHexString.substr((n >> 4) & 0x0F,1)) + nybHexString.substr(n & 0x0F,1);
-}
 
-//function RGB2Color(r,g,b) {
-//	return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
-//}
 
-function getColor(item, maxitem) {
-  var phase = 0;
-  var center = 128;
-  var width = 127;
-  var frequency = Math.PI*2/maxitem;
-  
-  red   = Math.sin(frequency*item+2+phase) * width + center;
-  green = Math.sin(frequency*item+0+phase) * width + center;
-  blue  = Math.sin(frequency*item+4+phase) * width + center;
-  
-  return RGB2Color(red,green,blue);
-}
 
 function drawRouletteWheel() {
   var canvas = document.getElementById("canvas");
   if (canvas.getContext) {
     var outsideRadius = 200;
     var textRadius = 160;
-    var insideRadius = 125;
+    var insideRadius = 120;
 
     ctx = canvas.getContext("2d");
     ctx.clearRect(0,0,500,500);
@@ -53,9 +34,9 @@ function drawRouletteWheel() {
       var angle = startAngle + i * arc;
       //ctx.fillStyle = colors[i];
       if((i % 2) == 0){
-        ctx.fillStyle = "red";
+        ctx.fillStyle = "#e6c90b";
       } else {
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#790079";
       }
       if(i == 0){
         ctx.fillStyle = "green";
@@ -71,7 +52,6 @@ function drawRouletteWheel() {
       ctx.shadowOffsetX = -1;
       ctx.shadowOffsetY = -1;
       ctx.shadowBlur    = 0;
-      ctx.shadowColor   = "rgb(220,220,220)";
       ctx.fillStyle = "black";
       ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius, 
                     250 + Math.sin(angle + arc / 2) * textRadius);
@@ -82,7 +62,7 @@ function drawRouletteWheel() {
     } 
 
     //Arrow
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.beginPath();
     ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
     ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
@@ -124,7 +104,12 @@ function stopRotateWheel() {
   ctx.font = 'bold 30px Helvetica, Arial';
   var text = options[index]
   ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+  //ctx.fillText(text, 100 - ctx.measureText(text).width / 2, 250 + 10);
+  //borrar
+  document.getElementById("numerajo").innerHTML = text;
+  //borrar
   ctx.restore();
+
 }
 
 function easeOut(t, b, c, d) {
@@ -132,5 +117,6 @@ function easeOut(t, b, c, d) {
   var tc = ts*t;
   return b+c*(tc + -3*ts + 3*t);
 }
+
 
 drawRouletteWheel();

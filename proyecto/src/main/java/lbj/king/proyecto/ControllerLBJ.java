@@ -43,6 +43,11 @@ public class ControllerLBJ {
         return "register";
     }  
 
+    @GetMapping("/rule")
+    public String getRule(Model model) {
+        return "rule";
+    }
+    
     @PostMapping("/procesarRegistro")
     public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {       
         usuario.setName(name);
