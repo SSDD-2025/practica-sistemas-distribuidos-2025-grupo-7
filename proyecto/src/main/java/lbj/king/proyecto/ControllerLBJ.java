@@ -1,6 +1,6 @@
 package lbj.king.proyecto;
 
-import java.util.Optional;
+import java.util.*;
 
 import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.annotation.PostConstruct;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -34,6 +36,7 @@ public class ControllerLBJ {
     
     @GetMapping("/")
     public String greeting(Model model) {
+        model.addAttribute("userLogged", "invitado");
         return "inicio";
     }
 
@@ -43,13 +46,43 @@ public class ControllerLBJ {
         return "register";
     }  
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+    
+    @GetMapping("/rule")
+    public String getRule(Model model) {
+        return "rule";
+    }
+    
+
     @PostMapping("/procesarRegistro")
-    public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {       
-        usuario.setName(name);
-        usuario.setPassword(psw);
+    public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {      
+        
+        Usuario newUser = new Usuario("00", name, psw);
+        rep.save(newUser);
+        model.addAttribute("userLogged", "invitado");
 
         return "inicio";
     }
+
+    @PostMapping("/procesarLogin")
+    public String postMethodName(@RequestParam String name,@RequestParam String psw,Model model) {
+        
+        List<Usuario> userList = rep.findAll();
+        for(Usuario u:userList){
+            if(u.getName().equals(name)){
+                if(u.getPassword().equals(psw)){
+                    model.addAttribute("userLogged", u.getName());
+                    return "inicio";
+                    
+                }                
+            }          
+        }
+        return "error";
+    }
+    
 
     @GetMapping("/users")
     public String getUsers(Model model) {
