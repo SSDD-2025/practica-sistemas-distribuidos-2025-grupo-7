@@ -57,6 +57,7 @@ public class ControllerLBJ {
     }
     
 
+    
     @PostMapping("/procesarRegistro")
     public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {      
         
