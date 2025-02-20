@@ -37,9 +37,15 @@
             <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
             <div id="container-main">
             <div class="barra-arriba" style="display: flex;justify-content: end;" >
+                {{#userLogged}}
+                <div id="welcome">Bienvenido {{userLogged}} </div>
+                <div onclick="redirigir_logout()" id="boton-ini">Cerrar sesión</div>
+                {{/userLogged}}
+                {{^userLogged}}
                 <div onclick="redirigir_login()" id="boton-ini">Iniciar</div>
                 <div onclick="redirigir_reg()" id="boton-reg">Registrarse</div>
-                <div id="welcome">Bienvenido {{userLogged}} </div>
+                {{/userLogged}}
+                
             </div>
             <h2>LEKING JAMES</h2>
             <h2>  CASINO</h2>

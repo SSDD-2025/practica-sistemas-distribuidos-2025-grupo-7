@@ -35,8 +35,7 @@ public class ControllerLBJ {
     }
     
     @GetMapping("/")
-    public String greeting(Model model) {
-        model.addAttribute("userLogged", "invitado");
+    public String greeting(Model model) {    
         return "inicio";
     }
 
@@ -66,12 +65,17 @@ public class ControllerLBJ {
         return "slot";
     }
 
+    @GetMapping("/logout")
+    public String getLogout(Model model) {
+        return "logout";
+    }
+    
+
     @PostMapping("/procesarRegistro")
     public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {      
         
         Usuario newUser = new Usuario("00", name, psw);
         rep.save(newUser);
-        model.addAttribute("userLogged", "invitado");
 
         return "inicio";
     }
@@ -84,8 +88,7 @@ public class ControllerLBJ {
             if(u.getName().equals(name)){
                 if(u.getPassword().equals(psw)){
                     model.addAttribute("userLogged", u.getName());
-                    return "inicio";
-                    
+                    return "inicio";                    
                 }                
             }          
         }
