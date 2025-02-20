@@ -3,14 +3,24 @@
 
     </head>
     <body>
-        <h2>Usuarios</h2>
-        {{#usuarios}}
-        <p>Hay usuarios</p>
-        <p>{{name}}</p>
-        {{/usuarios}}
+        <h2>Lista Usuarios</h2>
+        <table border="1">
+            <tr>
+                <th>Nombre</th>
+                <th>Dinero</th>
+            </tr>
+            {{#usuarios}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{currency}}</td>
+            </tr>
+            {{/usuarios}}
 
-        {{^usuarios}}
-        <p>No hay</p>
-        {{/usuarios}}
+            {{^usuarios}}
+            <tr>
+                <td colspan="2">No hay usuarios registrados</td>
+            </tr>
+            {{/usuarios}}
+        </table>
     </body>
 </html>
