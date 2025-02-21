@@ -4,7 +4,7 @@ body{
 h2{
     text-align: center;
 }
-#container-main{
+.container-main{
     width: 80%;
     background-color: rgb(49, 49, 49);
     display: inline-block;

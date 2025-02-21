@@ -2,17 +2,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/inicio.css">
     <title>RULETA</title>
 </head>
 
-<body style="background-color: rgb(72, 67, 61);">
-    
-    <input type="button" value="GIRA LA RULETA BRONNY Y GANA!" style="float:left;color: #790079; background-color: yellow;" id='spin' />
-    <canvas id="canvas" width="500" height="500"></canvas>
-    <script src="/js/rule.js"></script>
+<body>
+    <div style="display: flex;">
+        {{>barraIzq}}
+        <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
+        <div class="container-main" style="height: 911px;">
+            <div class="barra-arriba"></div>
+            <input type="button" value="GIRA LA RULETA BRONNY Y GANA!" style="float:left;color: #790079; background-color: yellow;" id='spin' />
+            <canvas id="canvas" width="500" height="500"></canvas>
+            <script src="/js/rule.js"></script>
 
-    <!--<p id="numerajo"></p>-->
-
+            <!--<p id="numerajo"></p>-->
+        </div>
+    </div>
+    <script src="/js/inicio.js"></script>
 </body>
 
 </html>

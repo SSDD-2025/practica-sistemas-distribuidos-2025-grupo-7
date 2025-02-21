@@ -5,21 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dados</title>
   <link rel="stylesheet" href="/css/dados.css">
+  <link rel="stylesheet" href="/css/inicio.css">
 </head>
 <body>
-  <div class="scene">
-    <div class="cube" id="dice">
-      <div class="face front">1</div>
-      <div class="face back">6</div>
-      <div class="face right">2</div>
-      <div class="face left">5</div>
-      <div class="face top">3</div>
-      <div class="face bottom">4</div>
+  <div style="display: flex;">
+    {{>barraIzq}}
+    <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
+    <div class="container-main" style="height: 911px;">
+      <div class="barra-arriba"></div>
+      <div class="scene" style="margin: auto;margin-top: 300px;">
+        <div class="cube" id="dice">
+          <div class="face front">1</div>
+          <div class="face back">6</div>
+          <div class="face right">2</div>
+          <div class="face left">5</div>
+          <div class="face top">3</div>
+          <div class="face bottom">4</div>
+        </div>
+      </div>
+
+      <script src="/js/dados.js"></script>
+
+      <p style="padding: left 1000px;" id="currentFace"></p>
     </div>
   </div>
-
-  <script src="/js/dados.js"></script>
-
-  <p style="padding: left 1000px;" id="currentFace"></p>
+  <script src="/js/inicio.js"></script>
 </body>
 </html>

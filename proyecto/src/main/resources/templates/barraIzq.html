@@ -1,0 +1,45 @@
+<html>
+    <div id="contenedor-izq" style="position: fixed;">
+        <div class="barra-arriba" style="text-align: center;">
+            <h2>LKJC</h2>
+        </div>               
+        <div class="div-izq" style="height: 200px;width: 200px;">
+            <div style="text-align: center;">
+                <img src="/imagenes/icono_perfil.png" style="width: 50px;">
+                <div>
+                    {{#userLogged}}   
+                    <p>Nombre: {{userLogged.name}}</p>
+                    <p>Saldo: {{userLogged.currency}}$</p>
+                    {{/userLogged}}
+                    {{^userLogged}}
+                    {{/userLogged}}
+                </div>
+            </div>
+        </div>  
+        <div class="div-izq" id="Promociones" style="height: 50px;width: 200px;display: flex;">
+        <div>
+            <img src="/imagenes/regalo.png" alt="icono_regalo" style="width: 40px;display: inline-block;">
+            <h3 style="display: inline-block;margin-left:25px;">Promociones</h3>
+        </div>
+        </div>
+        <div class="div-izq" id="Lista" style="width: 200px;;">
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td onclick="redirigirRuleta()" style="cursor: pointer; color: yellow; text-align: center;">- Rule</td>
+                </tr>
+                <tr>
+                    <td onclick="redirigirDados()" style="cursor: pointer; color: yellow; text-align: center;">- Dados</td>
+                </tr>
+                <tr>
+                    <td onclick="redirigirSlot()" style="cursor: pointer; color: yellow; text-align: center;">- Slots</td>
+                </tr>
+            </table>
+        <!--<ul>
+            <li onclick="redirigirRuleta()">Rule</li>
+            <li onclick="redirigirDados()">Dados</li>
+            <li onclick="redirigirSlot()">Slots</li>
+        </ul>-->
+        </div>
+        <img src="/imagenes/leOK.png" style="width: 150px;margin-left: 40px;margin-top: 100px;">
+    </div>
+</html>
