@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,7 @@ public class ControllerLBJ {
 
     @PostConstruct
     public void init(){
-        Usuario u1 = new Usuario("00000","Ejemplo", "espabila");
+        Usuario u1 = new Usuario("00000","a", "a");
         rep.save(u1);
         Usuario u2 = new Usuario("002000","EjemploDos", "espa1bila");
         rep.save(u2);
@@ -36,7 +37,11 @@ public class ControllerLBJ {
     
     /* Index without logged user */
     @GetMapping("/")
-    public String getIndex(Model model) {    
+    public String getIndex(Model model, HttpSession session) {    
+        Usuario u=(Usuario)session.getAttribute("user");
+        if(u!=null){
+            model.addAttribute("userLogged", u);
+        }
         return "inicio";
     }
     
@@ -51,17 +56,29 @@ public class ControllerLBJ {
     }
     
     @GetMapping("/rule")
-    public String getRule(Model model) {
+    public String getRule(Model model, HttpSession session) {
+        Usuario u=(Usuario)session.getAttribute("user");
+        if(u!=null){
+            model.addAttribute("userLogged", u);
+        }
         return "rule";
     }
 
     @GetMapping("/dados")
-    public String getDado(Model model) {
+    public String getDado(Model model, HttpSession session) {
+        Usuario u=(Usuario)session.getAttribute("user");
+        if(u!=null){
+            model.addAttribute("userLogged", u);
+        }
         return "dados";
     }
     
     @GetMapping("/slot")
-    public String getSlot(Model model) {
+    public String getSlot(Model model, HttpSession session) {
+        Usuario u=(Usuario)session.getAttribute("user");
+        if(u!=null){
+            model.addAttribute("userLogged", u);
+        }
         return "slot";
     }
 
@@ -80,13 +97,21 @@ public class ControllerLBJ {
         return "inicio";
     }
 
+    @GetMapping("/procesarLogout")
+    public String getMethodName(HttpSession sesion) {
+        sesion.invalidate();
+        return "inicio";
+    }
+    
+
     @PostMapping("/procesarLogin")
-    public String postMethodName(@RequestParam String name,@RequestParam String psw,Model model) {
+    public String postMethodName(@RequestParam String name,@RequestParam String psw,Model model, HttpSession session) {
         
         List<Usuario> userList = rep.findAll();
         for(Usuario u:userList){
             if(u.getName().equals(name)){
                 if(u.getPassword().equals(psw)){
+                    session.setAttribute("user", u);
                     model.addAttribute("userLogged", u);
                     return "inicio";                    
                 }                

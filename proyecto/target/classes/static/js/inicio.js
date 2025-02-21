@@ -20,5 +20,8 @@ function redirigir_logout(){
 function redirigir_inicio(){
     window.location.href="/"
 }
+function redirigir_procesar_logout(){
+    window.location.href="/procesarLogout"
+}
 
 
