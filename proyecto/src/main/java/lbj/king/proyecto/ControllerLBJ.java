@@ -136,6 +136,22 @@ public class ControllerLBJ {
         model.addAttribute("usuarios", rep.findAll());
         return "usuarios";
     }
-     
+    
+    @PostMapping("/procesarSaldo")
+    public String postSaldo(@RequestParam float money, HttpSession session,Model model) {
+        //TODO: process POST request
+
+        if(money>0){
+            Usuario u = (Usuario)session.getAttribute("user");
+            model.addAttribute("userLogged", u);
+            u.setCurrency(u.getCurrency()+money);
+            rep.save(u);
+            return "inicio";
+        }else{
+            model.addAttribute("dineroNegativo", "true");
+            return "inicio";
+        }
+    }
+    
     
 }

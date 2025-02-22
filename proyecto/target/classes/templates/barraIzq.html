@@ -39,7 +39,21 @@
             <li onclick="redirigirDados()">Dados</li>
             <li onclick="redirigirSlot()">Slots</li>
         </ul>-->
+
+        
         </div>
+        <script>
+            function a(){
+                document.getElementById("sueldo").style.display="block"
+            }
+            function cerrar(){
+                document.getElementById("sueldo").style.display="none"
+            }
+        </script>
+        {{#userLogged}}
+        <div onclick="a()" class="div-izq" style="height: 50px;width: 200px;text-align: center;align-content: center;">Añadir saldo</div>
+        {{/userLogged}}
+
         <img src="/imagenes/leOK.png" style="width: 150px;margin-left: 40px;margin-top: 100px;">
     </div>
 </html>

@@ -12,7 +12,10 @@
         {{>barraIzq}}
         <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
         <div class="container-main" style="height: 100vh;">
-            <div class="barra-arriba" style="display: flex;justify-content: end;"></div>
+            <div class="barra-arriba" style="display: flex;justify-content: end;">
+                <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
+            </div>
+            {{>sueldo}}
             <div id="slotMachine" style="margin-top: 300px;margin-left: 400px;">
                 <p id="slotCredits">15</p>
                 <a href="#" id="slotTrigger">spin</a>

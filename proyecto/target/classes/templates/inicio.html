@@ -6,6 +6,12 @@
     </head>
     <body>
         
+        {{#dineroNegativo}}
+        <script>
+            alert("Dinero negativo")
+        </script>
+        {{/dineroNegativo}}
+
         <div style="display: flex;">
             {{>barraIzq}}
             <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
@@ -21,6 +27,7 @@
                     {{/userLogged}}
                 
                 </div>
+                {{>sueldo}}
                 <h2 style="color: yellow;">LEKING JAMES</h2>
                 <h2 style="color: yellow;">  CASINO</h2>
                 <div id="lbj">
