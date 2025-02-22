@@ -1,7 +1,6 @@
 package lbj.king.proyecto;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Indexed;
 import org.springframework.web.context.annotation.SessionScope;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
