@@ -18,7 +18,6 @@ public class Usuario {
     private long id;
 
     
-    private String DNI;
     private String name;
     private String password;
     private float currency;
@@ -28,16 +27,12 @@ public class Usuario {
         
     }
 
-    public Usuario(String dni,String name,String psw){
-        DNI=dni;
+    public Usuario(String name,String psw){
         this.name=name;
         this.password=psw;
         this.currency=0;
     }
 
-    public void setdni(String dni){
-        DNI=dni;
-    }
     public void setName(String name){
         this.name=name;
     }
@@ -48,9 +43,6 @@ public class Usuario {
         this.currency=cv;
     }
 
-    public String getdni(){
-        return this.DNI;
-    }
     public String getName(){
         return this.name;
     }

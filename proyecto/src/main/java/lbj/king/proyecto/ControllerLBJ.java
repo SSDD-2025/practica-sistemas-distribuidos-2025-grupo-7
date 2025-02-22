@@ -29,9 +29,9 @@ public class ControllerLBJ {
 
     @PostConstruct
     public void init(){
-        Usuario u1 = new Usuario("00000","a", "a");
+        Usuario u1 = new Usuario("a", "a");
         rep.save(u1);
-        Usuario u2 = new Usuario("002000","EjemploDos", "espa1bila");
+        Usuario u2 = new Usuario("EjemploDos", "espa1bila");
         rep.save(u2);
     }
     
@@ -91,7 +91,16 @@ public class ControllerLBJ {
     @PostMapping("/procesarRegistro")
     public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {      
         
-        Usuario newUser = new Usuario("00", name, psw);
+        List<Usuario> lu= rep.findAll();
+
+        for(Usuario u : lu){
+            if(u.getName().equals(name)){
+                model.addAttribute("registered", "true");
+                return "register";
+            }
+        }
+
+        Usuario newUser = new Usuario( name, psw);
         rep.save(newUser);
 
         return "inicio";

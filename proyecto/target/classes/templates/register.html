@@ -19,6 +19,9 @@
                         <input type="text" name="psw">
                         <pre>
                         </pre>
+                        {{#registered}}
+                        <p style="color: red;">Usuario ya registrado</p>
+                        {{/registered}}
                         <input type="submit" value="Crear usuario">
                     </form>
                 </div>
