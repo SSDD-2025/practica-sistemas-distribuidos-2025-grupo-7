@@ -25,7 +25,6 @@ public class ControllerLBJ {
     @Autowired
     private UserRepository rep;
 
-    private Usuario usuario;
 
     @PostConstruct
     public void init(){

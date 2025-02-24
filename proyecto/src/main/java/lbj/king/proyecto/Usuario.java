@@ -6,6 +6,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.transaction.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @SessionScope
@@ -21,15 +26,19 @@ public class Usuario {
     private String password;
     private float currency;
 
+    @OneToMany
+    private List<Partida> lista;
+
 
     public Usuario(){
-        
+        lista=new ArrayList<>();
     }
 
     public Usuario(String name,String psw){
         this.name=name;
         this.password=psw;
         this.currency=0;
+        this.lista=new ArrayList<Partida>();
     }
 
     public void setName(String name){
@@ -50,6 +59,14 @@ public class Usuario {
     }
     public float getCurrency(){
         return this.currency;
+    }
+    public List<Partida> getLista(){
+        return this.lista;
+    }
+
+    @Transactional
+    public void addGame(Partida p){
+        this.lista.add(p);
     }
 
 }
