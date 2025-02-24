@@ -24,4 +24,7 @@ function redirigir_procesar_logout(){
     window.location.href="/procesarLogout"
 }
 
+function redirigir_apuestaDado(){
+    window.location.href="/procesarPartidaDado"
+}
 

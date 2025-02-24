@@ -38,15 +38,33 @@ public class GameController {
             model.addAttribute("partidaCreada",p1);
             model.addAttribute("userLogged", u);
             model.addAttribute("nDado", nDado);
+
+            //para procesarPartidaDado
+            session.setAttribute("numeroDado", nDado);
             return "dados";
         }else{
             model.addAttribute("saldoInsuficiente", "true");
             model.addAttribute("userLogged",u);
             return "dados";
-        }
-        
-        
+        }        
     }
+
+    @GetMapping("/procesarPartidaDado")
+    public String getPartida(HttpSession session, Model model) {
+
+        //number selected by the user
+        int nDado = (int) session.getAttribute("numeroDado");
+
+        int nr1 = (int) (Math.random() * 6) + 1;
+        int nr2 = (int) (Math.random() * 6) + 1;
+
+        //3 atributos para el model, uno para que se gire el dado, 2 para los numeros aleatorios
+
+        //AQUI PROCESAR LOS NUMEROS ALEATORIOS PARA SABER QUE CARA DEL DADO SALDRÁ
+
+        return "inicio";
+    }
+    
     
     
 }

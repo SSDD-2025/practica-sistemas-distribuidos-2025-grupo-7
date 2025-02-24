@@ -1,5 +1,6 @@
 const dice = document.getElementById('dice');
 
+
 let currentX = 0;
 let currentY = 0;
 let currentFace = 1;
@@ -38,8 +39,13 @@ function getDiceFace(x, y) {
 
 // Evento al hacer clic en el dado
 dice.addEventListener('click', () => {
+
     const randomX = getRandomInt(1, 4) * 90;
     const randomY = getRandomInt(1, 4) * 90;
+
+    //const randomX = 1*90;
+    //const randomY = 2*90;
+
 
     currentX += randomX;
     currentY += randomY;
@@ -52,3 +58,19 @@ dice.addEventListener('click', () => {
     // Mostrar el resultado en pantalla
     document.getElementById("currentFace").innerHTML = currentFace;
 });
+
+function activarDado(n1,n2){
+    const randomX = n1*90;
+    const randomY = n2*90;
+
+    currentX += randomX;
+    currentY += randomY;
+
+    dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+
+    // Calcular la cara superior correcta
+    currentFace = getDiceFace(currentX, currentY);
+
+    // Mostrar el resultado en pantalla
+    document.getElementById("currentFace").innerHTML = currentFace;
+}

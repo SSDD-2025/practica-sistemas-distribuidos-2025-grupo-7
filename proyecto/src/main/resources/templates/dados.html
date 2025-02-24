@@ -32,6 +32,12 @@
           <p>Partida Creada, gire para jugar</p>
           <p>Si el dado corre de tu suerte obtendras {{partidaCreada.win}}$</p>
           <p>Número elegido: {{nDado}}</p>
+          <script>
+            function redirigir_partidaDado(){
+              window.location.href="/procesarPartidaDado";
+            }
+          </script>
+          <div onclick="redirigir_partidaDado()" style="width: 100px; height: 80px; border: 1px solid purple;">Tirar dado</div>
           <p style="padding: left 1000px;" id="currentFace"></p>
         </div>        
         <p style="padding: left 1000px;" id="currentFace"></p>
@@ -43,7 +49,7 @@
             <input type="number" step="0.01" name="apuesta">
             <br>
             <p>Número del dado</p>
-            <input type="number" name="nDado">
+            <input type="number" name="nDado" id="inputDado">
             <br>
             <input type="submit" value="Apostar" style="margin-top: 10px;">
           </form>
