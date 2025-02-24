@@ -27,4 +27,8 @@ public class Partida {
         this.win=bet*6;
         this.user=u;
     }
+
+    public float getWin(){
+        return this.win;
+    }
 }

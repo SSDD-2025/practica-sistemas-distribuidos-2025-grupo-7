@@ -26,18 +26,37 @@
           <div class="face bottom">4</div>
         </div>
       </div>
-      <form action="/procesarPartida" method="post">
-        <p>Dinero a apostar</p>
-        <input type="number" step="0.01" name="apuesta">
-        <input type="submit" value="apostar">
-      </form>
-      {{#saldoInsuficiente}}
-      <span style="color: red;">Saldo insuficiente mi pana</span>
-      {{/saldoInsuficiente}}
+      {{#userLogged}}
+        {{#partidaCreada}}
+        <div style="display: block; align-items: center; text-align: center;margin-top: 100px;">
+          <p>Partida Creada, gire para jugar</p>
+          <p>Si el dado corre de tu suerte obtendras {{partidaCreada.win}}$</p>
+          <p>Número elegido: {{nDado}}</p>
+          <p style="padding: left 1000px;" id="currentFace"></p>
+        </div>        
+        <p style="padding: left 1000px;" id="currentFace"></p>
+        {{/partidaCreada}}
+        {{^partidaCreada}}
+        <div style="display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
+          <form action="/procesarPartida" method="post" >
+            <p>Dinero a apostar</p>
+            <input type="number" step="0.01" name="apuesta">
+            <br>
+            <p>Número del dado</p>
+            <input type="number" name="nDado">
+            <br>
+            <input type="submit" value="Apostar" style="margin-top: 10px;">
+          </form>
+          {{#saldoInsuficiente}}
+          <span style="color: red;">Saldo insuficiente mi pana</span>
+          {{/saldoInsuficiente}}
+        </div>
+        {{/partidaCreada}}
+      {{/userLogged}}
 
       <script src="/js/dados.js"></script>
 
-      <p style="padding: left 1000px;" id="currentFace"></p>
+      
     </div>
   </div>
   <script src="/js/inicio.js"></script>

@@ -24,7 +24,7 @@ public class GameController {
 
 
     @PostMapping("/procesarPartida")
-    public String postMethodName(@RequestParam float apuesta,Model model, HttpSession session) {
+    public String postMethodName(@RequestParam float apuesta,@RequestParam int nDado ,Model model, HttpSession session) {
         
         Usuario u= (Usuario) session.getAttribute("user");
         if(u.getCurrency()>apuesta){
@@ -35,7 +35,9 @@ public class GameController {
             //u.addGame(p1);
             u.setCurrency(u.getCurrency()-apuesta);
             rep.save(u);
+            model.addAttribute("partidaCreada",p1);
             model.addAttribute("userLogged", u);
+            model.addAttribute("nDado", nDado);
             return "dados";
         }else{
             model.addAttribute("saldoInsuficiente", "true");
