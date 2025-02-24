@@ -58,8 +58,31 @@
           <div onclick="redirigir_volverApostar()" style="width: 100px; height: 40px; border:  1px solid purple;">Volver a apostar</div>
         {{/victory}}
         {{^victory}}
-            <p style="text-align: center; margin-top: 100px;">Perdiste mi pequeño lebron</p>
-            <div onclick="redirigir_volverApostar()" style="width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>      
+          <script>
+              function activarDado(n1,n2){
+                const randomX = n1*90;
+                const randomY = n2*90;
+
+                currentX += randomX;
+                currentY += randomY;
+
+                dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+
+                // Calcular la cara superior correcta
+                currentFace = getDiceFace(currentX, currentY);
+
+                // Mostrar el resultado en pantalla
+                document.getElementById("currentFace").innerHTML = currentFace;
+              }
+            window.onload=function(){
+              activarDado({{n1}},{{n2}});
+            }
+            function redirigir_volverApostar(){
+              window.location.href="/redirigir_volverApostarDado"
+            }
+          </script>
+          <p style="text-align: center; margin-top: 100px;">Perdiste mi pequeño lebron</p>
+          <div onclick="redirigir_volverApostar()" style="width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>      
         {{/victory}}
       {{/playingGame}}
       {{^playingGame}}

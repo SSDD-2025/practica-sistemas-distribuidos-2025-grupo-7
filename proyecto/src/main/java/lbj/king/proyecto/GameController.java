@@ -111,11 +111,12 @@ public class GameController {
         //3 atributos para el model, uno para que se gire el dado, 2 para los numeros aleatorios
         if(matchResult){
             model.addAttribute("victory", "true");
-            model.addAttribute("n1", nr1);
-            model.addAttribute("n2", nr2);
+            
             u.setCurrency(u.getCurrency()+1);
             rep.save(u);
         }
+        model.addAttribute("n1", nr1);
+        model.addAttribute("n2", nr2);
         
         //AQUI PROCESAR LOS NUMEROS ALEATORIOS PARA SABER QUE CARA DEL DADO SALDRÁ
 
