@@ -41,6 +41,7 @@ public class GameController {
 
             //para procesarPartidaDado
             session.setAttribute("numeroDado", nDado);
+            session.setAttribute("pActual", p1);
             return "dados";
         }else{
             model.addAttribute("saldoInsuficiente", "true");
@@ -52,18 +53,81 @@ public class GameController {
     @GetMapping("/procesarPartidaDado")
     public String getPartida(HttpSession session, Model model) {
 
+        boolean matchResult=false;
+        Usuario u = (Usuario)session.getAttribute("user");
+
+        model.addAttribute("userLogged", u);
+        int nDado=(int)session.getAttribute("numeroDado");
+        model.addAttribute("playingGame", "true");
+
         //number selected by the user
-        int nDado = (int) session.getAttribute("numeroDado");
 
-        int nr1 = (int) (Math.random() * 6) + 1;
-        int nr2 = (int) (Math.random() * 6) + 1;
+        //int nr1 = (int) (Math.random() * 4) + 1;
+        //int nr2 = (int) (Math.random() * 4) + 1;
+        int nr1=1;
+        int nr2=1;
 
+        switch (nr1) {
+            case 1:
+                matchResult=nDado==4;
+                break;
+            case 2:
+                switch (nr2) {
+                    case 1:
+                        matchResult=nDado==2;
+                        break;
+                    case 2:
+                        matchResult=nDado==1;
+                        break;
+                    case 3:
+                        matchResult=nDado==5;
+                        break;
+                    case 4:
+                        matchResult=nDado==6;
+                        break;
+                }
+                break;
+            case 3:
+                matchResult=nDado==3;
+                break;
+            case 4:
+                switch (nr2) {
+                    case 1:
+                        matchResult=nDado==5;
+                        break;
+                    case 2:
+                        matchResult=nDado==6;
+                        break;
+                    case 3:
+                        matchResult=nDado==2;
+                        break;
+                    case 4:
+                        matchResult=nDado==1;
+                        break;
+                        
+                }
+                break;
+        }
         //3 atributos para el model, uno para que se gire el dado, 2 para los numeros aleatorios
-
+        if(matchResult){
+            model.addAttribute("victory", "true");
+            model.addAttribute("n1", nr1);
+            model.addAttribute("n2", nr2);
+            u.setCurrency(u.getCurrency()+1);
+            rep.save(u);
+        }
+        
         //AQUI PROCESAR LOS NUMEROS ALEATORIOS PARA SABER QUE CARA DEL DADO SALDRÁ
 
-        return "inicio";
+        return "dados";
     }
+
+    @GetMapping("/redirigir_volverApostarDado")
+    public String getLink(Model model, HttpSession session) {
+        model.addAttribute("userLogged", session.getAttribute("user"));
+        return "dados";
+    }
+    
     
     
     
