@@ -14,6 +14,9 @@ function redirigirDados(){
 function redirigirSlot(){
     window.location.href="/slot"
 }
+function redirigirPremios(){
+    window.location.href="/premios"
+}
 function redirigir_logout(){
     window.location.href="/logout"
 }
