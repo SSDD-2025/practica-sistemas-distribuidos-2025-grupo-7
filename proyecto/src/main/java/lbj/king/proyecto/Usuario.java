@@ -63,6 +63,10 @@ public class Usuario {
     public List<Partida> getLista(){
         return this.lista;
     }
+    public long getId(){
+        return this.id;
+    }
+
 
     @Transactional
     public void addGame(Partida p){

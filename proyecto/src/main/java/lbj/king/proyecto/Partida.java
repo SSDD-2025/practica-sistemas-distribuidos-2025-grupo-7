@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 public class Partida {
     private float bet;
     private float win;
+    private boolean won=false;
     
     @Id 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,5 +31,9 @@ public class Partida {
 
     public float getWin(){
         return this.win;
+    }
+
+    public void won(){
+        this.won=true;
     }
 }

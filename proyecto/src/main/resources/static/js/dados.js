@@ -58,7 +58,7 @@ function getDiceFace(x, y) {
     document.getElementById("currentFace").innerHTML = currentFace;
 });*/
 
-function activarDado(){
+/*function activarDado(){
     const randomX = 1*90;
     const randomY = 1*90;
 
@@ -72,4 +72,4 @@ function activarDado(){
 
     // Mostrar el resultado en pantalla
     document.getElementById("currentFace").innerHTML = currentFace;
-}
+}*/
