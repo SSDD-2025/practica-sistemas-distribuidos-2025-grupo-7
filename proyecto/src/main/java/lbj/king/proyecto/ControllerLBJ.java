@@ -81,16 +81,7 @@ public class ControllerLBJ {
         return "slot";
     }
 
-    @GetMapping("/premios")
-    public String getPremios(Model model, HttpSession session) {
-        Usuario u=(Usuario)session.getAttribute("user");
-        if(u!=null){
-            model.addAttribute("userLogged", u);
-        }
-        return "premios";
-    }
-
-
+    
     @GetMapping("/logout")
     public String getLogout(Model model) {
         return "logout";

@@ -7,10 +7,20 @@
   <link rel="stylesheet" href="/css/premios.css">
 </head>
 <body>
+    <h3>Premios</h3>
+    {{#premios}}
+      <p> {{name}}</p>
+    {{/premios}}
+
+    {{^premios}}
+    <p>No hay premios disponibles</p>
+    {{/premios}}
     <div style="display: flex;">
       {{>barraIzq}}
       <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
-      <div class="container-main" style="height: 911px;">
+      <div class="container-main" style="height: 911px;"></div>
         <div class="barra-arriba" style="display: flex;justify-content: end;">
           <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
         </div>
+    </div>
+</body>
