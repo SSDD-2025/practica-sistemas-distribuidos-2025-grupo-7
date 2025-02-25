@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/inicio.css">
+    <link rel="stylesheet" href="/css/rule.css">
     <title>RULETA</title>
 </head>
 
@@ -15,11 +16,29 @@
                 <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
             </div>
             {{>sueldo}}
-            <input type="button" value="GIRA LA RULETA BRONNY Y GANA!" style="float:left;color: #790079; background-color: yellow;" id='spin' />
-            <canvas id="canvas" width="500" height="500"></canvas>
+            <p style="color: purple; font-size: 40px;">GIRA LA RULETA JAMES Y GANA MILLONES</p>
+            <div class="container">
+
+                
+                <!--pa la rule-->
+                <canvas id="canvas" width="500" height="500"></canvas>
+                <div style="color: white;display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
+                    <form id="ruletaForm">
+                        <p>Dinero a apostar:</p>
+                        <input type="number" id="otroNumero" placeholder="Ingresa un número">
+                        <br>
+                        <p>Numero elegido:</p>
+                        <input type="number" id="numeroElegido" placeholder="Ingresa un número">
+                        <br>
+                        <input type="button" value="Girar la Ruleta" id="spin">
+                    </form>
+                </div>
+                <div class="resultado">
+                    Resultado: <span id="resultado">-</span>
+                </div>
+            </div>
             <script src="/js/rule.js"></script>
 
-            <!--<p id="numerajo"></p>-->
         </div>
     </div>
     <script src="/js/inicio.js"></script>
