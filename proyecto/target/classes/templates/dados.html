@@ -53,9 +53,9 @@
               window.location.href="/redirigir_volverApostarDado"
             }
           </script>
-          <p style="text-align: center; margin-top: 100px;">ENHORABUENAAAAAA!!!</p>
-          <p style="text-align: center; margin-top: 100px;">Pocas veces se gana...</p>
-          <div onclick="redirigir_volverApostar()" style="width: 100px; height: 40px; border:  1px solid purple;">Volver a apostar</div>
+          <p style="color: white;text-align: center; margin-top: 100px;">ENHORABUENAAAAAA!!!</p>
+          <p style="color: white;text-align: center; margin-top: 100px;">Pocas veces se gana...</p>
+          <div onclick="redirigir_volverApostar()" style="color: white;width: 100px; height: 40px; border:  1px solid purple;">Volver a apostar</div>
         {{/victory}}
         {{^victory}}
           <script>
@@ -81,15 +81,15 @@
               window.location.href="/redirigir_volverApostarDado"
             }
           </script>
-          <p style="text-align: center; margin-top: 100px;">Perdiste mi pequeño lebron</p>
-          <div onclick="redirigir_volverApostar()" style="width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>      
+          <p style="color: white;text-align: center; margin-top: 100px;">Perdiste mi pequeño lebron</p>
+          <div onclick="redirigir_volverApostar()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>      
         {{/victory}}
       {{/playingGame}}
       {{^playingGame}}
         {{#userLogged}}
           {{#partidaCreada}}
           
-          <div style="display: block; align-items: center; text-align: center;margin-top: 100px;">
+          <div style="color: white;display: block; align-items: center; text-align: center;margin-top: 100px;">
             <p>Partida Creada, gire para jugar</p>
             <p>Si el dado corre de tu suerte obtendras {{partidaCreada.win}}$</p>
             <p>Número elegido: {{nDado}}</p>
@@ -105,7 +105,7 @@
           <p style="padding: left 1000px;" id="currentFace"></p>
           {{/partidaCreada}}
           {{^partidaCreada}}
-          <div style="display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
+          <div style="color: white;display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
             <form action="/procesarPartida" method="post" >
               <p>Dinero a apostar</p>
               <input type="number" step="0.01" name="apuesta">
