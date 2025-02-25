@@ -1,43 +1,42 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Slot King - Slot Machine</title>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/slot.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/slot.css" />
-    <link rel="stylesheet" href="/css/inicio.css">
+    <meta charset="UTF-8">
+    <title>Sloty</title>
+    <link rel="stylesheet" href="css/slot.css">
+    <script src="js/slot.js" defer></script>
 </head>
 <body>
-    <div style="display: flex;">
-        {{>barraIzq}}
-        <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
-        <div class="container-main" style="height: 100vh;">
-            <div class="barra-arriba" style="display: flex;justify-content: end;">
-                <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
+
+<div id="container">
+    <div class="window-border">
+        <div class="window">
+            <div class="outer-spacer"></div>
+            <div class="outer-col">
+                <div class="col"></div>
             </div>
-            {{>sueldo}}
-            <div id="slotMachine" style="margin-top: 300px;margin-left: 400px;">
-                <p id="slotCredits">15</p>
-                <a href="#" id="slotTrigger">spin</a>
-                <div id="wheel1" class="wheel">
-                    <img src="imagenes/wheel1.gif" alt="" />
-                    <img src="imagenes/ani.gif" alt="" class="slotSpinAnimation" />
-                </div>
-                <div id="wheel2" class="wheel">
-                    <img src="imagenes/wheel2.gif" alt="" />
-                    <img src="imagenes/ani.gif" alt="" class="slotSpinAnimation" />
-                </div>
-                <div id="wheel3" class="wheel">
-                    <img src="imagenes/wheel3.gif" alt="" />
-                    <img src="imagenes/ani.gif" alt="" class="slotSpinAnimation" />
-                </div>
-                <img src="imagenes/over.png" alt="" id="wheelOverlay" />
-                <p id="slotSplash">
-                    <a href="#">start</a>
-                </p>
+            <div class="outer-spacer"></div>
+            <div class="outer-col">
+                <div class="col"></div>
             </div>
+            <div class="outer-spacer"></div>
+            <div class="outer-col">
+                <div class="col"></div>
+            </div>
+            <div class="outer-spacer"></div>
+            <div class="outer-col">
+                <div class="col"></div>
+            </div>
+            <div class="outer-spacer"></div>
+            <div class="outer-col">
+                <div class="col"></div>
+            </div>
+            <div class="outer-spacer"></div>
         </div>
     </div>
-    <script src="/js/inicio.js"></script>
+
+    <input type="button" onclick="spin(this)" class="start-button" value="Spin"/>
+</div>
+
 </body>
 </html>
