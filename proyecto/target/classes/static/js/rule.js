@@ -1,4 +1,4 @@
-var options = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18","19", "20", "21", "22", "23", "24", "25", "26","27", "28", "29", "30", "31", "32", "33", "34", "35","36"];
+var options = ["0", "1"/*, "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18","19", "20", "21", "22", "23", "24", "25", "26","27", "28", "29", "30", "31", "32", "33", "34", "35","36"*/];
 
 var startAngle = 0;
 var arc = Math.PI / (options.length / 2);
@@ -103,12 +103,30 @@ function stopRotateWheel() {
   ctx.save();
   ctx.font = 'bold 30px Helvetica, Arial';
   var text = options[index]
+
+  //esto es para que se muestre el numero en el canvas(el dibujito de la rule)
   ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
-  //ctx.fillText(text, 100 - ctx.measureText(text).width / 2, 250 + 10);
-  //borrar
-  document.getElementById("numerajo").innerHTML = text;
-  //borrar
   ctx.restore();
+
+  //SI PONEMOS ESTO DEJA DE FUNCIONAR
+  //para pasarlo al html
+  //document.getElementById("numerajo").innerHTML = text;
+  
+  //número que el usuario ha ingresado
+  var numeroUsuario = parseInt(document.getElementById("numeroElegido").value, 10);
+    
+  //para errores
+  if (isNaN(numeroUsuario)) {
+    return;
+}
+
+//comparar los numeros y actualizar el HTML
+if (parseInt(text, 10) === numeroUsuario) {
+    document.getElementById("resultado").innerHTML = "Acertaste. Has ganado el premio.";
+} else {
+    document.getElementById("resultado").innerHTML = "No acertaste. Intentalo de nuevo.";
+}
+
 
 }
 
@@ -120,3 +138,8 @@ function easeOut(t, b, c, d) {
 
 
 drawRouletteWheel();
+
+window.onload = function() {
+  document.getElementById("spin").addEventListener("click", spin);
+  drawRouletteWheel();
+};
