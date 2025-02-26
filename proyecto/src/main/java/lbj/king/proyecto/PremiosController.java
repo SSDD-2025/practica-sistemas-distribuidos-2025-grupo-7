@@ -6,15 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class PremiosController {
     @Autowired
     private PremiosRepository premioRep;
     @PostConstruct
     public void init() {
-        Premio p1 = new Premio("Rey de la Rule");;
+        Premio p1 = new Premio("Rey de la Rule");
         Premio p2 = new Premio("Rey de los Dados");
         Premio p3 = new Premio("Rey de la tragaperras");
 
