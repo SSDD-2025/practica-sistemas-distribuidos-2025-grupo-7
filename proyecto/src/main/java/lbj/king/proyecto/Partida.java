@@ -18,15 +18,18 @@ public class Partida {
     
     @ManyToOne
     private Usuario user;
+    @ManyToOne
+    private Juegos game;
 
     public Partida(){
 
     }
 
-    public Partida(float bet, Usuario u){
+    public Partida(float bet, Usuario u,Juegos j){
         this.bet=bet;
         this.win=bet*6;
         this.user=u;
+        this.game=j;
     }
 
     public float getWin(){
