@@ -26,16 +26,13 @@ public class Usuario {
     private String password;
     private float currency;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private List<Premio> premios;
 
     @OneToMany
     private List<Partida> lista;
 
-
-    public Usuario(){
-        lista=new ArrayList<>();
-    }
+    protected Usuario() {}
 
     public Usuario(String name,String psw){
         this.name=name;
