@@ -176,20 +176,14 @@ public class PlayController {
             u.setCurrency(u.getCurrency()-apuesta);
             rep.save(u);
             session.setAttribute("user", u);
-
             model.addAttribute("userLogged", u);
+
+            
             return "rule";
 
         } else {
-
-        
-
-            //no esta implementado todavia en la rule
-
             model.addAttribute("saldoInsuficiente", "true");
-
             model.addAttribute("userLogged",u);
-
             return "rule";
 
         }
