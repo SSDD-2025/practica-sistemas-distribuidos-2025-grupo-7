@@ -11,15 +11,15 @@
     <div style="display: flex;">
         {{>barraIzq}}
         <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
-        <div class="container-main" style="height: 911px;">
+        <div class="container-main" style="height: 100vh;">
             <div class="barra-arriba" style="display: flex;justify-content: end;">
                 <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
             </div>
             {{>sueldo}}
             <p style="text-align: center;color: white; font-size: 40px;">PREMIOS</p>
-            {{#premios}}
-              <p style="color:white;font-size: 30px;">{{name}} : {{jrexdutyuv}}</p>
-            {{/premios}}
+            {{#premio}}
+              <p style="color:white;font-size: 30px;">{{premio.name}}</p>
+            {{/premio}}
 
         </div>
     </div>

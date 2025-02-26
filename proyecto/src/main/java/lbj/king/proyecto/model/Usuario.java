@@ -12,8 +12,7 @@ import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@SessionScope
+
 @Entity
 public class Usuario {
 
@@ -26,7 +25,7 @@ public class Usuario {
     private String password;
     private float currency;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany
     private List<Premio> premios;
 
     @OneToMany

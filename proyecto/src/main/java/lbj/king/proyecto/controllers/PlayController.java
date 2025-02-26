@@ -17,6 +17,8 @@ import lbj.king.proyecto.model.Usuario;
 import lbj.king.proyecto.repositories.GameRepository;
 import lbj.king.proyecto.repositories.PlayRepository;
 import lbj.king.proyecto.repositories.UserRepository;
+import lbj.king.proyecto.services.GameService;
+import lbj.king.proyecto.services.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,9 +30,9 @@ public class PlayController {
     @Autowired
     private PlayRepository playRep;
     @Autowired
-    private UserRepository rep;
+    private UserService uSer;
     @Autowired
-    private GameRepository gameRep;
+    private GameService gameSer;
 
     @PostMapping("/procesarPartidaDado")
     public String postMethodName(@RequestParam(required = false) Float apuesta,@RequestParam(required = false) Integer nDado ,Model model, HttpSession session) {
@@ -40,9 +42,14 @@ public class PlayController {
         }
 
         Usuario u= (Usuario) session.getAttribute("user");
-        u = rep.findById(u.getId()).orElseThrow();
+        Optional<Usuario> us=uSer.findById(u.getId());
+        if(!us.isPresent()){
+            return "errorDados";
+        }else{
+            u=us.get();
+        }
         u.getLista().size();
-        Juegos g = gameRep.findByName("Dados");
+        Juegos g = gameSer.findByName("Dados");
 
         if(nDado<=0 || nDado >6 || apuesta<=0){
             return "errorDados";
@@ -54,8 +61,8 @@ public class PlayController {
             g.addPlay(p1);
             u.addGame(p1);
             u.setCurrency(u.getCurrency()-apuesta);
-            rep.save(u);
-            gameRep.save(g);
+            uSer.save(u);
+            gameSer.save(g);
             session.setAttribute("user", u);
             model.addAttribute("partidaCreada",p1);
             model.addAttribute("userLogged", u);
@@ -77,6 +84,12 @@ public class PlayController {
 
         boolean matchResult=false;
         Usuario u = (Usuario)session.getAttribute("user");
+        Optional<Usuario> us=uSer.findById(u.getId());
+        if(!us.isPresent()){
+            return "errorDados";
+        }else{
+            u=us.get();
+        }
 
         model.addAttribute("userLogged", u);
         int nDado=(int)session.getAttribute("numeroDado");
@@ -138,7 +151,7 @@ public class PlayController {
             p.won();
 
             playRep.save(p);
-            rep.save(u);
+            uSer.save(u);
         }
 
         System.out.println(nr1);
@@ -170,8 +183,13 @@ public class PlayController {
         }
         
         Usuario u = (Usuario)session.getAttribute("user");
-        u=rep.findById(u.getId()).orElseThrow();
-        Juegos j= gameRep.findByName("Ruleta");
+        Optional<Usuario> us=uSer.findById(u.getId());
+        if(!us.isPresent()){
+            return "errorRule";
+        }else{
+            u=us.get();
+        }
+        Juegos j= gameSer.findByName("Ruleta");
 
         if(u.getCurrency() >= apuesta){
 
@@ -180,7 +198,7 @@ public class PlayController {
             playRep.save(miPartida);
             u.addGame(miPartida);
             u.setCurrency(u.getCurrency()-apuesta);
-            rep.save(u);
+            uSer.save(u);
             session.setAttribute("user", u);
             model.addAttribute("userLogged", u);
 
