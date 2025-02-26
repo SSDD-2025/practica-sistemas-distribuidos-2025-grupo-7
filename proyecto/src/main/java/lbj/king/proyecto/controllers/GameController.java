@@ -29,6 +29,7 @@ public class GameController {
         Usuario u=(Usuario)session.getAttribute("user");
         if(u!=null){
             model.addAttribute("userLogged", u);
+            model.addAttribute("hasImage", u.getImage() != null);
         }
         return "slot";
     }
@@ -37,6 +38,7 @@ public class GameController {
         Usuario u=(Usuario)session.getAttribute("user");
         if(u!=null){
             model.addAttribute("userLogged", u);
+            model.addAttribute("hasImage", u.getImage() != null);
         }
         return "dados";
     }
@@ -45,6 +47,7 @@ public class GameController {
         Usuario u=(Usuario)session.getAttribute("user");
         if(u!=null){
             model.addAttribute("userLogged", u);
+            model.addAttribute("hasImage", u.getImage() != null);
         }
         return "rule";
     }

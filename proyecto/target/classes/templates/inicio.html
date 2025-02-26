@@ -19,13 +19,18 @@
                 <div class="barra-arriba" style="display: flex;justify-content: end;" >
                     {{#userLogged}}
                     <div id="welcome">Bienvenido {{userLogged.name}} </div>
+                    <div id="boton-ini" href> 
+                        <a href="/profile">
+                            Perfil
+                        </a>
+                    </div>
                     <div onclick="redirigir_logout()" id="boton-ini">Cerrar sesión</div>
                     {{/userLogged}}
                     {{^userLogged}}
                     <div onclick="redirigir_login()" id="boton-ini">Iniciar</div>
                     <div onclick="redirigir_reg()" id="boton-reg">Registrarse</div>
                     {{/userLogged}}
-                
+
                 </div>
                 {{>sueldo}}
                 <h2 style="color: yellow;">LEKING JAMES</h2>

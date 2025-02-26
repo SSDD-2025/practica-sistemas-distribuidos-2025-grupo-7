@@ -48,6 +48,7 @@ public class UserController {
         Usuario u=(Usuario)session.getAttribute("user");
         if(u!=null){
             model.addAttribute("userLogged", u);
+            model.addAttribute("hasImage", u.getImage() != null);
         }
         return "inicio";
     }
@@ -132,14 +133,6 @@ public class UserController {
     }
     
 
-
-    
-    /*@PostMapping("/profile/saveImage")
-    public String saveImage(Model model, Usuario u, MultipartFile image) throws Exception {
-        uSer.save(u, image);
-        return "inicio";
-    }*/
-
     @PostMapping("/profile/saveImage")
     public String saveImage(Model model, @RequestParam("image") MultipartFile image, HttpSession session) throws Exception {
 
@@ -152,6 +145,7 @@ public class UserController {
         }
         uSer.save(u,image);
         model.addAttribute("userLogged", u);
+        model.addAttribute("hasImage", u.getImage() != null);
         return "inicio";
     }
 

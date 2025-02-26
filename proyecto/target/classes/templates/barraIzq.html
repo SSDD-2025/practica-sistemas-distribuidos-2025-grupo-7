@@ -5,7 +5,21 @@
         </div>               
         <div class="div-izq" style="height: 200px;width: 200px;">
             <div style="text-align: center;">
-                <img src="/imagenes/icono_perfil.png" style="width: 50px;">
+                {{#hasImage}}
+                <div style="text-align: center;">
+                    <a href="/profile">
+                        <img src="{{userLogged.image}}" style="width: 50px;">
+                    </a>
+                </div>
+                {{/hasImage}}
+
+                {{^hasImage}}
+                <div style="text-align: center;">
+                    <a href="/profile"></a>
+                        <img src="/imagenes/icono_perfil.png" style="width: 50px;">
+                    </a>
+                </div>
+                {{/hasImage}}
                 <div>
                     {{#userLogged}}   
                     <p>Nombre: {{userLogged.name}}</p>
