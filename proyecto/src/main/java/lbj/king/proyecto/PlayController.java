@@ -27,8 +27,12 @@ public class PlayController {
     private GameRepository gameRep;
 
     @PostMapping("/procesarPartidaDado")
-    public String postMethodName(@RequestParam float apuesta,@RequestParam int nDado ,Model model, HttpSession session) {
+    public String postMethodName(@RequestParam(required = false) Float apuesta,@RequestParam(required = false) Integer nDado ,Model model, HttpSession session) {
         
+        if(apuesta==null|| nDado==null){
+            return "errorDados";
+        }
+
         Usuario u= (Usuario) session.getAttribute("user");
         u = rep.findById(u.getId()).orElseThrow();
         u.getLista().size();
@@ -149,6 +153,60 @@ public class PlayController {
     
     
     
-    
+    //pa la rule
+
+    @PostMapping("/procesarPartidaRule")
+    public String procesarPartidaRule(HttpSession session, Model model, @RequestParam(required=false) Integer numElegido, @RequestParam(required=false) Float apuesta) {
+
+        if(apuesta==null || numElegido==null){
+            model.addAttribute("userLogged", session.getAttribute("user"));
+            return "inicio";
+        }
+        
+        Usuario u = (Usuario)session.getAttribute("user");
+        u=rep.findById(u.getId()).orElseThrow();
+        Juegos j= gameRep.findByName("Ruleta");
+
+        if(u.getCurrency() >= apuesta){
+
+            Partida miPartida = new Partida(apuesta,u,j);
+
+            playRep.save(miPartida);
+            u.addGame(miPartida);
+            u.setCurrency(u.getCurrency()-apuesta);
+            rep.save(u);
+            session.setAttribute("user", u);
+
+            model.addAttribute("userLogged", u);
+            return "rule";
+
+        } else {
+
+        
+
+            //no esta implementado todavia en la rule
+
+            model.addAttribute("saldoInsuficiente", "true");
+
+            model.addAttribute("userLogged",u);
+
+            return "rule";
+
+        }
+
+        
+
+    }
+
+    /*@GetMapping("/redirigir_volverApostarRule")
+
+    public String getLink(Model model, HttpSession session) {
+
+        model.addAttribute("userLogged", session.getAttribute("user"));
+
+        return "rule";
+
+    }*/
+    //fin pa la rule
 }
 

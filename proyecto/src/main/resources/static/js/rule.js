@@ -77,9 +77,9 @@ function drawRouletteWheel() {
 }
 
 function spin() {
-  spinAngleStart = Math.random() * 10 + 10;
+  spinAngleStart = /*Math.random() * 10 + 10*/ 1;
   spinTime = 0;
-  spinTimeTotal = Math.random() * 3 + 4 * 1000;
+  spinTimeTotal = /*Math.random() * 3 + 4 * 1000*/100;
   rotateWheel();
 }
 

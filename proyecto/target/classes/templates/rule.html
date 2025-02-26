@@ -22,19 +22,25 @@
                 
                 <!--pa la rule-->
                 <canvas id="canvas" width="500" height="500"></canvas>
+                <div id="spin"></div>
+                {{#userLogged}}
                 <div style="color: white;display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
-                    <form id="ruletaForm">
+                    <form  id="ruletaForm" action="/procesarPartidaRule"  method="post" >
                         <p>Dinero a apostar:</p>
-                        <input type="number" id="otroNumero" placeholder="Ingresa un número">
+                        <input type="number" step="0.5" name="apuesta" placeholder="Ingresa un número">
                         <br>
                         <p>Numero elegido:</p>
-                        <input type="number" id="numeroElegido" placeholder="Ingresa un número">
+                        <input type="number" name="numElegido" placeholder="Ingresa un número">
                         <br>
-                        <input type="button" value="Girar la Ruleta" id="spin">
+                        <input onclick="spin()" type="submit" value="Girar la Ruleta">
                     </form>
                 </div>
+                {{/userLogged}}
                 <div class="resultado">
                     Resultado: <span id="resultado">-</span>
+                    {{#saldoInsuficiente}}
+                    <p>AAAAAAAAAAAAAAA</p>
+                    {{/saldoInsuficiente}}
                 </div>
             </div>
             <script src="/js/rule.js"></script>
