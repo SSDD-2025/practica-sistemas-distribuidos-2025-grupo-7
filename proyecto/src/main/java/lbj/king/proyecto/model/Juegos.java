@@ -1,4 +1,4 @@
-package lbj.king.proyecto;
+package lbj.king.proyecto.model;
 import java.util.*;
 
 import jakarta.annotation.Generated;

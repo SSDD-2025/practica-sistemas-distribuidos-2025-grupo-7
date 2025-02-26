@@ -1,4 +1,4 @@
-package lbj.king.proyecto;
+package lbj.king.proyecto.controllers;
 
 import java.util.*;
 
@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
+import lbj.king.proyecto.model.Juegos;
+import lbj.king.proyecto.model.Partida;
+import lbj.king.proyecto.model.Usuario;
+import lbj.king.proyecto.repositories.GameRepository;
+import lbj.king.proyecto.repositories.PlayRepository;
+import lbj.king.proyecto.repositories.UserRepository;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

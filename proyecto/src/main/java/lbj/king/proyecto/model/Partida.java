@@ -1,4 +1,4 @@
-package lbj.king.proyecto;
+package lbj.king.proyecto.model;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
