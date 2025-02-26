@@ -27,6 +27,9 @@ public class Usuario {
     private float currency;
 
     @OneToMany
+    private List<Premio> premios;
+
+    @OneToMany
     private List<Partida> lista;
 
 
@@ -39,6 +42,7 @@ public class Usuario {
         this.password=psw;
         this.currency=0;
         this.lista=new ArrayList<Partida>();
+        this.premios=new ArrayList<Premio>();
     }
 
     public void setName(String name){
@@ -63,6 +67,9 @@ public class Usuario {
     public List<Partida> getLista(){
         return this.lista;
     }
+    public List<Premio> getPremios(){
+        return this.premios;
+    }
     public long getId(){
         return this.id;
     }
@@ -71,6 +78,9 @@ public class Usuario {
     @Transactional
     public void addGame(Partida p){
         this.lista.add(p);
+    }
+    public void addPremio(Premio p){
+        this.premios.add(p);
     }
 
 }
