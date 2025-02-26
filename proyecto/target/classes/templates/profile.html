@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/inicio.css">
+    <title>Perfil</title>
+</head>
+
+<body>
+    <div style="display: flex;">
+        {{>barraIzq}}
+        <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
+        <div class="container-main" style="height: 911px;">
+            <div class="barra-arriba" style="display: flex;justify-content: end;">
+                <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
+            </div>
+            {{>sueldo}}
+                <p style="font-size: 50px; color: purple; text-align: center;">PERFIL</p>
+                {{#userLogged}}
+                    <div style="font-size: 30px; color: black; text-align: center;">Nombre: {{userLogged.name}}</div>
+                    <br>
+                    <div style="font-size: 30px; color: black; text-align: center;">Saldo: {{userLogged.currency}}</div>
+                    {{#image}}
+                    <div style="text-align: center;">Fotito: </div>
+                    <img src="/imagenes/icono_perfil"></img>
+                    {{image}}
+
+                    {{^image}}
+                    <div style="text-align: center;">Fotito: </div>
+                    <img src="{{userlogged.image}}"></img>
+                    {{image}}
+                {{/userLogged}}
+        </div>
+    </div>
+
+    <script src="/js/inicio.js"></script>
+</body>
+
+</html>

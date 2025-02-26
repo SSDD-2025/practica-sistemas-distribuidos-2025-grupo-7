@@ -155,5 +155,15 @@ public class UserController {
         }
     }
     
+
+    @GetMapping("/profile")
+    public String profile(Model model, HttpSession session) {
+        Usuario u=(Usuario)session.getAttribute("user");
+        if(u!=null){
+            model.addAttribute("userLogged", u);
+            model.addAttribute("image", u.getImage() != null);
+        }
+        return "profile";
+    }  
     
 }

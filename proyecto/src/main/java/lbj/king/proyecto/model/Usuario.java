@@ -6,9 +6,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.transaction.Transactional;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class Usuario {
     private String name;
     private String password;
     private float currency;
+
+    @Lob
+    private Blob image;
 
     @OneToMany(mappedBy = "owner")
     private List<Premio> premios;
@@ -70,6 +75,13 @@ public class Usuario {
     public long getId(){
         return this.id;
     }
+
+    public Blob getImage() {
+		return image;
+	}
+	public void setImage(Blob image) {
+		this.image = image;
+	}
 
 
     @Transactional
