@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class PlayController {
     
     @Autowired
-    private GameRepository gameRep;
+    private PlayRepository playRep;
     @Autowired
     private UserRepository rep;
-
+    @Autowired
+    private GameRepository gameRep;
 
     @PostMapping("/procesarPartida")
     public String postMethodName(@RequestParam float apuesta,@RequestParam int nDado ,Model model, HttpSession session) {
@@ -31,13 +32,16 @@ public class PlayController {
         Usuario u= (Usuario) session.getAttribute("user");
         u = rep.findById(u.getId()).orElseThrow();
         u.getLista().size();
+        Juegos g = gameRep.findByName("Dados");
 
-        if(u.getCurrency()>apuesta){
-            Partida p1= new Partida(apuesta,u);
-            gameRep.save(p1);
+        if(u.getCurrency()>apuesta && g!=null){
+            Partida p1= new Partida(apuesta,u,g);
+            playRep.save(p1);
+            g.addPlay(p1);
             u.addGame(p1);
             u.setCurrency(u.getCurrency()-apuesta);
             rep.save(u);
+            gameRep.save(g);
             session.setAttribute("user", u);
             model.addAttribute("partidaCreada",p1);
             model.addAttribute("userLogged", u);
@@ -119,7 +123,7 @@ public class PlayController {
             u.setCurrency(u.getCurrency()+p.getWin());
             p.won();
 
-            gameRep.save(p);
+            playRep.save(p);
             rep.save(u);
         }
 
