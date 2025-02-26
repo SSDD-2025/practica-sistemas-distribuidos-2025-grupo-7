@@ -17,18 +17,30 @@
             {{>sueldo}}
                 <p style="font-size: 50px; color: purple; text-align: center;">PERFIL</p>
                 {{#userLogged}}
-                    <div style="font-size: 30px; color: black; text-align: center;">Nombre: {{userLogged.name}}</div>
+                    <div style="font-size: 30px; color: purple; text-align: center;">Nombre: {{userLogged.name}}</div>
                     <br>
-                    <div style="font-size: 30px; color: black; text-align: center;">Saldo: {{userLogged.currency}}</div>
-                    {{#image}}
-                    <div style="text-align: center;">Fotito: </div>
-                    <img src="/imagenes/icono_perfil"></img>
-                    {{image}}
+                    <div style="font-size: 30px; color: purple; text-align: center;">Saldo: {{userLogged.currency}}</div>
+                    <br>                    
+                    
+                    {{#hasImage}}
+                    <div style="text-align: center;">
+                        <img src="{{userLogged.image}}" style="height: 400px; ">
+                    </div>
+                    {{/hasImage}}
 
-                    {{^image}}
-                    <div style="text-align: center;">Fotito: </div>
-                    <img src="{{userlogged.image}}"></img>
-                    {{image}}
+                    {{^hasImage}}
+                    <div style="text-align: center;">
+                        <img src="/imagenes/icono_perfil.png" style="height: 400px; ">
+                    </div>
+                    {{/hasImage}}
+
+                    <div style="text-align: center;">
+                        <form action="/profile/saveImage" method="post" enctype="multipart/form-data">
+                            <input type="file" name="image" required>
+                            <br>
+                            <input type="submit" value="Guardar imagen">
+                        </form>                        
+                    </div>
                 {{/userLogged}}
         </div>
     </div>

@@ -1,10 +1,13 @@
 package lbj.king.proyecto.services;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.annotation.PostConstruct;
 import lbj.king.proyecto.model.Usuario;
@@ -38,5 +41,12 @@ public class UserService {
     public Optional<Usuario> findById(long n){
         return userRep.findById(n);
     }
+
+    public void save(Usuario u, MultipartFile imag) throws IOException{
+		if(!imag.isEmpty()) {
+			u.setImage(BlobProxy.generateProxy(imag.getInputStream(), imag.getSize()));
+		}
+		this.save(u);
+	}
 
 }

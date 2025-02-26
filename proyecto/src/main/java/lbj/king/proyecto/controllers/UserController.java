@@ -1,13 +1,22 @@
 package lbj.king.proyecto.controllers;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.*;
 
+import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
@@ -123,14 +132,60 @@ public class UserController {
     }
     
 
+
+    
+    /*@PostMapping("/profile/saveImage")
+    public String saveImage(Model model, Usuario u, MultipartFile image) throws Exception {
+        uSer.save(u, image);
+        return "inicio";
+    }*/
+
+    @PostMapping("/profile/saveImage")
+    public String saveImage(Model model, @RequestParam("image") MultipartFile image, HttpSession session) throws Exception {
+
+        Usuario u = (Usuario) session.getAttribute("user");
+        if (u == null) {
+            return "login";
+        }
+        if (image.isEmpty()) {
+            return "profile";
+        }
+        uSer.save(u,image);
+        model.addAttribute("userLogged", u);
+        return "inicio";
+    }
+
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
-        Usuario u=(Usuario)session.getAttribute("user");
-        if(u!=null){
+        Usuario u = (Usuario)session.getAttribute("user");
+        if(u == null){
+            return "login";
+        }
+        if(u != null){
             model.addAttribute("userLogged", u);
-            model.addAttribute("image", u.getImage() != null);
+            model.addAttribute("hasImage", u.getImage() != null);
         }
         return "profile";
-    }  
+    }
+
+	@GetMapping("/profile/image")
+	public ResponseEntity<Object> downloadImage(HttpSession session) throws SQLException {
+
+        Usuario u = (Usuario)session.getAttribute("user");
+
+        if (u.getImage() == null) {
+            System.out.println(" El usuario no tiene imagen.");
+            return ResponseEntity.notFound().build();
+        }
+
+        if(u != null && u.getImage() != null){
+            Blob imag = u.getImage();
+            InputStreamResource file = new InputStreamResource(imag.getBinaryStream());
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpg").contentLength(imag.length()).body(file);
+        } else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
     
 }
