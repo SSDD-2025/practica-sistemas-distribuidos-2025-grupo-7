@@ -26,7 +26,7 @@ public class PlayController {
     @Autowired
     private GameRepository gameRep;
 
-    @PostMapping("/procesarPartida")
+    @PostMapping("/procesarPartidaDado")
     public String postMethodName(@RequestParam float apuesta,@RequestParam int nDado ,Model model, HttpSession session) {
         
         Usuario u= (Usuario) session.getAttribute("user");
@@ -62,7 +62,7 @@ public class PlayController {
         }        
     }
 
-    @GetMapping("/procesarPartidaDado")
+    @GetMapping("/procesarApuestaDado")
     public String getPartida(HttpSession session, Model model) {
 
         boolean matchResult=false;
