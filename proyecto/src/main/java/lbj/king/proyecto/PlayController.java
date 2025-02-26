@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
-public class GameController {
+public class PlayController {
     
     @Autowired
     private GameRepository gameRep;
