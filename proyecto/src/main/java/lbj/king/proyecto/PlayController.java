@@ -34,7 +34,11 @@ public class PlayController {
         u.getLista().size();
         Juegos g = gameRep.findByName("Dados");
 
-        if(u.getCurrency()>apuesta && g!=null){
+        if(nDado<=0 || nDado >6 || apuesta<=0){
+            return "errorDados";
+        }
+
+        if(u.getCurrency()>=apuesta && g!=null){
             Partida p1= new Partida(apuesta,u,g);
             playRep.save(p1);
             g.addPlay(p1);
