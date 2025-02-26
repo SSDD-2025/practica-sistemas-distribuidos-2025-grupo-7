@@ -19,7 +19,6 @@ public class Premio {
     private Usuario owner;
 
     protected Premio(){}
-
     public Premio(String name){
         this.name=name;
     }

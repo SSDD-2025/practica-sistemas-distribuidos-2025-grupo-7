@@ -13,6 +13,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import lbj.king.proyecto.model.Usuario;
 import lbj.king.proyecto.repositories.UserRepository;
+import lbj.king.proyecto.services.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,16 +26,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UserController {
 
     @Autowired
+    private UserService uSer;
+    @Autowired
     private UserRepository rep;
 
 
-    @PostConstruct
-    public void init(){
-        Usuario u1 = new Usuario("a", "a");
-        rep.save(u1);
-        Usuario u2 = new Usuario("EjemploDos", "espa1bila");
-        rep.save(u2);
-    }
+    
     
     /* Index without logged user */
     @GetMapping("/")
@@ -56,34 +53,6 @@ public class UserController {
         return "login";
     }
     
-    @GetMapping("/rule")
-    public String getRule(Model model, HttpSession session) {
-        Usuario u=(Usuario)session.getAttribute("user");
-        if(u!=null){
-            model.addAttribute("userLogged", u);
-        }
-        return "rule";
-    }
-
-    @GetMapping("/dados")
-    public String getDado(Model model, HttpSession session) {
-        Usuario u=(Usuario)session.getAttribute("user");
-        if(u!=null){
-            model.addAttribute("userLogged", u);
-        }
-        return "dados";
-    }
-    
-    @GetMapping("/slot")
-    public String getSlot(Model model, HttpSession session) {
-        Usuario u=(Usuario)session.getAttribute("user");
-        if(u!=null){
-            model.addAttribute("userLogged", u);
-        }
-        return "slot";
-    }
-
-    
     @GetMapping("/logout")
     public String getLogout(Model model) {
         return "logout";
@@ -93,9 +62,8 @@ public class UserController {
     @PostMapping("/procesarRegistro")
     public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {      
         
-        List<Usuario> lu= rep.findAll();
 
-        for(Usuario u : lu){
+        for(Usuario u : uSer.getUsuarios()){
             if(u.getName().equals(name)){
                 model.addAttribute("registered", "true");
                 return "register";
@@ -103,7 +71,7 @@ public class UserController {
         }
 
         Usuario newUser = new Usuario( name, psw);
-        rep.save(newUser);
+        uSer.save(newUser);
 
         return "inicio";
     }
@@ -118,8 +86,7 @@ public class UserController {
     @PostMapping("/procesarLogin")
     public String postMethodName(@RequestParam String name,@RequestParam String psw,Model model, HttpSession session) {
         
-        List<Usuario> userList = rep.findAll();
-        for(Usuario u:userList){
+        for(Usuario u:uSer.getUsuarios()){
             if(u.getName().equals(name)){
                 if(u.getPassword().equals(psw)){
                     session.setAttribute("user", u);

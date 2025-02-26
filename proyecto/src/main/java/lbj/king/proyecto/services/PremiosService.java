@@ -20,18 +20,10 @@ public class PremiosService {
     private UserRepository userRep;
 
 
-     @PostConstruct
+    @PostConstruct
     public void init() {
         Premio p1 = new Premio("Rey de la Rule");
-        p1.setOwner(userRep.findByName("a"));
-        Premio p2 = new Premio("Rey de los Dados");
-        p2.setOwner(userRep.findByName("EjemploDos"));
-        Premio p3 = new Premio("Rey de la tragaperras");
-        p3.setOwner(userRep.findByName("a"));
-
-        premioRep.save(p1);
-        premioRep.save(p2);
-        premioRep.save(p3); 
+        premioRep.save(p1); 
     }
 
     public List<Premio> getPremios() {
