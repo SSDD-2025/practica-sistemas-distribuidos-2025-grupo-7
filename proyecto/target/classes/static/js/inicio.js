@@ -34,3 +34,7 @@ function redirigir_apuestaRule(){
     window.location.href="/procesarApuestaRule"
 }
 
+function redirigir_volverApostarRule(){
+    window.location.href="/redirigir_volverApostarRule"
+}
+
