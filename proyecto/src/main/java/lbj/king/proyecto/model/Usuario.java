@@ -3,6 +3,7 @@ package lbj.king.proyecto.model;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,7 @@ public class Usuario {
     @OneToMany(mappedBy = "owner")
     private List<Premio> premios;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Partida> lista;
 
     protected Usuario() {}
