@@ -158,6 +158,7 @@ public class UserController {
         if(u != null){
             model.addAttribute("userLogged", u);
             model.addAttribute("hasImage", u.getImage() != null);
+            model.addAttribute("miLista", u.getLista());
         }
         return "profile";
     }
