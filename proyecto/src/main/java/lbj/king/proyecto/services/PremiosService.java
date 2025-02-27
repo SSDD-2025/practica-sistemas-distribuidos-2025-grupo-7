@@ -20,8 +20,8 @@ public class PremiosService {
 
     @PostConstruct
     public void init() {
-        Premio p1 = new Premio("Rey de la Rule");
-        Premio p2 = new Premio("Rey de la Tragaperras");
+        Premio p1 = new Premio("Rey de la Rule",1000);
+        Premio p2 = new Premio("Rey de la Tragaperras",2000);
         premioRep.save(p1); 
         premioRep.save(p2);
     }

@@ -21,11 +21,15 @@
             {{#premios}}
             <div style = "display : inline-block; padding-left: 100px;">
               <p style="color:white;font-size: 30px;">{{name}}</p>
+              <p style="color:white;font-size: 30px;">Price : {{Price}}</p>
               {{^owner}}
               <form action = "/premios/{{id}}" method = "get">
                 <input type = "submit" value = "Buy">
               </form>
               {{/owner}}
+              {{#owned}}
+              <p style="color:white;font-size: 30px;">Owner : {{Owner.name}}</p>
+              {{/owned}}
             </div>
             {{/premios}}
 

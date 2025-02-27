@@ -38,12 +38,18 @@ public class PremiosController {
     @GetMapping("/premios/{id}")
     public String comprarPremio(Model model,@PathVariable long id, HttpSession session) {
         Usuario user = (Usuario) session.getAttribute("user");
+        Premio premio = premioSer.findById(id);
         if (user == null) {
             return "login";
         }else{
-            Premio premio = premioSer.findById(id);
+            if (user.getCurrency()>=premio.getPrice() && !premio.getOwned()){
             premio.setOwner(user);
+            premio.setOwned(true);
             premioSer.save(premio);
+            user.setCurrency(user.getCurrency()-premio.getPrice());
+            }else{
+                //Redirigir a error(falta pasta)
+            }
         }
         model.addAttribute("userLogged", user);
         model.addAttribute("hasImage", user.getImage());
