@@ -133,9 +133,16 @@ public class UserController {
             model.addAttribute("userLogged", u);
             u.setCurrency(u.getCurrency()+money);
             rep.save(u);
+
+            model.addAttribute("hasImage", u.getImage());
+
             return "redirect:/";
         }else{
             model.addAttribute("dineroNegativo", "true");
+
+            Usuario u = (Usuario)session.getAttribute("user");
+            model.addAttribute("hasImage", u.getImage());
+
             return "redirect:/";
         }
     }

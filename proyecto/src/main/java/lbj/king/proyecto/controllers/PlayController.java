@@ -71,10 +71,16 @@ public class PlayController {
             //para procesarPartidaDado
             session.setAttribute("numeroDado", nDado);
             session.setAttribute("pActual", p1);
+
+            model.addAttribute("hasImage", u.getImage());
+
             return "dados";
         }else{
             model.addAttribute("saldoInsuficiente", "true");
             model.addAttribute("userLogged",u);
+
+            model.addAttribute("hasImage", u.getImage());
+
             return "dados";
         }        
     }
@@ -159,6 +165,8 @@ public class PlayController {
         model.addAttribute("n1", nr1);
         model.addAttribute("n2", nr2);
         
+        model.addAttribute("hasImage", u.getImage());
+
         //AQUI PROCESAR LOS NUMEROS ALEATORIOS PARA SABER QUE CARA DEL DADO SALDRÁ
 
         return "dados";
@@ -167,6 +175,10 @@ public class PlayController {
     @GetMapping("/redirigir_volverApostarDado")
     public String getLink(Model model, HttpSession session) {
         model.addAttribute("userLogged", session.getAttribute("user"));
+
+        Usuario u = (Usuario)session.getAttribute("user");
+        model.addAttribute("hasImage", u.getImage());
+
         return "dados";
     }
     
@@ -205,12 +217,17 @@ public class PlayController {
             model.addAttribute("userLogged", u);
             model.addAttribute("playingGame", "true");
 
+            model.addAttribute("hasImage", u.getImage());
+
             
             return "rule";
 
         } else {
             model.addAttribute("saldoInsuficiente", "true");
             model.addAttribute("userLogged",u);
+
+            model.addAttribute("hasImage", u.getImage());
+
             return "rule";
 
         }
@@ -248,6 +265,8 @@ public class PlayController {
         model.addAttribute("postRule", "true");
         model.addAttribute("n",nr);
 
+        model.addAttribute("hasImage", u.getImage());
+
         return "rule";
     }
     
@@ -257,6 +276,8 @@ public class PlayController {
     public String getA(Model model, HttpSession session) {
 
         model.addAttribute("userLogged", session.getAttribute("user"));
+        Usuario u = (Usuario)session.getAttribute("user");
+        model.addAttribute("hasImage", u.getImage());
 
         return "rule";
 
