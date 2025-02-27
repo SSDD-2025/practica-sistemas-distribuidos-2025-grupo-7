@@ -23,7 +23,9 @@ public class PremiosService {
     @PostConstruct
     public void init() {
         Premio p1 = new Premio("Rey de la Rule");
+        Premio p2 = new Premio("Rey de la Tragaperras");
         premioRep.save(p1); 
+        premioRep.save(p2);
     }
 
     public List<Premio> getPremios() {
@@ -31,5 +33,9 @@ public class PremiosService {
         List<Premio> premios = this.premioRep.findAll();
         return premios;
         
+    }
+
+    public void save(Premio p) {
+        premioRep.save(p);
     }
 }

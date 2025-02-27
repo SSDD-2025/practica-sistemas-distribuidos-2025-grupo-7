@@ -22,9 +22,14 @@
             </div>
             {{>sueldo}}
             <p style="text-align: center;color: white; font-size: 40px;">PREMIOS</p>
-            {{#premio}}
-              <p style="color:white;font-size: 30px;">{{premio.name}}</p>
-            {{/premio}}
+            {{#premios}}
+            <div style = "display : inline-block; padding-left: 100px;">
+              <p style="color:white;font-size: 30px;">{{name}}</p>
+              <form action = "/premios/{{id}}" method = "get">
+                <input type = "submit" value = "Buy">
+              </form>
+            </div>
+            {{/premios}}
 
         </div>
     </div>
