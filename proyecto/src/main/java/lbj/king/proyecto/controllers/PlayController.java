@@ -230,8 +230,7 @@ public class PlayController {
         }
 
         int x=(int)session.getAttribute("nRule");
-        //int nr = (int) (Math.random() * 35);
-        int nr=1;
+        int nr = (int) (Math.random() * 35);
         System.out.println(x);
 
         if(x==nr){
@@ -247,20 +246,20 @@ public class PlayController {
 
         model.addAttribute("userLogged", session.getAttribute("user"));
         model.addAttribute("postRule", "true");
+        model.addAttribute("n",nr);
 
         return "rule";
     }
     
 
-    /*@GetMapping("/redirigir_volverApostarRule")
+    @GetMapping("/redirigir_volverApostarRule")
 
-    public String getLink(Model model, HttpSession session) {
+    public String getA(Model model, HttpSession session) {
 
         model.addAttribute("userLogged", session.getAttribute("user"));
 
         return "rule";
 
-    }*/
-    //fin pa la rule
+    }
 }
 

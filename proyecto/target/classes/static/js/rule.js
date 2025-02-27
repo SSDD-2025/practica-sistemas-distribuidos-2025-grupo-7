@@ -76,8 +76,8 @@ function drawRouletteWheel() {
   }
 }
 
-function spin() {
-  spinAngleStart = 62;  //63 numero magico    28 es el 35
+function spin(n1) {
+  spinAngleStart = 63-n1;  //63 numero magico    28 es el 35
   spinTime = 0;
   spinTimeTotal = 1259;
   rotateWheel();

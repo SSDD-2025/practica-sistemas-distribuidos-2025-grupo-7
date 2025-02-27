@@ -10,6 +10,7 @@
 <body>
     <div style="display: flex;">
         {{>barraIzq}}
+        
         <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
         <div class="container-main" style="height: 100vh;">
             <div class="barra-arriba" style="display: flex;justify-content: end;">
@@ -22,33 +23,34 @@
             </div>
             {{>sueldo}}
             <p style="text-align: center;color: purple; font-size: 40px;">GIRA LA RULETA JAMES Y GANA MILLONES</p>
+
             <div class="container">
-                <!--pa la rule-->
                 <canvas id="canvas" width="500" height="500"></canvas>
                 <div id="spin"></div>
-                <!--{{#userLogged}}-->
                 {{#postRule}}
-                    {{#victory}}
-                        <script>
-                            window.onload=function(){
-                                spin();
-                            }
-                        </script>
-                        <p>GANASTEEE PUTOOOO</p>
-                    {{/victory}}
-                    {{^victory}}
-                        <script>
-                            window.onload=function(){
-                                spin();
-                            }
-                        </script>
-                        <p>PERDISTE WEOOOOONN</p>
-                    {{/victory}}
+                {{#victory}}
+                <script>
+                    window.addEventListener('load', function (){
+                        spin({{n}})
+                    });
+                </script>
+                <p>GANASTEEE PUTOOOO</p>
+                <div onclick="redirigir_volverApostarRule()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>
+                {{/victory}}
+                {{^victory}}
+                <script>
+                    window.addEventListener('load', function (){
+                        spin({{n}})
+                    });
+                </script>
+                <p>PERDISTE WEOOOOONN</p>
+                <div onclick="redirigir_volverApostarRule()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>
+                {{/victory}}
                 {{/postRule}}
                 {{^postRule}}
                 <div style="color: white;display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
                     {{#playingGame}}
-                    <button onclick="redirigir_apuestaRule();spin()">GIRAAAAA</button>
+                    <button onclick="redirigir_apuestaRule()">GIRAAAAA</button>
                     {{/playingGame}}
                     {{^playingGame}}
                     <form  id="ruletaForm"   method="post" action="/procesarPartidaRule">
@@ -64,7 +66,6 @@
                     
                 </div>
                 {{/postRule}}
-                <!--{{/userLogged}}-->
                 <div class="resultado">
                     {{#saldoInsuficiente}}
                     <p style="color: red;">Saldo insuficiente</p>
@@ -72,7 +73,6 @@
                 </div>
             </div>
             
-
         </div>
     </div>
     <script src="/js/rule.js"></script>
