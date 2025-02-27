@@ -38,3 +38,7 @@ function redirigir_volverApostarRule(){
     window.location.href="/redirigir_volverApostarRule"
 }
 
+function redirigir_perfil(){
+    window.location.href="/profile"
+}
+

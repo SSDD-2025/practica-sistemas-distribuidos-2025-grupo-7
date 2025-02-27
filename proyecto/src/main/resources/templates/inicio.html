@@ -19,11 +19,7 @@
                 <div class="barra-arriba" style="display: flex;justify-content: end;" >
                     {{#userLogged}}
                     <div id="welcome">Bienvenido {{userLogged.name}} </div>
-                    <div id="boton-ini" href> 
-                        <a href="/profile">
-                            Perfil
-                        </a>
-                    </div>
+                    <div onclick="redirigir_perfil()" id="boton-ini">Perfil</div>
                     <div onclick="redirigir_logout()" id="boton-ini">Cerrar sesión</div>
                     {{/userLogged}}
                     {{^userLogged}}
