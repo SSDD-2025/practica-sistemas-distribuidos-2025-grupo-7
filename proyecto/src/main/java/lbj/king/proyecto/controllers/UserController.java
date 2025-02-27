@@ -24,8 +24,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
+import lbj.king.proyecto.model.Partida;
 import lbj.king.proyecto.model.Usuario;
+import lbj.king.proyecto.repositories.PlayRepository;
 import lbj.king.proyecto.repositories.UserRepository;
+import lbj.king.proyecto.services.GameService;
+import lbj.king.proyecto.services.PlayService;
 import lbj.king.proyecto.services.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -165,7 +169,7 @@ public class UserController {
         if(u != null){
             model.addAttribute("userLogged", u);
             model.addAttribute("hasImage", u.getImage());
-            model.addAttribute("miLista", u.getLista());
+            model.addAttribute("listGames", u.getLista());
         }
         return "profile";
     }

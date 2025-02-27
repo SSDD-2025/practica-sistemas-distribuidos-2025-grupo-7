@@ -41,35 +41,25 @@
                             <input type="submit" value="Guardar imagen">
                         </form>                        
                     </div>
-                    <div style="text-align: right;">
+                    <div style="text-align: center;">
                         <h1>Historial de Partidas</h1>
-
-                        <!-- Mensaje cuando no haya partidas -->
-                        <p th:if="${miLista == null or miLista.size() == 0}">No tienes partidas registradas.</p>
-
-                        <!-- Tabla para mostrar las partidas -->
-                        <table border="1" th:if="${miLista != null and miLista.size() > 0}">
-                            <thead>
-                                <tr>
-                                    <th>Usuario</th>
-                                    <th>Juego</th>
-                                    <th>Apuesta</th>
-                                    <th>¿Ganaste?</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Iterar sobre la lista "miLista" -->
-                                <tr th:each="partida : ${miLista}">
-                                    <td th:text="${partida.user}"></td>       <!-- Aquí mostrarías el ID del usuario -->
-                                    <td th:text="${partida.game}"></td>       <!-- Aquí mostrarías el ID del juego -->
-                                    <td th:text="${partida.bet}"></td>          <!-- Aquí mostrarías el valor de la apuesta -->
-                                    <td th:text="${partida.won ? 'Sí' : 'No'}"></td> <!-- Aquí mostrarías si ganó o no -->
-                                </tr>
-                            </tbody>
+                        <table border="1" style="text-align: center;">
+                            <tr>
+                                <th>Bet</th>
+                                <th>Win</th>
+                                <th>Won</th>
+                                <th>Game</th>
+                            </tr>
+                            {{#listGames}}
+                            <tr>
+                                <td>{{bet}}</td>
+                                <td>{{win}}</td>
+                                <td>{{won}}</td>
+                                <td>{{game.name}}</td>
+                            </tr>
+                            {{/listGames}}
                         </table>
-
                     </div>
-                <p th:if="${listGames == null or listGames.size() == 0}">No tienes partidas registradas.</p>
                 {{/userLogged}}
         </div>
     </div>
