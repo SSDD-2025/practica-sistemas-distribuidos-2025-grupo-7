@@ -16,8 +16,6 @@ import lbj.king.proyecto.repositories.UserRepository;
 public class PremiosService {
      @Autowired
     private PremiosRepository premioRep;
-    @Autowired
-    private UserRepository userRep;
 
 
     @PostConstruct
@@ -37,5 +35,9 @@ public class PremiosService {
 
     public void save(Premio p) {
         premioRep.save(p);
+    }
+
+    public Premio findById(long id) {
+        return premioRep.findPremioById(id);
     }
 }

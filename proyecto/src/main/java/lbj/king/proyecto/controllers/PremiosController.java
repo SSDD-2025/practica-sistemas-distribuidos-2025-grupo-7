@@ -24,8 +24,6 @@ import jakarta.servlet.http.HttpSession;
 public class PremiosController {
     @Autowired
     private PremiosService premioSer;
-    @Autowired
-    private PremiosRepository premioRep;
 
     @GetMapping("/premios")
     public String showPremios(Model model, HttpSession session) {
@@ -42,10 +40,12 @@ public class PremiosController {
         if (user == null) {
             return "login";
         }else{
-            user.addPremio(premioRep.findPremioById(id));
+            Premio premio = premioSer.findById(id);
+            premio.setOwner(user);
+            premioSer.save(premio);
         }
         model.addAttribute("userLogged", user);
-        return "premios";
+        return "redirect:/premios";
     }
     
 }
