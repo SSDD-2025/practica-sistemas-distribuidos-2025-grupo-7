@@ -31,6 +31,7 @@ public class PremiosController {
         List<Premio> premios = premioSer.getPremios();
         model.addAttribute("premios", premios);
         model.addAttribute("userLogged", user);
+        model.addAttribute("hasImage", user.getImage());
         return "premios";
     }
 
@@ -45,6 +46,7 @@ public class PremiosController {
             premioSer.save(premio);
         }
         model.addAttribute("userLogged", user);
+        model.addAttribute("hasImage", user.getImage());
         return "redirect:/premios";
     }
     

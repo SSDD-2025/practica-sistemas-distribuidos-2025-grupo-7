@@ -5,11 +5,14 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
@@ -125,10 +129,10 @@ public class UserController {
             model.addAttribute("userLogged", u);
             u.setCurrency(u.getCurrency()+money);
             rep.save(u);
-            return "inicio";
+            return "redirect:/";
         }else{
             model.addAttribute("dineroNegativo", "true");
-            return "inicio";
+            return "redirect:/";
         }
     }
     
@@ -138,15 +142,18 @@ public class UserController {
 
         Usuario u = (Usuario) session.getAttribute("user");
         if (u == null) {
-            return "login";
+            return "redirect:/login";
         }
         if (image.isEmpty()) {
-            return "profile";
+            return "redirect:/profile";
         }
-        uSer.save(u,image);
+        Blob imag = new SerialBlob(image.getBytes());
+        u.setImage(imag);
+        uSer.save(u);
+        rep.save(u);
         model.addAttribute("userLogged", u);
-        model.addAttribute("hasImage", u.getImage() != null);
-        return "inicio";
+        model.addAttribute("hasImage", u.getImage());
+        return "redirect:/profile";
     }
 
     @GetMapping("/profile")
@@ -157,14 +164,14 @@ public class UserController {
         }
         if(u != null){
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage() != null);
+            model.addAttribute("hasImage", u.getImage());
             model.addAttribute("miLista", u.getLista());
         }
         return "profile";
     }
 
 	@GetMapping("/profile/image")
-	public ResponseEntity<Object> downloadImage(HttpSession session) throws SQLException {
+	public ResponseEntity<Object> downloadImage(HttpSession session, Model model) throws SQLException {
 
         Usuario u = (Usuario)session.getAttribute("user");
 
@@ -175,12 +182,13 @@ public class UserController {
 
         if(u != null && u.getImage() != null){
             Blob imag = u.getImage();
+            /*model.addAttribute("userLogged", u);
+            model.addAttribute("hasImage", u.getImage());*/
             InputStreamResource file = new InputStreamResource(imag.getBinaryStream());
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpg").contentLength(imag.length()).body(file);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").contentLength(imag.length()).body(file);
         } else {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
     
 }
