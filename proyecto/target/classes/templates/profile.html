@@ -15,7 +15,9 @@
                 <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
             </div>
             {{>sueldo}}
-                <p style="font-size: 50px; color: purple; text-align: center;">PERFIL</p>
+            <div style="display: flex; justify-content: space-between;">
+                <div style="width: 48%;">
+                <p style="font-size: 50px; color: purple; text-align: center; margin-bottom: 30px;">PERFIL</p>
                 {{#userLogged}}
                     <div style="font-size: 30px; color: purple; text-align: center;">Nombre: {{userLogged.name}}</div>
                     <br>
@@ -36,31 +38,34 @@
 
                     <div style="text-align: center;">
                         <form action="/profile/saveImage" method="post" enctype="multipart/form-data">
-                            <input type="file" name="image" required>
+                            <input type="file" name="image" required style="padding: 10px; font-size: 20px;">
                             <br>
-                            <input type="submit" value="Guardar imagen">
+                            <input type="submit" value="Guardar imagen" style="padding: 10px 20px; font-size: 16px; background-color: purple; color: yellow; border: none;">
                         </form>                        
                     </div>
-                    <div style="text-align: center;">
-                        <h1>Historial de Partidas</h1>
-                        <table border="1" style="text-align: center;">
-                            <tr>
-                                <th>Bet</th>
-                                <th>Win</th>
-                                <th>Won</th>
-                                <th>Game</th>
-                            </tr>
-                            {{#listGames}}
-                            <tr>
-                                <td>{{bet}}</td>
-                                <td>{{win}}</td>
-                                <td>{{won}}</td>
-                                <td>{{game.name}}</td>
-                            </tr>
-                            {{/listGames}}
-                        </table>
-                    </div>
-                {{/userLogged}}
+                </div>
+                <div style="width: 48%;">
+                    <h1>Historial de Partidas</h1>
+                    <table border="1" style="width: 48%;">
+                        <tr>
+                            <th>Apostado</th>
+                            <th>A ganar</th>
+                            <th>¿Ganaste?</th>
+                            <th>Juego</th>
+                        </tr>
+                        {{#listGames}}
+                        <tr>
+                            <td>{{bet}}</td>
+                            <td>{{win}}</td>
+                            <td>{{#won}}Ganada{{/won}}{{^won}}Perdida{{/won}}</td>
+                            <td>{{game.name}}</td>
+                        </tr>
+                        {{/listGames}}
+                    </table>
+                </div>
+                    {{/userLogged}}
+                </div>
+            </div>
         </div>
     </div>
 
