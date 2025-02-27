@@ -1,4 +1,4 @@
-var options = ["0", "1"/*, "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18","19", "20", "21", "22", "23", "24", "25", "26","27", "28", "29", "30", "31", "32", "33", "34", "35","36"*/];
+var options = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18","19", "20", "21", "22", "23", "24", "25", "26","27", "28", "29", "30", "31", "32", "33", "34", "35","36"];
 
 var startAngle = 0;
 var arc = Math.PI / (options.length / 2);
@@ -77,9 +77,9 @@ function drawRouletteWheel() {
 }
 
 function spin() {
-  spinAngleStart = Math.random() * 10 + 10;
+  spinAngleStart = 62;  //63 numero magico    28 es el 35
   spinTime = 0;
-  spinTimeTotal = Math.random() * 3 + 4 * 1000;
+  spinTimeTotal = 1259;
   rotateWheel();
 }
 
