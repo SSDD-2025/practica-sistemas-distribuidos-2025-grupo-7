@@ -196,11 +196,14 @@ public class PlayController {
             Partida miPartida = new Partida(apuesta,u,j);
 
             playRep.save(miPartida);
+            session.setAttribute("pActual", miPartida);
             u.addGame(miPartida);
             u.setCurrency(u.getCurrency()-apuesta);
             uSer.save(u);
             session.setAttribute("user", u);
+            session.setAttribute("nRule", numElegido);
             model.addAttribute("userLogged", u);
+            model.addAttribute("playingGame", "true");
 
             
             return "rule";
@@ -215,6 +218,39 @@ public class PlayController {
         
 
     }
+    @GetMapping("/procesarApuestaRule")
+    public String getMethodName(Model model, HttpSession session) {
+
+        Usuario u = (Usuario)session.getAttribute("user");
+        Optional<Usuario> us=uSer.findById(u.getId());
+        if(!us.isPresent()){
+            return "errorRule";
+        }else{
+            u=us.get();
+        }
+
+        int x=(int)session.getAttribute("nRule");
+        //int nr = (int) (Math.random() * 35);
+        int nr=1;
+        System.out.println(x);
+
+        if(x==nr){
+            Partida p=(Partida) session.getAttribute("pActual");
+            model.addAttribute("victory", "true");
+            
+            u.setCurrency(u.getCurrency()+p.getWin());
+            p.won();
+
+            playRep.save(p);
+            uSer.save(u);
+        }
+
+        model.addAttribute("userLogged", session.getAttribute("user"));
+        model.addAttribute("postRule", "true");
+
+        return "rule";
+    }
+    
 
     /*@GetMapping("/redirigir_volverApostarRule")
 

@@ -30,4 +30,7 @@ function redirigir_procesar_logout(){
 function redirigir_apuestaDado(){
     window.location.href="/procesarPartidaDado"
 }
+function redirigir_apuestaRule(){
+    window.location.href="/procesarApuestaRule"
+}
 

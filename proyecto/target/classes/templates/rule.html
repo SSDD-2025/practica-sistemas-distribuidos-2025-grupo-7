@@ -11,7 +11,7 @@
     <div style="display: flex;">
         {{>barraIzq}}
         <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
-        <div class="container-main" style="height: 911px;">
+        <div class="container-main" style="height: 100vh;">
             <div class="barra-arriba" style="display: flex;justify-content: end;">
                 <div id="boton-ini" href> 
                     <a href="/profile">
@@ -23,35 +23,59 @@
             {{>sueldo}}
             <p style="text-align: center;color: purple; font-size: 40px;">GIRA LA RULETA JAMES Y GANA MILLONES</p>
             <div class="container">
-
-                
                 <!--pa la rule-->
                 <canvas id="canvas" width="500" height="500"></canvas>
                 <div id="spin"></div>
                 <!--{{#userLogged}}-->
+                {{#postRule}}
+                    {{#victory}}
+                        <script>
+                            window.onload=function(){
+                                spin();
+                            }
+                        </script>
+                        <p>GANASTEEE PUTOOOO</p>
+                    {{/victory}}
+                    {{^victory}}
+                        <script>
+                            window.onload=function(){
+                                spin();
+                            }
+                        </script>
+                        <p>PERDISTE WEOOOOONN</p>
+                    {{/victory}}
+                {{/postRule}}
+                {{^postRule}}
                 <div style="color: white;display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
-                    <form  id="ruletaForm"   method="post" >
+                    {{#playingGame}}
+                    <button onclick="redirigir_apuestaRule();spin()">GIRAAAAA</button>
+                    {{/playingGame}}
+                    {{^playingGame}}
+                    <form  id="ruletaForm"   method="post" action="/procesarPartidaRule">
                         <p>Dinero a apostar:</p>
                         <input type="number" step="0.5" name="apuesta" placeholder="Ingresa un número">
                         <br>
                         <p>Numero elegido:</p>
                         <input type="number" name="numElegido" placeholder="Ingresa un número">
                         <br>
-                        <input onclick="spin()" type="submit" value="Girar la Ruleta" id="spin">
+                        <input type="submit" value="Apostar">
                     </form>
+                    {{/playingGame}}
+                    
                 </div>
+                {{/postRule}}
                 <!--{{/userLogged}}-->
                 <div class="resultado">
-                    Resultado: <span id="resultado">-</span>
                     {{#saldoInsuficiente}}
-                    <p>AAAAAAAAAAAAAAA</p>
+                    <p style="color: red;">Saldo insuficiente</p>
                     {{/saldoInsuficiente}}
                 </div>
             </div>
-            <script src="/js/rule.js"></script>
+            
 
         </div>
     </div>
+    <script src="/js/rule.js"></script>
     <script src="/js/inicio.js"></script>
 </body>
 
