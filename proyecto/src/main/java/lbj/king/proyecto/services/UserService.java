@@ -49,4 +49,9 @@ public class UserService {
 		this.save(u);
 	}
 
+
+    public void deleteUserById(Long userId) {
+        userRep.deleteById(userId);
+    }
+
 }

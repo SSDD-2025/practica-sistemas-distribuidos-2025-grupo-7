@@ -202,4 +202,16 @@ public class UserController {
 		}
 	}
     
+    @PostMapping("/deleteUser")
+    public String deleteUser(Model model, HttpSession session) {
+
+        Usuario u = (Usuario)session.getAttribute("user");
+        uSer.deleteUserById(u.getId());
+        session.invalidate();
+
+        return "redirect:/";
+    }
+    
+
+
 }
