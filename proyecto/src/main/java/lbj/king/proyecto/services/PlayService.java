@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lbj.king.proyecto.model.Partida;
 import lbj.king.proyecto.model.Usuario;
 import lbj.king.proyecto.repositories.PlayRepository;
@@ -29,6 +30,7 @@ public class PlayService {
         return playRep.findById(n);
     }
 
+    @Transactional
     public void deletePartidasByUsuarioId(Long usuarioId) {
         playRep.deleteByUserId(usuarioId);
     }

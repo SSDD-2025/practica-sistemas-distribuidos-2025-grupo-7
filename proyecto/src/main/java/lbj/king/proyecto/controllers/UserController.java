@@ -224,9 +224,18 @@ public class UserController {
     }
 
     
-                
-    
-    
+    @PostMapping("/deleteGames")
+    public String deleteGames(Model model, HttpSession session) {
+        Usuario u = (Usuario) session.getAttribute("user");
+        if (u != null) {
+            pSer.deletePartidasByUsuarioId(u.getId()); // Elimina las partidas del usuario
+        }
+        u.getLista().clear();
+        model.addAttribute("userLogged", u);
+        model.addAttribute("hasImage", u.getImage());
+        model.addAttribute("listGames", u.getLista());
+        return "redirect:/";
+    }    
 
 
 }
