@@ -17,7 +17,7 @@ public class Juegos {
     private long id;
 
     private String name;
-    private float winrate=0;
+    private float winMultp;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Partida> bets;
@@ -25,9 +25,10 @@ public class Juegos {
     public Juegos(){
 
     }
-    public Juegos(String n){
+    public Juegos(String n,float wm){
         this.name=n;
         this.bets=new ArrayList<Partida>();
+        this.winMultp=wm;
     }
 
     public long getId(){
@@ -36,5 +37,8 @@ public class Juegos {
 
     public void addPlay(Partida p){
         this.bets.add(p);
+    }
+    public float getWinMultp(){
+        return this.winMultp;
     }
 }

@@ -14,11 +14,11 @@ public class GameService {
     private GameRepository gameRep;
     @PostConstruct
     public void init(){
-        Juegos g1=new Juegos("Ruleta");
+        Juegos g1=new Juegos("Ruleta",36);
         gameRep.save(g1);
-        Juegos g2=new Juegos("Dados");
+        Juegos g2=new Juegos("Dados",4);
         gameRep.save(g2);
-        Juegos g3=new Juegos("Slots");
+        Juegos g3=new Juegos("Slots",1);
         gameRep.save(g3);
     }
 

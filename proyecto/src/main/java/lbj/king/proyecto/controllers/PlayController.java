@@ -57,6 +57,7 @@ public class PlayController {
 
         if(u.getCurrency()>=apuesta && g!=null){
             Partida p1= new Partida(apuesta,u,g);
+            p1.setWin(p1.getBet()*gameSer.findByName("Dados").getWinMultp());
             playRep.save(p1);
             g.addPlay(p1);
             u.addGame(p1);
@@ -148,18 +149,18 @@ public class PlayController {
                 break;
         }
         //3 atributos para el model, uno para que se gire el dado, 2 para los numeros aleatorios
+        Partida p=(Partida) session.getAttribute("pActual");
         if(matchResult){
-
-            Partida p=(Partida) session.getAttribute("pActual");
             model.addAttribute("victory", "true");
             
-            u.setCurrency(u.getCurrency()+p.getWin());
+            u.setCurrency(u.getCurrency()+p.getBet()*gameSer.findByName("Dados").getWinMultp());
             p.won();
 
             playRep.save(p);
             uSer.save(u);
         }
 
+        gameSer.findByName("Dados").addPlay(p);
         System.out.println(nr1);
         System.out.println(nr2);
         model.addAttribute("n1", nr1);
@@ -206,7 +207,7 @@ public class PlayController {
         if(u.getCurrency() >= apuesta){
 
             Partida miPartida = new Partida(apuesta,u,j);
-
+            miPartida.setWin(miPartida.getBet()*gameSer.findByName("Dados").getWinMultp());
             playRep.save(miPartida);
             session.setAttribute("pActual", miPartida);
             u.addGame(miPartida);
@@ -249,18 +250,20 @@ public class PlayController {
         int x=(int)session.getAttribute("nRule");
         int nr = (int) (Math.random() * 35);
         System.out.println(x);
+        Partida p=(Partida) session.getAttribute("pActual");
 
         if(x==nr){
-            Partida p=(Partida) session.getAttribute("pActual");
             model.addAttribute("victory", "true");
             
-            u.setCurrency(u.getCurrency()+p.getWin());
+            u.setCurrency(u.getCurrency()+p.getBet()*gameSer.findByName("Ruleta").getWinMultp());
             p.won();
 
             playRep.save(p);
             uSer.save(u);
+            
         }
 
+        gameSer.findByName("Ruleta").addPlay(p);
         model.addAttribute("userLogged", session.getAttribute("user"));
         model.addAttribute("postRule", "true");
         model.addAttribute("n",nr);

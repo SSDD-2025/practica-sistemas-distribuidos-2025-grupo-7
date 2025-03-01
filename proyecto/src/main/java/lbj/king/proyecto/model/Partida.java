@@ -27,7 +27,6 @@ public class Partida {
 
     public Partida(float bet, Usuario u,Juegos j){
         this.bet=bet;
-        this.win=bet*6;
         this.user=u;
         this.game=j;
     }
@@ -38,5 +37,11 @@ public class Partida {
 
     public void won(){
         this.won=true;
+    }
+    public float getBet(){
+        return bet;
+    }
+    public void setWin(float w){
+        this.win=w;
     }
 }
