@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
+import lbj.king.proyecto.model.Partida;
 import lbj.king.proyecto.model.Usuario;
+import lbj.king.proyecto.repositories.PlayRepository;
 import lbj.king.proyecto.repositories.UserRepository;
 
 @Service
@@ -18,6 +21,8 @@ public class UserService {
     
     @Autowired
     private UserRepository userRep;
+    @Autowired
+    private PlayRepository pRep;
     @PostConstruct
     public void init(){
         Usuario u1 = new Usuario("a", "a");
@@ -50,8 +55,9 @@ public class UserService {
 	}
 
 
+    @Transactional
     public void deleteUserById(Long userId) {
+        pRep.deleteByUserId(userId);
         userRep.deleteById(userId);
     }
-
 }

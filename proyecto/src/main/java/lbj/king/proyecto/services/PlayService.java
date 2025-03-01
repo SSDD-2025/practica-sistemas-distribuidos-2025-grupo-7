@@ -28,4 +28,8 @@ public class PlayService {
     public Optional<Partida> findByName(long n){
         return playRep.findById(n);
     }
+
+    public void deletePartidasByUsuarioId(Long usuarioId) {
+        playRep.deleteByUserId(usuarioId);
+    }
 }

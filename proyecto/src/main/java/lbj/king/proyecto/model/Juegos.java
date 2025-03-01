@@ -2,6 +2,7 @@ package lbj.king.proyecto.model;
 import java.util.*;
 
 import jakarta.annotation.Generated;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,7 @@ public class Juegos {
     private String name;
     private float winrate=0;
 
-    @OneToMany
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Partida> bets;
     
     public Juegos(){

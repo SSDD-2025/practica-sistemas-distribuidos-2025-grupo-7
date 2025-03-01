@@ -47,7 +47,8 @@ public class UserController {
     @Autowired
     private UserRepository rep;
 
-
+    @Autowired
+    private PlayService pSer;
     
     
     /* Index without logged user */
@@ -202,15 +203,29 @@ public class UserController {
 		}
 	}
     
+    /*@PostMapping("/deleteUser")
+    public String deleteUser(Model model, HttpSession session) {
+        Usuario u = (Usuario) session.getAttribute("user");
+        if (u != null) {
+            pSer.deletePartidasByUsuarioId(u.getId()); // Elimina las partidas del usuario
+            uSer.deleteUserById(u.getId()); // Elimina el usuario
+            session.invalidate();
+        }
+        return "redirect:/";
+    }*/
     @PostMapping("/deleteUser")
     public String deleteUser(Model model, HttpSession session) {
-
-        Usuario u = (Usuario)session.getAttribute("user");
-        uSer.deleteUserById(u.getId());
-        session.invalidate();
-
+        Usuario u = (Usuario) session.getAttribute("user");
+        if (u != null) {
+            uSer.deleteUserById(u.getId()); // Llama al método del servicio
+            session.invalidate(); // Invalida la sesión
+        }
         return "redirect:/";
     }
+
+    
+                
+    
     
 
 
