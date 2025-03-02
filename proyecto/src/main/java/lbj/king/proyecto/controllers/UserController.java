@@ -171,13 +171,15 @@ public class UserController {
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
         Usuario u = (Usuario)session.getAttribute("user");
+        
         if(u == null){
             return "login";
         }
         if(u != null){
-            model.addAttribute("userLogged", u);
+            Usuario aux = uSer.findById(u.getId()).get();
+            model.addAttribute("userLogged", aux);
             model.addAttribute("hasImage", u.getImage());
-            model.addAttribute("listGames", u.getLista());
+            model.addAttribute("listGames", aux.getLista());
         }
         return "profile";
     }
