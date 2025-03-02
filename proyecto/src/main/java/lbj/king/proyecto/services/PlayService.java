@@ -34,4 +34,9 @@ public class PlayService {
     public void deletePartidasByUsuarioId(Long usuarioId) {
         playRep.deleteByUserId(usuarioId);
     }
+
+    @Transactional
+    public void deletePartidaById(Long id){
+        playRep.deleteById(id);
+    }
 }

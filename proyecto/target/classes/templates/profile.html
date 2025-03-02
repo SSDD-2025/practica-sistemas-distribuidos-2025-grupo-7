@@ -59,6 +59,11 @@
                             <td>{{win}}</td>
                             <td>{{#won}}Ganada{{/won}}{{^won}}Perdida{{/won}}</td>
                             <td>{{game.name}}</td>
+                            <td>
+                                <form action="/game/{{id}}/delete" method="post">
+                                    <button type="submit" class="btn btn-danger" style="background-color: purple; color: yellow; font-size: 16px; border: none;">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                         {{/listGames}}
                     </table>

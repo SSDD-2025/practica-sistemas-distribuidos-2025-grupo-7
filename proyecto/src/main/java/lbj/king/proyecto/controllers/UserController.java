@@ -237,5 +237,21 @@ public class UserController {
         return "redirect:/";
     }    
 
+    @PostMapping("/game/{partida_id}/delete")
+    public String deleteGame(Model model, @PathVariable long partida_id, HttpSession session) {
+        Usuario aux = (Usuario) session.getAttribute("user");
+        Usuario u = uSer.findById(aux.getId()).get();
+		Partida partida = pSer.findByName(partida_id).get();
+
+        u.getLista().remove(partida);
+        pSer.deletePartidaById(partida_id); 
+        uSer.save(u);
+        
+        model.addAttribute("userLogged", u);
+        model.addAttribute("hasImage", u.getImage());
+        model.addAttribute("listGames", u.getLista());
+        return "profile";
+    }
+
 
 }
