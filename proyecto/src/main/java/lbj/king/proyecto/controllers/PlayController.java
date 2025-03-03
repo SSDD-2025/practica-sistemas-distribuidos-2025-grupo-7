@@ -249,8 +249,7 @@ public class PlayController {
         }
 
         int x=(int)session.getAttribute("nRule");
-        //int nr = (int) (Math.random() * 35);
-        int nr=1;
+        int nr = (int) (Math.random() * 35);
         System.out.println(x);
         Partida p=(Partida) session.getAttribute("pActual");
 
@@ -265,6 +264,7 @@ public class PlayController {
             
         }
 
+        session.setAttribute("user", u);
         gameSer.findByName("Ruleta").addPlay(p);
         model.addAttribute("userLogged", session.getAttribute("user"));
         model.addAttribute("postRule", "true");
