@@ -18,6 +18,7 @@ import lbj.king.proyecto.repositories.GameRepository;
 import lbj.king.proyecto.repositories.PlayRepository;
 import lbj.king.proyecto.repositories.UserRepository;
 import lbj.king.proyecto.services.GameService;
+import lbj.king.proyecto.services.PlayService;
 import lbj.king.proyecto.services.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class PlayController {
     
     @Autowired
-    private PlayRepository playRep;
+    private PlayService playSer;
     @Autowired
     private UserService uSer;
     @Autowired
@@ -58,7 +59,7 @@ public class PlayController {
         if(u.getCurrency()>=apuesta && g!=null){
             Partida p1= new Partida(apuesta,u,g);
             p1.setWin(p1.getBet()*gameSer.findByName("Dados").getWinMultp());
-            playRep.save(p1);
+            playSer.save(p1);
             g.addPlay(p1);
             u.addGame(p1);
             u.setCurrency(u.getCurrency()-apuesta);
@@ -156,7 +157,7 @@ public class PlayController {
             u.setCurrency(u.getCurrency()+p.getBet()*gameSer.findByName("Dados").getWinMultp());
             p.won();
 
-            playRep.save(p);
+            playSer.save(p);
             uSer.save(u);
             session.setAttribute("user", u);
         }
@@ -209,7 +210,7 @@ public class PlayController {
 
             Partida miPartida = new Partida(apuesta,u,j);
             miPartida.setWin(miPartida.getBet()*gameSer.findByName("Dados").getWinMultp());
-            playRep.save(miPartida);
+            playSer.save(miPartida);
             session.setAttribute("pActual", miPartida);
             u.addGame(miPartida);
             u.setCurrency(u.getCurrency()-apuesta);
@@ -259,7 +260,7 @@ public class PlayController {
             u.setCurrency(u.getCurrency()+p.getBet()*gameSer.findByName("Ruleta").getWinMultp());
             p.won();
 
-            playRep.save(p);
+            playSer.save(p);
             uSer.save(u);
             
         }

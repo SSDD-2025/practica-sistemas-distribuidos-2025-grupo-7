@@ -44,8 +44,6 @@ public class UserController {
 
     @Autowired
     private UserService uSer;
-    @Autowired
-    private UserRepository rep;
 
     @Autowired
     private PlayService pSer;
@@ -121,7 +119,7 @@ public class UserController {
 
     @GetMapping("/users")
     public String getUsers(Model model) {
-        model.addAttribute("usuarios", rep.findAll());
+        model.addAttribute("usuarios", uSer.findAll());
         return "usuarios";
     }
     
@@ -133,7 +131,7 @@ public class UserController {
             Usuario u = (Usuario)session.getAttribute("user");
             model.addAttribute("userLogged", u);
             u.setCurrency(u.getCurrency()+money);
-            rep.save(u);
+            uSer.save(u);
 
             model.addAttribute("hasImage", u.getImage());
 
@@ -162,7 +160,6 @@ public class UserController {
         Blob imag = new SerialBlob(image.getBytes());
         u.setImage(imag);
         uSer.save(u);
-        rep.save(u);
         model.addAttribute("userLogged", u);
         model.addAttribute("hasImage", u.getImage());
         return "redirect:/profile";
@@ -196,31 +193,18 @@ public class UserController {
 
         if(u != null && u.getImage() != null){
             Blob imag = u.getImage();
-            /*model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());*/
             InputStreamResource file = new InputStreamResource(imag.getBinaryStream());
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").contentLength(imag.length()).body(file);
         } else {
 			return ResponseEntity.notFound().build();
 		}
 	}
-    
-    /*@PostMapping("/deleteUser")
-    public String deleteUser(Model model, HttpSession session) {
-        Usuario u = (Usuario) session.getAttribute("user");
-        if (u != null) {
-            pSer.deletePartidasByUsuarioId(u.getId()); // Elimina las partidas del usuario
-            uSer.deleteUserById(u.getId()); // Elimina el usuario
-            session.invalidate();
-        }
-        return "redirect:/";
-    }*/
     @PostMapping("/deleteUser")
     public String deleteUser(Model model, HttpSession session) {
         Usuario u = (Usuario) session.getAttribute("user");
         if (u != null) {
-            uSer.deleteUserById(u.getId()); // Llama al método del servicio
-            session.invalidate(); // Invalida la sesión
+            uSer.deleteUserById(u.getId());
+            session.invalidate();
         }
         return "redirect:/";
     }
@@ -230,7 +214,7 @@ public class UserController {
     public String deleteGames(Model model, HttpSession session) {
         Usuario u = (Usuario) session.getAttribute("user");
         if (u != null) {
-            pSer.deletePartidasByUsuarioId(u.getId()); // Elimina las partidas del usuario
+            pSer.deletePartidasByUsuarioId(u.getId());
         }
         u.getLista().clear();
         model.addAttribute("userLogged", u);

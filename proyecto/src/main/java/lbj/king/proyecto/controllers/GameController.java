@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lbj.king.proyecto.model.Juegos;
 import lbj.king.proyecto.model.Usuario;
 import lbj.king.proyecto.repositories.GameRepository;
+import lbj.king.proyecto.services.GameService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GameController {
     
     @Autowired
-    private GameRepository gameRep;   
+    private GameService gameSer;   
 
     @GetMapping("/game")
     public String getMethodName(@RequestParam String param) {

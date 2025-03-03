@@ -53,6 +53,9 @@ public class UserService {
 		}
 		this.save(u);
 	}
+    public List<Usuario> findAll(){
+        return userRep.findAll();
+    }
 
 
     @Transactional
