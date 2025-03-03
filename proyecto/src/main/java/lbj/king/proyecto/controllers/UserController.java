@@ -8,7 +8,6 @@ import java.util.*;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.tomcat.util.file.ConfigurationSource.Resource;
-import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;

@@ -36,7 +36,7 @@ public class Usuario {
     @OneToMany(mappedBy = "owner")
     private List<Premio> premios;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Partida> lista;
 
     protected Usuario() {}
