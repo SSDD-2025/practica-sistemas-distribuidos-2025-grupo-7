@@ -158,6 +158,7 @@ public class PlayController {
 
             playRep.save(p);
             uSer.save(u);
+            session.setAttribute("user", u);
         }
 
         gameSer.findByName("Dados").addPlay(p);
@@ -248,7 +249,8 @@ public class PlayController {
         }
 
         int x=(int)session.getAttribute("nRule");
-        int nr = (int) (Math.random() * 35);
+        //int nr = (int) (Math.random() * 35);
+        int nr=1;
         System.out.println(x);
         Partida p=(Partida) session.getAttribute("pActual");
 
