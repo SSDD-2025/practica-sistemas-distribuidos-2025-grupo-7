@@ -13,7 +13,7 @@ public class Partida {
     private boolean won=false;
     
     @Id 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
     @ManyToOne
