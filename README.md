@@ -142,6 +142,13 @@ Todas estas capturas de pantalla muestran la interfaz las interfaces principales
 ## Participación
 
 ### Raúl Sánchez Benítez
+- **Descripción textual de las tareas realizadas en la práctica:**
+
+    Al principio de la practica, me centré en buscar código de la ruleta y la máquina de slots que pudisemos adaptar para nuestra aplicación. Tras probar que funcionaban y que se pueden adaptar, decidí centrarme en la implementación de la entidad `Prize.java` al completo. 
+    
+    Primero, hice los botones y la ventana de `prizes.html`. Luego hice el `PrizeRepository.java` y me aseguré de que se visualizaba todo bien en la bbdd para poder hacer el `PrizeService.java` e inicializar premios por defecto con los que trabajar. Finalmente estuve trabajando en la funcionalidad de adquirir un premio, siempre que no lo haya adquirido otro usuario antes, y que se viera reflejado que usuario lo habia adquirido.
+
+    Por ultimo, me centré en implementar la funcionalidad de borrar las partidas del historial individualmente. Ya teniamos la de borrar todo el historial entero, pero hacia falta tambien que pudieras borrar las que tu quisieras.
 - **5 commits más significativos:**
   1. [Borrar partidas individualmente](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/a1877be2a3e240b32278f8dc8dafefcacc76efab)
   2. [Premios bbdd](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/d8297de278d8acf60647008c870c72c1b72a0b19)
