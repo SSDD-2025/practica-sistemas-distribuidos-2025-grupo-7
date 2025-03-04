@@ -30,8 +30,10 @@ public class PremiosController {
         Usuario user = (Usuario) session.getAttribute("user");
         List<Premio> premios = premioSer.getPremios();
         model.addAttribute("premios", premios);
-        model.addAttribute("userLogged", user);
-        model.addAttribute("hasImage", user.getImage());
+        if(user != null){
+            model.addAttribute("userLogged", user);
+            model.addAttribute("hasImage", user.getImage());
+        }
         return "premios";
     }
 
