@@ -187,6 +187,7 @@ Todas estas capturas de pantalla muestran la interfaz las interfaces principales
 
 ### Héctor González Viñas
 - **Descripción textual de las tareas realizadas en la práctica:**
+  
 En esta práctica empecé creando el código html y css básico que engloba cada página además del código en javaScript usado para las redirecciones. Después enlace las páginas de login y registro con la página principal y el uso del HttpSession para distinguir que usuario ha iniciado sesión.
 
 Después me centré en el PlayController en el que se crean partidas para los dados y ruleta eligiendo el número y el dinero para apostar con otra redirección para procesar la apuesta en la que se generarán los números aleatorios que se compararán con el número introducido por el usuario y actuar en consecuencia de si se ha acertado o no con las plantillas de mustache.También hice algunas de las relacciones entre entidades y comprobaciones de los datos de entrada del login, registro y juegos.
@@ -198,11 +199,11 @@ Después me centré en el PlayController en el que se crean partidas para los da
   4. [Conexión entre usuario y ruleta para comprobar victoria](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/ea9d2dc7b1ab49dc26cfea5739158ac431bbb27b)
   5. [bbdd juegos](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/6fd5d45e988710f7cae643e205364b3eea1c2d3b)
 - **5 ficheros en los que se ha participado:**
-  1. `fichero1.java`
-  2. `fichero2.java`
-  3. `fichero3.java`
-  4. `fichero4.java`
-  5. `fichero5.java`
+  1. `UserController.java`
+  2. `main.html`
+  3. `PlayController.java`
+  4. `GameController.java`
+  5. `dice.html`
 
 ## Instrucciones de Ejecución
 
