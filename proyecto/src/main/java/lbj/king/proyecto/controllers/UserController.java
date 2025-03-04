@@ -197,12 +197,11 @@ public class UserController {
         Userr u = (Userr) session.getAttribute("user");
         if (u != null) {
             pSer.deletePartidasByUsuarioId(u.getId());
-            u.getLista().clear();
         }
         model.addAttribute("userLogged", u);
         model.addAttribute("hasImage", u.getImage());
         model.addAttribute("listGames", u.getLista());
-        return "redirect:/";
+        return "redirect:/profile";
     }    
 
     @PostMapping("/game/{partida_id}/delete")
