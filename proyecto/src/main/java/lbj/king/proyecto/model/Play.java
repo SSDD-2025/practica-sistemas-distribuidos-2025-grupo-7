@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 
 
 @Entity
-public class Partida {
+public class Play {
     private float bet;
     private float win;
     private boolean won=false;
@@ -17,15 +17,15 @@ public class Partida {
     private long id;
     
     @ManyToOne
-    private Usuario user;
+    private Userr user;
     @ManyToOne
-    private Juegos game;
+    private Game game;
 
-    public Partida(){
+    public Play(){
 
     }
 
-    public Partida(float bet, Usuario u,Juegos j){
+    public Play(float bet, Userr u,Game j){
         this.bet=bet;
         this.user=u;
         this.game=j;

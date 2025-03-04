@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Premio {
+public class Prize {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,10 +18,10 @@ public class Premio {
     private Boolean owned = false;
 
     @ManyToOne
-    private Usuario owner;
+    private Userr owner;
 
-    protected Premio(){}
-    public Premio(String name, Integer price){
+    protected Prize(){}
+    public Prize(String name, Integer price){
         this.name=name;
         this.price=price;
     }
@@ -44,10 +44,10 @@ public class Premio {
     public void setOwned(Boolean owned) {
         this.owned = owned;
     }
-    public Usuario getOwner() {
+    public Userr getOwner() {
         return owner;
     }
-    public void setOwner(Usuario owner) {
+    public void setOwner(Userr owner) {
         this.owner = owner;
     }
     

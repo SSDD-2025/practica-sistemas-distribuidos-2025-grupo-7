@@ -58,18 +58,3 @@ function getDiceFace(x, y) {
     document.getElementById("currentFace").innerHTML = currentFace;
 });*/
 
-/*function activarDado(){
-    const randomX = 1*90;
-    const randomY = 1*90;
-
-    currentX += randomX;
-    currentY += randomY;
-
-    dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
-
-    // Calcular la cara superior correcta
-    currentFace = getDiceFace(currentX, currentY);
-
-    // Mostrar el resultado en pantalla
-    document.getElementById("currentFace").innerHTML = currentFace;
-}*/

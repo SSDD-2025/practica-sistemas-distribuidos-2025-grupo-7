@@ -18,7 +18,7 @@
                 <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
                 
             </div>
-            {{>sueldo}}
+            {{>balance}}
             <p style="text-align: center;color: purple; font-size: 40px;">GIRA LA RULETA JAMES Y GANA MILLONES</p>
 
             <div class="container">
@@ -50,12 +50,12 @@
                     <button onclick="redirigir_apuestaRule()">GIRAAAAA</button>
                     {{/playingGame}}
                     {{^playingGame}}
-                    <form  id="ruletaForm"   method="post" action="/procesarPartidaRule">
+                    <form  id="ruletaForm"   method="post" action="/roulettePlayProcess">
                         <p>Dinero a apostar:</p>
-                        <input type="number" step="0.5" name="apuesta" placeholder="Ingresa un número">
+                        <input type="number" step="0.5" name="bet" placeholder="Ingresa un número">
                         <br>
                         <p>Numero elegido:</p>
-                        <input type="number" name="numElegido" placeholder="Ingresa un número">
+                        <input type="number" name="selectedNumber" placeholder="Ingresa un número">
                         <br>
                         <input type="submit" value="Apostar">
                     </form>
@@ -64,17 +64,19 @@
                 </div>
                 {{/postRule}}
                 <div class="resultado">
-                    {{#saldoInsuficiente}}
+                    {{#insufficientBalance}}
                     <p style="color: red;">Saldo insuficiente</p>
-                    {{/saldoInsuficiente}}
+                    {{/insufficientBalance}}
                 </div>
                 
             </div>
+            {{#userLogged}}
             <div onclick="redirigir_historialR()" id="boton-ini">Historial</div>
+            {{/userLogged}}
         </div>
     </div>
     <script src="/js/rule.js"></script>
-    <script src="/js/inicio.js"></script>
+    <script src="/js/redirections.js"></script>
 </body>
 
 </html>

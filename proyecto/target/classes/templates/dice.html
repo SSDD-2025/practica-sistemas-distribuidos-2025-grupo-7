@@ -16,7 +16,7 @@
         <div onclick="redirigir_perfil()" id="boton-ini">Perfil</div>
         <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
       </div>
-      {{>sueldo}}
+      {{>balance}}
       <div class="scene" style="margin: auto;margin-top: 250px;">
         <div class="cube" id="dice">
           <div class="face front">1</div>
@@ -44,14 +44,11 @@
 
                 // Mostrar el resultado en pantalla
                 document.getElementById("currentFace").innerHTML = currentFace;
-                        }
+            }
           </script>
           <script>
             window.onload=function(){
               activarDado({{n1}},{{n2}});
-            }
-            function redirigir_volverApostar(){
-              window.location.href="/redirigir_volverApostarDado"
             }
           </script>
           <p style="color: white;text-align: center; margin-top: 100px;">ENHORABUENAAAAAA!!!</p>
@@ -59,27 +56,26 @@
           <div onclick="redirigir_volverApostar()" style="color: white;width: 100px; height: 40px; border:  1px solid purple;">Volver a apostar</div>
         {{/victory}}
         {{^victory}}
+        <script>
+          function activarDado(n1,n2){
+              const randomX = n1*90;
+              const randomY = n2*90;
+
+              currentX += randomX;
+              currentY += randomY;
+
+              dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+
+              // Calculate correct face of dice
+              currentFace = getDiceFace(currentX, currentY);
+
+              // Show result
+              document.getElementById("currentFace").innerHTML = currentFace;
+          }
+        </script>
           <script>
-              function activarDado(n1,n2){
-                const randomX = n1*90;
-                const randomY = n2*90;
-
-                currentX += randomX;
-                currentY += randomY;
-
-                dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
-
-                // Calcular la cara superior correcta
-                currentFace = getDiceFace(currentX, currentY);
-
-                // Mostrar el resultado en pantalla
-                document.getElementById("currentFace").innerHTML = currentFace;
-              }
             window.onload=function(){
               activarDado({{n1}},{{n2}});
-            }
-            function redirigir_volverApostar(){
-              window.location.href="/redirigir_volverApostarDado"
             }
           </script>
           <p style="color: white;text-align: center; margin-top: 100px;">Perdiste mi pequeño lebron</p>
@@ -94,25 +90,19 @@
             <p>Partida Creada, gire para jugar</p>
             <p>Si el dado corre de tu suerte obtendras {{partidaCreada.win}}$</p>
             <p>Número elegido: {{nDado}}</p>
-            <script>
-              function redirigir_partidaDado(){
-                window.location.href="/procesarApuestaDado";
-              }
-              
-            </script>
-            <div onclick="redirigir_partidaDado()" style="width: 100px; height: 80px; border: 1px solid purple;">Tirar dado</div>
+            <div onclick="redirigir_apuestaDado()" style="width: 100px; height: 80px; border: 1px solid purple;">Tirar dado</div>
             <p style="padding: left 1000px;" id="currentFace"></p>
           </div>        
           <p style="padding: left 1000px;" id="currentFace"></p>
           {{/partidaCreada}}
           {{^partidaCreada}}
           <div style="color: white;display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
-            <form action="/procesarPartidaDado" method="post" >
+            <form action="/dicePlayProcess" method="post" >
               <p>Dinero a apostar</p>
-              <input type="number" step="0.5" name="apuesta">
+              <input type="number" step="0.5" name="bet">
               <br>
               <p>Número del dado</p>
-              <input type="number" name="nDado" id="inputDado">
+              <input type="number" name="diceNumber" id="inputDado">
               <br>
               <input type="submit" value="Apostar" style="margin-top: 10px;">
             </form>
@@ -123,12 +113,14 @@
           {{/partidaCreada}}
         {{/userLogged}}
       {{/playingGame}}
+      {{#userLogged}}
       <div onclick="redirigir_historialD()" id="boton-ini">Historial</div>
+      {{/userLogged}}
       <script src="/js/dados.js"></script>
 
       
     </div>
   </div>
-  <script src="/js/inicio.js"></script>
+  <script src="/js/redirections.js"></script>
 </body>
 </html>

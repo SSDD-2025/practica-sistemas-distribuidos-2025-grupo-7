@@ -1,0 +1,10 @@
+<html>
+    <div id="balance" style="margin: 200px;margin-left: 550px; height: 300px;width: 400px;text-align: center; border: 1px solid purple; background-color: rgb(143, 143, 140); display: none;position: fixed; z-index: 9999;">
+        <div onclick="cerrar()" style="background-color: red; color: azure; height: 30px; width: 40px;">x</div>
+        <form action="/balanceProcess" method="post" style="margin-top: 50px;">
+            <p>Dinero a añadir</p>
+            <input type="number" name="money" step="0.01">
+            <input type="submit" value="Añadir">
+        </form>
+    </div>
+</html>
