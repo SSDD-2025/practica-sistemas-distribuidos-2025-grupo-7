@@ -186,12 +186,17 @@ Todas estas capturas de pantalla muestran la interfaz las interfaces principales
   5. `UserService.java`
 
 ### Héctor González Viñas
+- **Descripción textual de las tareas realizadas en la práctica:**
+En esta práctica empecé creando el código html y css básico que engloba cada página además del código en javaScript usado para las redirecciones. Después enlace las páginas de login y registro con la página principal y el uso del HttpSession para distinguir que usuario ha iniciado sesión.
+
+Después me centré en el PlayController en el que se crean partidas para los dados y ruleta eligiendo el número y el dinero para apostar con otra redirección para procesar la apuesta en la que se generarán los números aleatorios que se compararán con el número introducido por el usuario y actuar en consecuencia de si se ha acertado o no con las plantillas de mustache.También hice algunas de las relacciones entre entidades y comprobaciones de los datos de entrada del login, registro y juegos.
+
 - **5 commits más significativos:**
-  1. [Commit 1](enlace_al_commit)
-  2. [Commit 2](enlace_al_commit)
-  3. [Commit 3](enlace_al_commit)
-  4. [Commit 4](enlace_al_commit)
-  5. [Commit 5](enlace_al_commit)
+  1. [Creación proyecto y html global](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/c593af9370ff2a99745b5e160401b5944b4f8b48)
+  2. [Conexión entre usuario y dados para comprobar victoria](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/f3ca6de8697152f7107e8396bc18bf7e98bfb9af)
+  3. [Base de datos de las partidas y relacciones ](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/da7fc94c9794862afbccebb1ddca508e1e278e6c)
+  4. [Conexión entre usuario y ruleta para comprobar victoria](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/ea9d2dc7b1ab49dc26cfea5739158ac431bbb27b)
+  5. [bbdd juegos](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/6fd5d45e988710f7cae643e205364b3eea1c2d3b)
 - **5 ficheros en los que se ha participado:**
   1. `fichero1.java`
   2. `fichero2.java`
