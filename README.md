@@ -81,32 +81,63 @@ A continuación, se presenta un breve resumen de las entidades y las relaciones 
 
 ### Diagrama de Entidad-Relación
 ![Diagrama ERD](/Diagrams/relational%20diagram.png)
-
-Este diagrama muestra las relaciones entre las entidades principales del sistema: `User`, `Play`, `Game`, y `Prize`.
+  Este diagrama muestra las relaciones entre las entidades principales del sistema: `User`, `Play`, `Game`, y `Prize`.
 
 ### Diagrama de Navegación
 ![Diagrama de Navegación](/Diagrams/navigationDiagram.png)
-Este diagrama ilustra la estructura de navegación de la aplicación, mostrando cómo los usuarios pueden moverse entre las diferentes secciones del casino, como los juegos, los premios y su perfil, todo esto desde el inicio, ya que le hemos dado un enfoque para que principalmente se tenga que acceder al menú principal para reañizar las acciones. Cabe destacar, que las barras de la izquierda y de arriba, se mantienen en las pantallas de los juegos, los premios y perfil.
+
+  Este diagrama ilustra la estructura de navegación de la aplicación, mostrando cómo los usuarios pueden moverse entre las diferentes secciones del casino, como los juegos, los premios y su perfil, todo esto desde el inicio, ya que le hemos dado un enfoque para que principalmente se tenga que acceder al menú principal para reañizar las acciones. Cabe destacar, que las barras de la izquierda y de arriba, se mantienen en las pantallas de los juegos, los premios y perfil.
 
 ### Diagrama de Clases
 ![Diagrama de Clases](/Diagrams/template%20Diagram.jpg)
-El diagrama de clases representa la estructura de las clases en el código, incluyendo sus atributos, métodos y relaciones. Este diagrama es útil para entender la arquitectura del software.
+
+  El diagrama de clases representa la estructura de las clases en el código, incluyendo sus atributos, métodos y relaciones. Este diagrama es útil para entender la arquitectura del software.
 
 ## Capturas de Pantalla
 ![Captura de Pantalla 1](/Diagrams/Screenshots/main.png)
-Esta es la pantalla principal, desde la que se accede a la gran mayoria de funcionalidades. Tenemos botones que nos llevan a los juegos que indican, los botones para iniciar sesion y para registrarse, y una vez iniciado sesion, aparece un boton para cerrar sesion.
-![Captura de Pantalla 2](/Diagrams/Screenshots/register.png)
-![Captura de Pantalla 3](/Diagrams/Screenshots/login.png)
-Este es el login
-![Captura de Pantalla 4](/Diagrams/Screenshots/logout.png)
-Este es el logout
+
+  Esta es la pantalla principal, desde la que se accede a la gran mayoria de funcionalidades. Tenemos botones que nos llevan a los juegos que indican, los botones para iniciar sesion y para registrarse(arriba a la derecha), y una vez iniciado sesion, aparece un boton para cerrar sesion. Además, una vez has iniciado sesión, puedes añadir dinero con un boton en la parte izquierda de la pantalla:
+![Captura de Pantalla 2](/Diagrams/Screenshots/main_Session.png)
+  En esta fotografía se muestra como es el menú de inicio al haber iniciado sesión.
+
+![Captura de Pantalla 3](/Diagrams/Screenshots/register.png)
+
+  Aqui se muestra la pantalla de registro.
+
+![Captura de Pantalla 4](/Diagrams/Screenshots/login.png)
+
+  Aqui se muestra la pantalla de login o inicio de sesión.
+
+![Captura de Pantalla 5](/Diagrams/Screenshots/logout.png)
+
+  Aqui se muestra la pantalla de cerrar sesión.
+
 ![Captura de Pantalla 5](/Diagrams/Screenshots/prizes.png)
+
+  Aqui se muestra la pantalla de premios, debajo de los premios hay un botón de comprar, pero cuando se ha comprado ese premio, se cambia por el nombre del usuario que lo tiene.
+
 ![Captura de Pantalla 6](/Diagrams/Screenshots/roulette.png)
+
+  Aqui se muestra la pantalla del primero de nuestros juegos, la ruleta, puedes ingresar el dinero a apostar y el numero que apuestas que va a salir, además, abajo a la izquierda hay un botón que te lleva al historial de las partidas de la ruleta.
+
 ![Captura de Pantalla 7](/Diagrams/Screenshots/dice.png)
+
+  Aqui se muestra la pantalla del segundo de nuestros juegos, los dados, puedes ingresar el dinero a apostar y el numero que apuestas que va a salir, abajo a la izquierda, vuelve a aparecer el botón del historial, pero esta vez te muestra el de los dados.
+
 ![Captura de Pantalla 10](/Diagrams/Screenshots/slot.png)
+
+  Aqui se muestra la pantalla del tercer juego, la tragaperras, esta carece de utilidad, ya que por falta de tiempo no ha sido posible hacerla funcional, pero puedes girarla de forma gratuita y divertirte viendo como gira.
+
 ![Captura de Pantalla 8](/Diagrams/Screenshots/error.png)
+
+  Esta es nuestra pantalla de error, asi cuando te de un error verás a LeBron triste y sabrás que hasta los más grandes cometen errores.
+
 ![Captura de Pantalla 9](/Diagrams/Screenshots/profile.png)
-Estas capturas de pantalla muestran la interfaz de usuario de la aplicación, incluyendo la página de inicio, los juegos disponibles y la sección de premios.
+
+  En esta captura, se muestra la pagina de perfil, en la que puedes ver tu nombre, saldo, cambiar tu foto de perfil, además de tu historial. El historial le puedes borrar entero para que nadie sepa que eres un ludópata, o puedes borrar las partidas de forma individual, así como borrar tu cuenta.
+
+
+Todas estas capturas de pantalla muestran la interfaz las interfaces principales de la web, pero tenemos algunas más que no son tan destacables.
 
 ## Participación
 
@@ -125,18 +156,27 @@ Estas capturas de pantalla muestran la interfaz de usuario de la aplicación, in
   5. `fichero5.java`
 
 ### Andrés Muñoz Muñoz
+- **Descripción textual de las tareas realizadas en la práctica:**
+
+  Para esta práctica, empecé ocupándome de buscar y adaptar el código de la ruleta y los dados para que funcionase en nuestra aplicación. Estos códigos los conseguí de distintas páginas web, y les realicé diversas modificaciones para que cumpliesen con lo que buscábamos. Para ello, tenían código `.html`, `.css` y `.js`, pero al ir desarrollando la web, nos enfrentamos al problema de que si generábamos un número aleatorio para el resultado en un archivo `.js`, no sabíamos cómo pasarlo a los controladores para que estos determinasen, mediante una comparación, si habíamos acertado. 
+
+  Después de esto, hice la ventana de `profile.html`, con los métodos necesarios para que funcionase de la manera esperada. Lo más destacable de esto es la posibilidad de añadir fotografías usando la base de datos, así como de poder borrar al usuario o sus partidas. Al realizar esto, tuve que subsanar unos errores en la forma en la que se generaba la base de datos y las relaciones de las tablas. 
+
+  Además, me ocupé de la migración de H2 a MySQL y de la realización de diversos cambios para subsanar errores que afectaban a la funcionalidad de la web, como por ejemplo quitar el acceso a los repositorios desde los controladores.
+
+
 - **5 commits más significativos:**
-  1. [Commit 1](enlace_al_commit)
-  2. [Commit 2](enlace_al_commit)
-  3. [Commit 3](enlace_al_commit)
-  4. [Commit 4](enlace_al_commit)
-  5. [Commit 5](enlace_al_commit)
+  1. [Creación de ventana de perfil](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/1eba7481c57ec44ea5512d0e4e98d1e1be36cdeb)
+  2. [Arreglo de repositorios y servicios(creación de servicios)](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/41cfab590c10956810f049a0fd8e024993423eeb)
+  3. [Añadir fotos de usuario a la bbdd](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/5380878df7208bc1c325dbd9fea7ead447a3b3a8)
+  4. [Borrar usuario y partidas de la bbdd](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/5155a422e52e3159b0ae131acae75a00359ab01c)
+  5. [Migración a MySQL](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/d7f7eaed0b65d9d29f953f926b076d3732817846)
 - **5 ficheros en los que se ha participado:**
-  1. `fichero1.java`
-  2. `fichero2.java`
-  3. `fichero3.java`
-  4. `fichero4.java`
-  5. `fichero5.java`
+  1. `UserController.java`
+  2. `profile.html`
+  3. `error.html`
+  4. `PlaySErvice.java`
+  5. `UserService.java`
 
 ### Héctor González Viñas
 - **5 commits más significativos:**
