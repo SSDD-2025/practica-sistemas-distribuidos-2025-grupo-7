@@ -143,17 +143,17 @@ Todas estas capturas de pantalla muestran la interfaz las interfaces principales
 
 ### Raúl Sánchez Benítez
 - **5 commits más significativos:**
-  1. [Commit 1](enlace_al_commit)
-  2. [Commit 2](enlace_al_commit)
-  3. [Commit 3](enlace_al_commit)
-  4. [Commit 4](enlace_al_commit)
-  5. [Commit 5](enlace_al_commit)
+  1. [Borrar partidas individualmente](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/a1877be2a3e240b32278f8dc8dafefcacc76efab)
+  2. [Premios bbdd](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/d8297de278d8acf60647008c870c72c1b72a0b19)
+  3. [Ventana de premios](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/d7cf54a7788f3bb9dd670565c5c7b1dbb495d048)
+  4. [Creacion servicio de premios](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/d9e4732f4e6265373bac155779733375f0aac0e2)
+  5. [Añadir funcionalidad de comparar premios](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/b477732c4a1562260c713f023c0cb976541c1da5)
 - **5 ficheros en los que se ha participado:**
-  1. `fichero1.java`
-  2. `fichero2.java`
-  3. `fichero3.java`
-  4. `fichero4.java`
-  5. `fichero5.java`
+  1. `UserController.java`
+  2. `Prize.java`
+  3. `PrizeController.java`
+  4. `PrizeService.java`
+  5. `prize.html`
 
 ### Andrés Muñoz Muñoz
 - **Descripción textual de las tareas realizadas en la práctica:**
@@ -175,7 +175,7 @@ Todas estas capturas de pantalla muestran la interfaz las interfaces principales
   1. `UserController.java`
   2. `profile.html`
   3. `error.html`
-  4. `PlaySErvice.java`
+  4. `PlayService.java`
   5. `UserService.java`
 
 ### Héctor González Viñas
