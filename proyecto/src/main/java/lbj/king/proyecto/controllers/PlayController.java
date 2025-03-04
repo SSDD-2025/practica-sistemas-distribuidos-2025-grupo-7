@@ -189,7 +189,8 @@ public class PlayController {
         if(u.getCurrency() >= apuesta){
 
             Partida miPartida = new Partida(apuesta,u,j);
-            miPartida.setWin(miPartida.getBet()*gameSer.findByName("Dados").getWinMultp());
+            miPartida.setWin(miPartida.getBet()*gameSer.findByName("Ruleta").getWinMultp());
+
             playSer.save(miPartida);
             u.addGame(miPartida);
             u.setCurrency(u.getCurrency()-apuesta);
