@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/inicio.css">
+    <title>Historial Juego</title>
+</head>
+<body>
+    <div style="display: flex;">
+        {{>barraIzq}}
+        <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
+        <div class="container-main" style="height: 911px;">
+            <div class="barra-arriba" style="display: flex;justify-content: end;">
+                <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
+            </div>
+            {{>sueldo}}
+            <div style="display: flex; justify-content: space-between;">
+                <div style="width: 48%; justify-content: center;">
+                    <h1 style="color: yellow;">Historial de Partidas</h1>
+                    <table border="1" style="width: 48%; color: purple; font-size: 22px; border-color: yellow;">
+                        <tr>
+                            <th>Jugador</th>
+                            <th>Apostado</th>
+                            <th>A ganar</th>
+                            <th>¿Ganó?</th>
+                            
+                        </tr>
+                        {{#listGames}}
+                        <tr>
+                            <td>{{user.name}}</td>
+                            <td>{{bet}}</td>
+                            <td>{{win}}</td>
+                            <td>{{#won}}Ganada{{/won}}{{^won}}Perdida{{/won}}</td>
+                            
+                        </tr>
+                        {{/listGames}}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/inicio.js"></script>
+</body>
+
+</html>

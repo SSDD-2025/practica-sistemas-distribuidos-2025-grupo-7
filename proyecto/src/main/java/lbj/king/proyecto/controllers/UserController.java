@@ -1,17 +1,10 @@
 package lbj.king.proyecto.controllers;
-
-import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.*;
-
 import javax.sql.rowset.serial.SerialBlob;
-
-import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,20 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import lbj.king.proyecto.model.Partida;
 import lbj.king.proyecto.model.Usuario;
-import lbj.king.proyecto.repositories.PlayRepository;
-import lbj.king.proyecto.repositories.UserRepository;
-import lbj.king.proyecto.services.GameService;
 import lbj.king.proyecto.services.PlayService;
 import lbj.king.proyecto.services.UserService;
-
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -214,8 +199,8 @@ public class UserController {
         Usuario u = (Usuario) session.getAttribute("user");
         if (u != null) {
             pSer.deletePartidasByUsuarioId(u.getId());
+            u.getLista().clear();
         }
-        u.getLista().clear();
         model.addAttribute("userLogged", u);
         model.addAttribute("hasImage", u.getImage());
         model.addAttribute("listGames", u.getLista());

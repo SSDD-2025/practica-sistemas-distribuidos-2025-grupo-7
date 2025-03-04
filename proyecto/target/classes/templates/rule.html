@@ -16,6 +16,7 @@
             <div class="barra-arriba" style="display: flex;justify-content: end;">
                 <div onclick="redirigir_perfil()" id="boton-ini">Perfil</div>
                 <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
+                
             </div>
             {{>sueldo}}
             <p style="text-align: center;color: purple; font-size: 40px;">GIRA LA RULETA JAMES Y GANA MILLONES</p>
@@ -67,8 +68,9 @@
                     <p style="color: red;">Saldo insuficiente</p>
                     {{/saldoInsuficiente}}
                 </div>
+                
             </div>
-            
+            <div onclick="redirigir_historialR()" id="boton-ini">Historial</div>
         </div>
     </div>
     <script src="/js/rule.js"></script>

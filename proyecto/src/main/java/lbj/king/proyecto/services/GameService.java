@@ -1,10 +1,13 @@
 package lbj.king.proyecto.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 import lbj.king.proyecto.model.Juegos;
+import lbj.king.proyecto.model.Partida;
 import lbj.king.proyecto.repositories.GameRepository;
 
 @Service

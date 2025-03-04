@@ -41,4 +41,10 @@ function redirigir_volverApostarRule(){
 function redirigir_perfil(){
     window.location.href="/profile"
 }
+function redirigir_historialR(){
+    window.location.href="/historialR"
+}
+function redirigir_historialD(){
+    window.location.href="/historialD"
+}
 

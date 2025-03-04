@@ -41,4 +41,7 @@ public class Juegos {
     public float getWinMultp(){
         return this.winMultp;
     }
+    public List<Partida> getList(){
+        return this.bets;
+    }
 }
