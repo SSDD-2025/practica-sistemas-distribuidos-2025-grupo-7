@@ -11,7 +11,5 @@ import java.util.List;
 
 public interface PlayRepository extends JpaRepository<Play,Long> {
     @Transactional
-    @Modifying
-    @Query("DELETE FROM Partida p WHERE p.user.id = :userId")
     void deleteByUserId(@Param("userId") Long userId);
 }
