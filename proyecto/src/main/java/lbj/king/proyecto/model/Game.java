@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Juegos {
+public class Game {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,14 +20,14 @@ public class Juegos {
     private float winMultp;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Partida> bets;
+    private List<Play> bets;
     
-    public Juegos(){
+    public Game(){
 
     }
-    public Juegos(String n,float wm){
+    public Game(String n,float wm){
         this.name=n;
-        this.bets=new ArrayList<Partida>();
+        this.bets=new ArrayList<Play>();
         this.winMultp=wm;
     }
 
@@ -35,13 +35,13 @@ public class Juegos {
         return id;
     }
 
-    public void addPlay(Partida p){
+    public void addPlay(Play p){
         this.bets.add(p);
     }
     public float getWinMultp(){
         return this.winMultp;
     }
-    public List<Partida> getList(){
+    public List<Play> getList(){
         return this.bets;
     }
 }

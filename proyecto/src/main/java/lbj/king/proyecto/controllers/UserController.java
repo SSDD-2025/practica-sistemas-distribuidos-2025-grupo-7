@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.servlet.http.HttpSession;
-import lbj.king.proyecto.model.Partida;
-import lbj.king.proyecto.model.Usuario;
+import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PlayService;
 import lbj.king.proyecto.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,12 +36,12 @@ public class UserController {
     /* Index without logged user */
     @GetMapping("/")
     public String getIndex(Model model, HttpSession session) {    
-        Usuario u=(Usuario)session.getAttribute("user");
+        Userr u=(Userr)session.getAttribute("user");
         if(u!=null){
             model.addAttribute("userLogged", u);
             model.addAttribute("hasImage", u.getImage() != null);
         }
-        return "inicio";
+        return "main";
     }
     
     @GetMapping("/register")
@@ -60,39 +60,37 @@ public class UserController {
     }
     
 
-    @PostMapping("/procesarRegistro")
+    @PostMapping("/registerProcess")
     public String procesarRegistro(@RequestParam String name,@RequestParam String psw,Model model) {      
-        
 
-        for(Usuario u : uSer.getUsuarios()){
+        for(Userr u : uSer.getUsuarios()){
             if(u.getName().equals(name)){
                 model.addAttribute("registered", "true");
                 return "register";
             }
         }
-
-        Usuario newUser = new Usuario( name, psw);
+        Userr newUser = new Userr( name, psw);
         uSer.save(newUser);
 
-        return "inicio";
+        return "main";
     }
 
     @GetMapping("/procesarLogout")
     public String getMethodName(HttpSession sesion) {
         sesion.invalidate();
-        return "inicio";
+        return "main";
     }
     
 
-    @PostMapping("/procesarLogin")
+    @PostMapping("/loginProcess")
     public String postMethodName(@RequestParam String name,@RequestParam String psw,Model model, HttpSession session) {
         
-        for(Usuario u:uSer.getUsuarios()){
+        for(Userr u:uSer.getUsuarios()){
             if(u.getName().equals(name)){
                 if(u.getPassword().equals(psw)){
                     session.setAttribute("user", u);
                     model.addAttribute("userLogged", u);
-                    return "inicio";                    
+                    return "main";                    
                 }                
             }          
         }
@@ -107,12 +105,12 @@ public class UserController {
         return "usuarios";
     }
     
-    @PostMapping("/procesarSaldo")
+    @PostMapping("/balanceProcess")
     public String postSaldo(@RequestParam float money, HttpSession session,Model model) {
         //TODO: process POST request
 
         if(money>0){
-            Usuario u = (Usuario)session.getAttribute("user");
+            Userr u = (Userr)session.getAttribute("user");
             model.addAttribute("userLogged", u);
             u.setCurrency(u.getCurrency()+money);
             uSer.save(u);
@@ -123,7 +121,7 @@ public class UserController {
         }else{
             model.addAttribute("dineroNegativo", "true");
 
-            Usuario u = (Usuario)session.getAttribute("user");
+            Userr u = (Userr)session.getAttribute("user");
             model.addAttribute("hasImage", u.getImage());
 
             return "redirect:/";
@@ -134,7 +132,7 @@ public class UserController {
     @PostMapping("/profile/saveImage")
     public String saveImage(Model model, @RequestParam("image") MultipartFile image, HttpSession session) throws Exception {
 
-        Usuario u = (Usuario) session.getAttribute("user");
+        Userr u = (Userr) session.getAttribute("user");
         if (u == null) {
             return "redirect:/login";
         }
@@ -151,13 +149,13 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
-        Usuario u = (Usuario)session.getAttribute("user");
+        Userr u = (Userr)session.getAttribute("user");
         
         if(u == null){
             return "login";
         }
         if(u != null){
-            Usuario aux = uSer.findById(u.getId()).get();
+            Userr aux = uSer.findById(u.getId()).get();
             model.addAttribute("userLogged", aux);
             model.addAttribute("hasImage", u.getImage());
             model.addAttribute("listGames", aux.getLista());
@@ -168,7 +166,7 @@ public class UserController {
 	@GetMapping("/profile/image")
 	public ResponseEntity<Object> downloadImage(HttpSession session, Model model) throws SQLException {
 
-        Usuario u = (Usuario)session.getAttribute("user");
+        Userr u = (Userr)session.getAttribute("user");
 
         if (u.getImage() == null) {
             System.out.println(" El usuario no tiene imagen.");
@@ -185,7 +183,7 @@ public class UserController {
 	}
     @PostMapping("/deleteUser")
     public String deleteUser(Model model, HttpSession session) {
-        Usuario u = (Usuario) session.getAttribute("user");
+        Userr u = (Userr) session.getAttribute("user");
         if (u != null) {
             uSer.deleteUserById(u.getId());
             session.invalidate();
@@ -196,7 +194,7 @@ public class UserController {
     
     @PostMapping("/deleteGames")
     public String deleteGames(Model model, HttpSession session) {
-        Usuario u = (Usuario) session.getAttribute("user");
+        Userr u = (Userr) session.getAttribute("user");
         if (u != null) {
             pSer.deletePartidasByUsuarioId(u.getId());
             u.getLista().clear();
@@ -209,9 +207,9 @@ public class UserController {
 
     @PostMapping("/game/{partida_id}/delete")
     public String deleteGame(Model model, @PathVariable long partida_id, HttpSession session) {
-        Usuario aux = (Usuario) session.getAttribute("user");
-        Usuario u = uSer.findById(aux.getId()).get();
-		Partida partida = pSer.findByName(partida_id).get();
+        Userr aux = (Userr) session.getAttribute("user");
+        Userr u = uSer.findById(aux.getId()).get();
+		Play partida = pSer.findByName(partida_id).get();
 
         u.getLista().remove(partida);
         pSer.deletePartidaById(partida_id); 

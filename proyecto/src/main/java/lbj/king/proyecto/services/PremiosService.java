@@ -1,16 +1,10 @@
 package lbj.king.proyecto.services;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import jakarta.annotation.PostConstruct;
-import lbj.king.proyecto.model.Premio;
+import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.repositories.PremiosRepository;
-import lbj.king.proyecto.repositories.UserRepository;
 
 @Service
 public class PremiosService {
@@ -20,24 +14,24 @@ public class PremiosService {
 
     @PostConstruct
     public void init() {
-        Premio p1 = new Premio("Rey de la Rule",1000);
-        Premio p2 = new Premio("Rey de la Tragaperras",2000);
+        Prize p1 = new Prize("Rey de la Rule",1000);
+        Prize p2 = new Prize("Rey de la Tragaperras",2000);
         premioRep.save(p1); 
         premioRep.save(p2);
     }
 
-    public List<Premio> getPremios() {
+    public List<Prize> getPremios() {
 
-        List<Premio> premios = this.premioRep.findAll();
+        List<Prize> premios = this.premioRep.findAll();
         return premios;
         
     }
 
-    public void save(Premio p) {
+    public void save(Prize p) {
         premioRep.save(p);
     }
 
-    public Premio findById(long id) {
+    public Prize findById(long id) {
         return premioRep.findPremioById(id);
     }
 }

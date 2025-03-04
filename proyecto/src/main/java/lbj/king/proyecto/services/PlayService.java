@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-import lbj.king.proyecto.model.Partida;
-import lbj.king.proyecto.model.Usuario;
+import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.repositories.PlayRepository;
 
 @Service
@@ -17,16 +16,16 @@ public class PlayService {
     @Autowired
     private PlayRepository playRep;
 
-    public List<Partida> getUsuarios(){
-        List<Partida> l = playRep.findAll();
+    public List<Play> getUsuarios(){
+        List<Play> l = playRep.findAll();
         return l;
     }
 
-    public void save(Partida p){
+    public void save(Play p){
         playRep.save(p);
     }
 
-    public Optional<Partida> findByName(long n){
+    public Optional<Play> findByName(long n){
         return playRep.findById(n);
     }
 

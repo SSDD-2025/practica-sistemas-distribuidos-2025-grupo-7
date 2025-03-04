@@ -5,33 +5,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import lbj.king.proyecto.model.Premio;
-import lbj.king.proyecto.model.Usuario;
+import lbj.king.proyecto.model.Prize;
+import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PremiosService;
 import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-public class PremiosController {
+public class PrizeController {
     @Autowired
     private PremiosService premioSer;
 
-    @GetMapping("/premios")
+    @GetMapping("/prizes")
     public String showPremios(Model model, HttpSession session) {
-        Usuario user = (Usuario) session.getAttribute("user");
-        List<Premio> premios = premioSer.getPremios();
+        Userr user = (Userr) session.getAttribute("user");
+        List<Prize> premios = premioSer.getPremios();
         model.addAttribute("premios", premios);
         if(user != null){
             model.addAttribute("userLogged", user);
             model.addAttribute("hasImage", user.getImage());
         }
-        return "premios";
+        return "prizes";
     }
 
-    @GetMapping("/premios/{id}")
+    @GetMapping("/prizes/{id}")
     public String comprarPremio(Model model,@PathVariable long id, HttpSession session) {
-        Usuario user = (Usuario) session.getAttribute("user");
-        Premio premio = premioSer.findById(id);
+        Userr user = (Userr) session.getAttribute("user");
+        Prize premio = premioSer.findById(id);
         if (user == null) {
             return "login";
         }else{
@@ -46,7 +46,7 @@ public class PremiosController {
         }
         model.addAttribute("userLogged", user);
         model.addAttribute("hasImage", user.getImage());
-        return "redirect:/premios";
+        return "redirect:/prizes";
     }
     
 }

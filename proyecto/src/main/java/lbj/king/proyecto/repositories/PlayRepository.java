@@ -5,13 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import jakarta.transaction.Transactional;
-import lbj.king.proyecto.model.Partida;
+import lbj.king.proyecto.model.Play;
 
 import java.util.List;
 
-public interface PlayRepository extends JpaRepository<Partida,Long> {
-    @Transactional
-    @Modifying
-    @Query("DELETE FROM Partida p WHERE p.user.id = :userId")
+public interface PlayRepository extends JpaRepository<Play,Long> {
+    //@Transactional
+    //@Modifying
+    //@Query("DELETE FROM Partida p WHERE p.user.id = :userId")
     void deleteByUserId(@Param("userId") Long userId);
 }

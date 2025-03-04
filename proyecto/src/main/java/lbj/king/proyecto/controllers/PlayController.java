@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
-import lbj.king.proyecto.model.Juegos;
-import lbj.king.proyecto.model.Partida;
-import lbj.king.proyecto.model.Usuario;
+import lbj.king.proyecto.model.Game;
+import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.GameService;
 import lbj.king.proyecto.services.PlayService;
 import lbj.king.proyecto.services.UserService;
@@ -25,64 +25,63 @@ public class PlayController {
     @Autowired
     private GameService gameSer;
 
-    @PostMapping("/procesarPartidaDado")
-    public String postMethodName(@RequestParam(required = false) Float apuesta,@RequestParam(required = false) Integer nDado ,Model model, HttpSession session) {
-        //Checks if there`s any empty input
-        if(apuesta==null|| nDado==null){
-            return "errorDados";
+    @PostMapping("/dicePlayProcess")
+    public String postMethodName(@RequestParam(required = false) Float bet,@RequestParam(required = false) Integer diceNumber ,Model model, HttpSession session) {
+        //Checks if there is any empty input
+        if(bet==null|| diceNumber==null){
+            return "diceError";
         }
         //Tries to get user
-        Usuario u= (Usuario) session.getAttribute("user");
-        Optional<Usuario> us=uSer.findById(u.getId());
+        Userr u= (Userr) session.getAttribute("user");
+        Optional<Userr> us=uSer.findById(u.getId());
         if(!us.isPresent()){
-            return "errorDados";
+            return "diceError";
         }else{
             u=us.get();
         }
-        u.getLista().size();
-        Juegos g = gameSer.findByName("Dados");
+        Game g = gameSer.findByName("Dados");
         //validate input
-        if(nDado<=0 || nDado >6 || apuesta<=0){
-            return "errorDados";
+        if(diceNumber<=0 || diceNumber >6 || bet<=0){
+            return "diceError";
         }
 
-        if(u.getCurrency()>=apuesta && g!=null){
+        if(u.getCurrency()>=bet && g!=null){
             
-            Partida p1= new Partida(apuesta,u,g);
+            Play p1= new Play(bet,u,g);
             p1.setWin(p1.getBet()*gameSer.findByName("Dados").getWinMultp());
             playSer.save(p1);
-            u.addGame(p1);
-            u.setCurrency(u.getCurrency()-apuesta);
+            u.addPlay(p1);
+            u.setCurrency(u.getCurrency()-bet);
             uSer.save(u);
 
             model.addAttribute("partidaCreada",p1);
             model.addAttribute("userLogged", u);
-            model.addAttribute("nDado", nDado);
+            model.addAttribute("nDado", diceNumber);
             model.addAttribute("hasImage", u.getImage());
 
             //Used in next step of play
-            session.setAttribute("numeroDado", nDado);
-            session.setAttribute("pActual", p1);
+            session.setAttribute("diceNumber", diceNumber);
+            session.setAttribute("actualPlay", p1);
             session.setAttribute("user", u);
 
-            return "dados";
+            return "dice";
         }else{
             model.addAttribute("saldoInsuficiente", "true");
             model.addAttribute("userLogged",u);
             model.addAttribute("hasImage", u.getImage());
 
-            return "dados";
+            return "dice";
         }        
     }
 
-    @GetMapping("/procesarApuestaDado")
+    @GetMapping("/diceBetProcess")
     public String getPartida(HttpSession session, Model model) {
         //tries get user
         boolean matchResult=false;
-        Usuario u = (Usuario)session.getAttribute("user");
-        Optional<Usuario> us=uSer.findById(u.getId());
+        Userr u = (Userr)session.getAttribute("user");
+        Optional<Userr> us=uSer.findById(u.getId());
         if(!us.isPresent()){
-            return "errorDados";
+            return "diceError";
         }else{
             u=us.get();
         }
@@ -90,7 +89,7 @@ public class PlayController {
         model.addAttribute("userLogged", u);
         model.addAttribute("playingGame", "true");
         //gets the number user selected
-        int nDado=(int)session.getAttribute("numeroDado");
+        int nDado=(int)session.getAttribute("diceNumber");
         //Generation of random numbers
         int nr1 = (int) (Math.random() * 4) + 1;
         int nr2 = (int) (Math.random() * 4) + 1;
@@ -139,13 +138,15 @@ public class PlayController {
         }
 
         //If win
-        Partida p=(Partida) session.getAttribute("pActual");
+        Play p=(Play) session.getAttribute("actualPlay");
         if(matchResult){
             model.addAttribute("victory", "true");
+            //user and play update
             u.setCurrency(u.getCurrency()+p.getBet()*gameSer.findByName("Dados").getWinMultp());
             p.won();
             playSer.save(p);
             uSer.save(u);
+            //session update
             session.setAttribute("user", u);
         }
 
@@ -157,77 +158,77 @@ public class PlayController {
 
         
 
-        return "dados";
+        return "dice";
     }
 
-    @GetMapping("/redirigir_volverApostarDado")
+    @GetMapping("/diceBetAgain")
     public String getLink(Model model, HttpSession session) {
-        Usuario u = (Usuario)session.getAttribute("user");
+        Userr u = (Userr)session.getAttribute("user");
         model.addAttribute("userLogged", u);
         model.addAttribute("hasImage", u.getImage());
-        return "dados";
+        return "dice";
     }
     
-    @PostMapping("/procesarPartidaRule")
-    public String procesarPartidaRule(HttpSession session, Model model, @RequestParam(required=false) Integer numElegido, @RequestParam(required=false) Float apuesta) {
+    @PostMapping("/roulettePlayProcess")
+    public String procesarPartidaRule(HttpSession session, Model model, @RequestParam(required=false) Integer selectedNumber, @RequestParam(required=false) Float bet) {
         //checks if request params were introduced
-        if(apuesta==null || numElegido==null){
+        if(bet==null || selectedNumber==null){
             model.addAttribute("userLogged", session.getAttribute("user"));
-            return "inicio";
+            return "main";
         }
         
         //get user and game
-        Usuario u = (Usuario)session.getAttribute("user");
-        Optional<Usuario> us=uSer.findById(u.getId());
+        Userr u = (Userr)session.getAttribute("user");
+        Optional<Userr> us=uSer.findById(u.getId());
         if(!us.isPresent()){
             return "errorRule";
         }else{
             u=us.get();
         }
-        Juegos j= gameSer.findByName("Ruleta");
+        Game j= gameSer.findByName("Ruleta");
         //generates play
-        if(u.getCurrency() >= apuesta){
+        if(u.getCurrency() >= bet){
 
-            Partida miPartida = new Partida(apuesta,u,j);
-            miPartida.setWin(miPartida.getBet()*gameSer.findByName("Ruleta").getWinMultp());
+            Play newPlay = new Play(bet,u,j);
+            newPlay.setWin(newPlay.getBet()*gameSer.findByName("Ruleta").getWinMultp());
 
-            playSer.save(miPartida);
-            u.addGame(miPartida);
-            u.setCurrency(u.getCurrency()-apuesta);
+            playSer.save(newPlay);
+            u.addPlay(newPlay);
+            u.setCurrency(u.getCurrency()-bet);
             uSer.save(u);
-            session.setAttribute("pActual", miPartida);
+            session.setAttribute("actualPlay", newPlay);
             session.setAttribute("user", u);
-            session.setAttribute("nRule", numElegido);
+            session.setAttribute("rNumber", selectedNumber);
             model.addAttribute("userLogged", u);
             model.addAttribute("playingGame", "true");
             model.addAttribute("hasImage", u.getImage());
 
-            return "rule";
+            return "roulette";
         } else {
-            model.addAttribute("saldoInsuficiente", "true");
+            model.addAttribute("insufficientBalance", "true");
             model.addAttribute("userLogged",u);
             model.addAttribute("hasImage", u.getImage());
-            return "rule";
+            return "roulette";
         }
 
         
 
     }
-    @GetMapping("/procesarApuestaRule")
+    @GetMapping("/rouletteBetProcess")
     public String getMethodName(Model model, HttpSession session) {
         //gets user
-        Usuario u = (Usuario)session.getAttribute("user");
-        Optional<Usuario> us=uSer.findById(u.getId());
+        Userr u = (Userr)session.getAttribute("user");
+        Optional<Userr> us=uSer.findById(u.getId());
         if(!us.isPresent()){
-            return "errorRule";
+            return "rouletteError";
         }else{
             u=us.get();
         }
 
-        int x=(int)session.getAttribute("nRule");
+        int x=(int)session.getAttribute("rNumber");
         //random number
         int nr = (int) (Math.random() * 35);
-        Partida p=(Partida) session.getAttribute("pActual");
+        Play p=(Play) session.getAttribute("actualPlay");
         //if win
         if(x==nr){
             model.addAttribute("victory", "true");
@@ -244,19 +245,19 @@ public class PlayController {
         model.addAttribute("n",nr);
         model.addAttribute("hasImage", u.getImage());
 
-        return "rule";
+        return "roulette";
     }
     
 
-    @GetMapping("/redirigir_volverApostarRule")
+    @GetMapping("/rouletteBetAgain")
 
     public String getA(Model model, HttpSession session) {
 
         model.addAttribute("userLogged", session.getAttribute("user"));
-        Usuario u = (Usuario)session.getAttribute("user");
+        Userr u = (Userr)session.getAttribute("user");
         model.addAttribute("hasImage", u.getImage());
 
-        return "rule";
+        return "roulette";
 
     }
 }

@@ -11,8 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
-import lbj.king.proyecto.model.Partida;
-import lbj.king.proyecto.model.Usuario;
+import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.PlayRepository;
 import lbj.king.proyecto.repositories.UserRepository;
 
@@ -25,35 +24,35 @@ public class UserService {
     private PlayRepository pRep;
     @PostConstruct
     public void init(){
-        Usuario u1 = new Usuario("a", "a");
+        Userr u1 = new Userr("a", "a");
         userRep.save(u1);
-        Usuario u2 = new Usuario("EjemploDos", "espa1bila");
+        Userr u2 = new Userr("EjemploDos", "espa1bila");
         userRep.save(u2);
     }
 
-    public List<Usuario> getUsuarios(){
-        List<Usuario> l = userRep.findAll();
+    public List<Userr> getUsuarios(){
+        List<Userr> l = userRep.findAll();
         return l;
     }
 
-    public void save(Usuario u){
+    public void save(Userr u){
         userRep.save(u);
     }
 
-    public Optional<Usuario> findByName(long n){
+    public Optional<Userr> findByName(long n){
         return userRep.findById(n);
     }
-    public Optional<Usuario> findById(long n){
+    public Optional<Userr> findById(long n){
         return userRep.findById(n);
     }
 
-    public void save(Usuario u, MultipartFile imag) throws IOException{
+    public void save(Userr u, MultipartFile imag) throws IOException{
 		if(!imag.isEmpty()) {
 			u.setImage(BlobProxy.generateProxy(imag.getInputStream(), imag.getSize()));
 		}
 		this.save(u);
 	}
-    public List<Usuario> findAll(){
+    public List<Userr> findAll(){
         return userRep.findAll();
     }
 

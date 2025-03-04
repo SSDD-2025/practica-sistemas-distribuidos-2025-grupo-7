@@ -1,25 +1,18 @@
 package lbj.king.proyecto.model;
-
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
-import jakarta.transaction.Transactional;
-
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
-public class Usuario {
+public class Userr {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,19 +27,19 @@ public class Usuario {
     private Blob image;
 
     @OneToMany(mappedBy = "owner")
-    private List<Premio> premios;
+    private List<Prize> prizeList;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Partida> lista;
+    private List<Play> playList;
 
-    protected Usuario() {}
+    protected Userr() {}
 
-    public Usuario(String name,String psw){
+    public Userr(String name,String psw){
         this.name=name;
         this.password=psw;
         this.currency=0;
-        this.lista=new ArrayList<Partida>();
-        this.premios=new ArrayList<Premio>();
+        this.playList=new ArrayList<Play>();
+        this.prizeList=new ArrayList<Prize>();
     }
 
     public void setName(String name){
@@ -68,11 +61,11 @@ public class Usuario {
     public float getCurrency(){
         return this.currency;
     }
-    public List<Partida> getLista(){
-        return this.lista;
+    public List<Play> getLista(){
+        return this.playList;
     }
-    public List<Premio> getPremios(){
-        return this.premios;
+    public List<Prize> getPremios(){
+        return this.prizeList;
     }
     public long getId(){
         return this.id;
@@ -85,13 +78,11 @@ public class Usuario {
 		this.image = image;
 	}
 
-
-    @Transactional
-    public void addGame(Partida p){
-        this.lista.add(p);
+    public void addPlay(Play p){
+        this.playList.add(p);
     }
-    public void addPremio(Premio p){
-        this.premios.add(p);
+    public void addPrize(Prize p){
+        this.prizeList.add(p);
     }
 
 }
