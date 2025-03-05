@@ -137,7 +137,7 @@ A continuación, se presenta un breve resumen de las entidades y las relaciones 
   En esta captura, se muestra la pagina de perfil, en la que puedes ver tu nombre, saldo, cambiar tu foto de perfil, además de tu historial. El historial le puedes borrar entero para que nadie sepa que eres un ludópata, o puedes borrar las partidas de forma individual, así como borrar tu cuenta.
 
 
-Todas estas capturas de pantalla muestran la interfaz las interfaces principales de la web, pero tenemos algunas más que no son tan destacables.
+Todas estas capturas de pantalla muestran las interfaces principales de la web, pero tenemos algunas más que no son tan destacables.
 
 ## Participación
 
