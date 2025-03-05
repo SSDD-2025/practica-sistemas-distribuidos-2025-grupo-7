@@ -142,6 +142,13 @@ Todas estas capturas de pantalla muestran la interfaz las interfaces principales
 ## Participación
 
 ### Raúl Sánchez Benítez
+- **Descripción textual de las tareas realizadas en la práctica:**
+
+    Al principio de la practica, me centré en buscar código de la ruleta y la máquina de slots que pudisemos adaptar para nuestra aplicación. Tras probar que funcionaban y que se pueden adaptar, decidí centrarme en la implementación de la entidad `Prize.java` al completo. 
+    
+    Primero, hice los botones y la ventana de `prizes.html`. Luego hice el `PrizeRepository.java` y me aseguré de que se visualizaba todo bien en la bbdd para poder hacer el `PrizeService.java` e inicializar premios por defecto con los que trabajar. Finalmente estuve trabajando en la funcionalidad de adquirir un premio, siempre que no lo haya adquirido otro usuario antes, y que se viera reflejado que usuario lo habia adquirido.
+
+    Por ultimo, me centré en implementar la funcionalidad de borrar las partidas del historial individualmente. Ya teniamos la de borrar todo el historial entero, pero hacia falta tambien que pudieras borrar las que tu quisieras.
 - **5 commits más significativos:**
   1. [Borrar partidas individualmente](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/a1877be2a3e240b32278f8dc8dafefcacc76efab)
   2. [Premios bbdd](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/d8297de278d8acf60647008c870c72c1b72a0b19)
@@ -179,18 +186,24 @@ Todas estas capturas de pantalla muestran la interfaz las interfaces principales
   5. `UserService.java`
 
 ### Héctor González Viñas
+- **Descripción textual de las tareas realizadas en la práctica:**
+  
+En esta práctica empecé creando el código html y css básico que engloba cada página además del código en javaScript usado para las redirecciones. Después enlace las páginas de login y registro con la página principal y el uso del HttpSession para distinguir que usuario ha iniciado sesión.
+
+Después me centré en el PlayController en el que se crean partidas para los dados y ruleta eligiendo el número y el dinero para apostar con otra redirección para procesar la apuesta en la que se generarán los números aleatorios que se compararán con el número introducido por el usuario y actuar en consecuencia de si se ha acertado o no con las plantillas de mustache.También hice algunas de las relacciones entre entidades y comprobaciones de los datos de entrada del login, registro y juegos.
+
 - **5 commits más significativos:**
-  1. [Commit 1](enlace_al_commit)
-  2. [Commit 2](enlace_al_commit)
-  3. [Commit 3](enlace_al_commit)
-  4. [Commit 4](enlace_al_commit)
-  5. [Commit 5](enlace_al_commit)
+  1. [Creación proyecto y html global](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/c593af9370ff2a99745b5e160401b5944b4f8b48)
+  2. [Conexión entre usuario y dados para comprobar victoria](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/f3ca6de8697152f7107e8396bc18bf7e98bfb9af)
+  3. [Base de datos de las partidas y relacciones ](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/da7fc94c9794862afbccebb1ddca508e1e278e6c)
+  4. [Conexión entre usuario y ruleta para comprobar victoria](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/ea9d2dc7b1ab49dc26cfea5739158ac431bbb27b)
+  5. [bbdd juegos](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/6fd5d45e988710f7cae643e205364b3eea1c2d3b)
 - **5 ficheros en los que se ha participado:**
-  1. `fichero1.java`
-  2. `fichero2.java`
-  3. `fichero3.java`
-  4. `fichero4.java`
-  5. `fichero5.java`
+  1. `UserController.java`
+  2. `main.html`
+  3. `PlayController.java`
+  4. `GameController.java`
+  5. `dice.html`
 
 ## Instrucciones de Ejecución
 
