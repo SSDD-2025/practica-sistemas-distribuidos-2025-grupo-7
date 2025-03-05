@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
-import lbj.king.proyecto.services.PremiosService;
+import lbj.king.proyecto.services.PrizeService;
 import jakarta.servlet.http.HttpSession;
 
 
 @Controller
 public class PrizeController {
     @Autowired
-    private PremiosService premioSer;
+    private PrizeService premioSer;
 
     @GetMapping("/prizes")
     public String showPremios(Model model, HttpSession session) {

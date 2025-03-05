@@ -22,13 +22,6 @@ public class UserService {
     private UserRepository userRep;
     @Autowired
     private PlayRepository pRep;
-    @PostConstruct
-    public void init(){
-        Userr u1 = new Userr("a", "a");
-        userRep.save(u1);
-        Userr u2 = new Userr("EjemploDos", "espa1bila");
-        userRep.save(u2);
-    }
 
     public List<Userr> getUsuarios(){
         List<Userr> l = userRep.findAll();
