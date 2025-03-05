@@ -124,7 +124,7 @@ public class UserController {
             Userr u = (Userr)session.getAttribute("user");
             model.addAttribute("hasImage", u.getImage());
 
-            return "redirect:/";
+            return "main";
         }
     }
     

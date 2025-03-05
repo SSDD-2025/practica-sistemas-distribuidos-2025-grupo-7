@@ -8,10 +8,14 @@
         
         {{#dineroNegativo}}
         <script>
-            alert("Dinero negativo")
+            function refresh(){
+                alert("Dinero negativo")
+                window.location.href="/"
+            }
+            window.addEventListener("load",function(){refresh()})
         </script>
         {{/dineroNegativo}}
-
+        {{^dineroNegativo}}
         <div style="display: flex;">
             {{>barraIzq}}
             <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
@@ -72,6 +76,7 @@
             
             </div>
         </div>
+        {{/dineroNegativo}}
         
 
 
