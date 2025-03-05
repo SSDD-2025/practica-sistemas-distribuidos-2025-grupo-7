@@ -25,4 +25,9 @@ public class PrizeService {
     public Prize findById(long id) {
         return pRep.findPremioById(id);
     }
+
+    public void changePrize(Prize p){
+        p.setOwner(null);
+        p.setOwned(false);
+    }
 }

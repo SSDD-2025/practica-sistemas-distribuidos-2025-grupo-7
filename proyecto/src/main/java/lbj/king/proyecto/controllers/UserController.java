@@ -1,6 +1,8 @@
 package lbj.king.proyecto.controllers;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Optional;
+
 import javax.sql.rowset.serial.SerialBlob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.servlet.http.HttpSession;
 import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PlayService;
+import lbj.king.proyecto.services.PrizeService;
 import lbj.king.proyecto.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -31,6 +35,8 @@ public class UserController {
 
     @Autowired
     private PlayService pSer;
+    @Autowired
+    private PrizeService prizeSer;
     
     
     /* Index without logged user */
@@ -184,9 +190,18 @@ public class UserController {
     @PostMapping("/deleteUser")
     public String deleteUser(Model model, HttpSession session) {
         Userr u = (Userr) session.getAttribute("user");
+        Optional<Userr> us=uSer.findById(u.getId());
+        if(!us.isPresent()){
+            return "diceError";
+        }else{
+            u=us.get();
+        }
         if (u != null) {
-            uSer.deleteUserById(u.getId());
-            session.invalidate();
+            for(Prize p:u.getPremios()){
+                prizeSer.changePrize(p);
+                uSer.deleteUserById(u.getId());
+                session.invalidate();
+            }
         }
         return "redirect:/";
     }

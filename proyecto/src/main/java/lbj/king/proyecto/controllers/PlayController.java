@@ -91,9 +91,10 @@ public class PlayController {
         //gets the number user selected
         int nDado=(int)session.getAttribute("diceNumber");
         //Generation of random numbers
-        int nr1 = (int) (Math.random() * 4) + 1;
-        int nr2 = (int) (Math.random() * 4) + 1;
-
+        //int nr1 = (int) (Math.random() * 4) + 1;
+        //int nr2 = (int) (Math.random() * 4) + 1;
+        int nr1=1;
+        int nr2=1;
         //In order to know which number will show up
         switch (nr1) {
             case 1:
