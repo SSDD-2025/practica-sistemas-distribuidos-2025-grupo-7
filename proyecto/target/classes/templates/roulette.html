@@ -20,8 +20,8 @@
             </div>
             {{>balance}}
             <p style="text-align: center;color: purple; font-size: 40px;">GIRA LA RULETA JAMES Y GANA MILLONES</p>
-
             <div class="container">
+                
                 <canvas id="canvas" width="500" height="500"></canvas>
                 <div id="spin"></div>
                 {{#postRule}}
@@ -31,7 +31,8 @@
                         spin({{n}})
                     });
                 </script>
-                <p>GANASTEEE PUTOOOO</p>
+                <p>GANASTEEE!!!</p>
+                <p>No estarás haciendo trampa no?</p>
                 <div onclick="redirigir_volverApostarRule()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>
                 {{/victory}}
                 {{^victory}}
@@ -40,7 +41,8 @@
                         spin({{n}})
                     });
                 </script>
-                <p>PERDISTE WEOOOOONN</p>
+                <p>PERDISTE... </p>
+                <p>Es dificil ganar....</p>
                 <div onclick="redirigir_volverApostarRule()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>
                 {{/victory}}
                 {{/postRule}}
@@ -76,7 +78,7 @@
                 
             </div>
             {{#userLogged}}
-            <div onclick="redirigir_historialR()" id="boton-ini">Historial</div>
+            <div onclick="redirigir_historialR()" id="boton-ini" style="align-self: center;display: flex;">Historial</div>
             {{/userLogged}}
         </div>
     </div>
