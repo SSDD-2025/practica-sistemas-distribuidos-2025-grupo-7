@@ -174,14 +174,14 @@ public class PlayController {
         //checks if request params were introduced
         if(bet==null || selectedNumber==null){
             model.addAttribute("userLogged", session.getAttribute("user"));
-            return "main";
+            return "rouletteError";
         }
         
         //get user and game
         Userr u = (Userr)session.getAttribute("user");
         Optional<Userr> us=uSer.findById(u.getId());
         if(!us.isPresent()){
-            return "errorRule";
+            return "rouletteError";
         }else{
             u=us.get();
         }

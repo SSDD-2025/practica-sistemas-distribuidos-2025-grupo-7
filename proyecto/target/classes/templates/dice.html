@@ -107,15 +107,16 @@
               <input type="submit" value="Apostar" style="margin-top: 10px;">
             </form>
             {{#saldoInsuficiente}}
-            <span style="color: red;">Saldo insuficiente mi pana</span>
+            <span style="color: red;">Saldo insuficiente</span>
             {{/saldoInsuficiente}}
           </div>
           {{/partidaCreada}}
+          <div onclick="redirigir_historialD()" id="boton-ini">Historial</div>
+        {{/userLogged}}
+        {{^userLogged}}
+        <p style="margin-left: 50px;">Inicie sesión para jugar</p>
         {{/userLogged}}
       {{/playingGame}}
-      {{#userLogged}}
-      <div onclick="redirigir_historialD()" id="boton-ini">Historial</div>
-      {{/userLogged}}
       <script src="/js/dados.js"></script>
 
       

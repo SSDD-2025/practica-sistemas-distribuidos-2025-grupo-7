@@ -41,7 +41,7 @@ public class PrizeController {
             premioSer.save(premio);
             user.setCurrency(user.getCurrency()-premio.getPrice());
             }else{
-                //Redirigir a error(falta pasta)
+                return "prizeError";
             }
         }
         model.addAttribute("userLogged", user);
