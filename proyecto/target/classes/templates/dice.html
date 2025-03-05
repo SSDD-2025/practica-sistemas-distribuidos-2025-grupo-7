@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/inicio.css">
 </head>
 <body>
-  <div style="display: flex;">
+  <div style="display: flex; height: 100vh;">
     {{>barraIzq}}
     <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
     <div class="container-main" style="height: 100vh;">
@@ -51,9 +51,18 @@
               activarDado({{n1}},{{n2}});
             }
           </script>
-          <p style="color: white;text-align: center; margin-top: 100px;">ENHORABUENAAAAAA!!!</p>
-          <p style="color: white;text-align: center; margin-top: 100px;">Pocas veces se gana...</p>
-          <div onclick="redirigir_volverApostar()" style="color: white;width: 100px; height: 40px; border:  1px solid purple;">Volver a apostar</div>
+          <div style="display: flex; justify-content: space-between;">
+            <div style="width: 48%;">
+              <p style="color: white;text-align: center; margin-top: 100px;">ENHORABUENAAAAAA!!!</p>
+              <p style="color: white;text-align: center; margin-top: 100px;">Pocas veces se gana...</p>
+              <div onclick="redirigir_volverApostar()" style="color: white;width: 100px; height: 40px; border:  1px solid purple;">Volver a apostar</div>
+            </div>
+            <div style="width: 38%;">
+              <div style="display: flex; background-color: rgb(49, 49, 49);;">
+                <img src="/imagenes/lbjCelebration.gif" style="display: flex; width: 500px;">
+              </div>
+            </div>
+          </div>
         {{/victory}}
         {{^victory}}
         <script>
