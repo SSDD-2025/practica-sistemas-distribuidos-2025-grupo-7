@@ -81,6 +81,7 @@ A continuación, se presenta un breve resumen de las entidades y las relaciones 
 
 ### Diagrama de Entidad-Relación
 ![Diagrama ERD](/Diagrams/relational%20diagram.png)
+
   Este diagrama muestra las relaciones entre las entidades principales del sistema: `User`, `Play`, `Game`, y `Prize`.
 
 ### Diagrama de Navegación
