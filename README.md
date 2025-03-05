@@ -225,3 +225,15 @@ Después me centré en el PlayController en el que se crean partidas para los da
   - En otros casos, puedes descargarlo [aquí](https://maven.apache.org/download.cgi).
 - **Spring Boot 3.4.2**
   - Si estás usando `Visual Studio Code`, necesitarás la extensión `Spring Boot Extension Pack`.
+- **Configurar la base de datos MySQL**:
+    - Crear una base de datos en MySQL:
+      ```sql
+      CREATE DATABASE bbdd;
+      ```
+    - Actualizar las credenciales de la base de datos en `src/main/resources/application.properties`:
+      ```properties
+      spring.datasource.url=jdbc:mysql://localhost:3306/bbdd
+      spring.datasource.username=root
+      spring.datasource.password=password
+      spring.jpa.hibernate.ddl-auto=create-drop
+      ```
