@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PrizeService;
+import lbj.king.proyecto.services.UserService;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -15,6 +16,8 @@ import jakarta.servlet.http.HttpSession;
 public class PrizeController {
     @Autowired
     private PrizeService premioSer;
+    @Autowired
+    private UserService uSer;
 
     @GetMapping("/prizes")
     public String showPremios(Model model, HttpSession session) {
@@ -40,6 +43,8 @@ public class PrizeController {
             premio.setOwned(true);
             premioSer.save(premio);
             user.setCurrency(user.getCurrency()-premio.getPrice());
+            uSer.save(user);
+            session.setAttribute("user", user);
             }else{
                 return "prizeError";
             }

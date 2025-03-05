@@ -196,12 +196,13 @@ public class UserController {
         }else{
             u=us.get();
         }
-        if (u != null) {
+        if (u != null  || u.getPremios()!=null) {
             for(Prize p:u.getPremios()){
                 prizeSer.changePrize(p);
-                uSer.deleteUserById(u.getId());
-                session.invalidate();
+                
             }
+            uSer.deleteUserById(u.getId());
+            session.invalidate();
         }
         return "redirect:/";
     }
