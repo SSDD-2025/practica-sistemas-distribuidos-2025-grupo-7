@@ -16,6 +16,17 @@
                 <div onclick="redirigir_perfil()" id="boton-ini">Perfil</div>
                 <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
             </div>
+            {{#userLogged}}
+            <h3 onclick="addPrize()" style="color:yellow;display: inline-block;margin-left:25px;cursor: pointer;">ADD</h3>
+            <script>
+                function addPrize(){
+                    document.getElementById("addPrizeWindow").style.display="block"
+                }
+                function cerrar(){
+                    document.getElementById("addPrizeWindow").style.display="none"
+                }
+            </script>
+            {{/userLogged}}
             {{>balance}}
             <p style="text-align: center;color: white; font-size: 40px;">PREMIOS</p>
             {{#premios}}

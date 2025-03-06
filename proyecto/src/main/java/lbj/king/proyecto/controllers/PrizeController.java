@@ -14,6 +14,7 @@ import lbj.king.proyecto.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -76,6 +77,13 @@ public class PrizeController {
         model.addAttribute("userLogged", u);
         model.addAttribute("hasImage", u.getImage());
 
+        return "redirect:/prizes";
+    }
+
+    @PostMapping("/prizes/new")
+    public String newPrize(@RequestParam String prizeName, @RequestParam int prizeValue) {
+        Prize p = new Prize(prizeName,prizeValue);
+        premioSer.save(p);
         return "redirect:/prizes";
     }
     

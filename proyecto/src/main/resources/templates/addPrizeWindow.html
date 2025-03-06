@@ -1,0 +1,12 @@
+<html>
+    <div id="addPrizeWindow" style="margin: 200px;margin-left: 550px; height: 300px;width: 400px;text-align: center; border: 1px solid purple; background-color: rgb(143, 143, 140); display: none;position: fixed; z-index: 9999;">
+        <div onclick="cerrar()" style="background-color: red; color: azure; height: 30px; width: 40px;">x</div>
+        <form action="/prizes/new" method="post" style="margin-top: 50px;">
+            <p>Nombre del premio</p>
+            <input type="text" name="prizeName" step="0.5">
+            <p>Valor del premio</p>
+            <input type="number" name="prizeValue" step="0.5">
+            <input type="submit" value="Añadir">
+        </form>
+    </div>
+</html>
