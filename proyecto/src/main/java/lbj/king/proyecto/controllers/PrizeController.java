@@ -5,11 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PrizeService;
 import lbj.king.proyecto.services.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -51,6 +56,26 @@ public class PrizeController {
         }
         model.addAttribute("userLogged", user);
         model.addAttribute("hasImage", user.getImage());
+        return "redirect:/prizes";
+    }
+    
+    @PostMapping("/prizes/{id}/delete")
+    public String deleteGame(Model model, @PathVariable long id, HttpSession session) {
+        Userr aux = (Userr) session.getAttribute("user");
+        if(aux == null){
+            return "login";
+        }
+        Userr u = uSer.findById(aux.getId()).get();
+		Prize prize = premioSer.findById(id);
+        
+        u.getPremios().remove(prize);
+        uSer.save(u);
+        premioSer.deletePrizeById(id);
+        
+        
+        model.addAttribute("userLogged", u);
+        model.addAttribute("hasImage", u.getImage());
+
         return "redirect:/prizes";
     }
     

@@ -39,7 +39,7 @@ public class DatabaseInitializer {
 
         Userr u1 = new Userr("a", "a");
         userRep.save(u1);
-        Userr u2 = new Userr("EjemploDos", "espa1bila");
+        Userr u2 = new Userr("EjemploDos", "dos");
         userRep.save(u2);
     }
     

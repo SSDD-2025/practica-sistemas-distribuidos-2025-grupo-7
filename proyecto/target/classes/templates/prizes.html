@@ -27,6 +27,9 @@
                 <input type = "submit" value = "Buy">
               </form>
               {{/owner}}
+              <form action="/prizes/{{id}}/delete" method="post">
+                <button type="submit" class="btn btn-danger" style="background-color: red; color: black; font-size: 16px; border: none;">Delete</button>
+              </form>
               {{#owned}}
               <p style="color:white;font-size: 30px;">Owner : {{Owner.name}}</p>
               {{/owned}}
