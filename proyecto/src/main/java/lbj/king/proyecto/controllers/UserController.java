@@ -1,6 +1,7 @@
 package lbj.king.proyecto.controllers;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.servlet.http.HttpSession;
+import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
+import lbj.king.proyecto.services.GameService;
 import lbj.king.proyecto.services.PlayService;
 import lbj.king.proyecto.services.PrizeService;
 import lbj.king.proyecto.services.UserService;
@@ -37,6 +40,8 @@ public class UserController {
     private PlayService pSer;
     @Autowired
     private PrizeService prizeSer;
+    @Autowired
+    private GameService gameSer;
     
     
     /* Index without logged user */
@@ -46,6 +51,10 @@ public class UserController {
         if(u!=null){
             model.addAttribute("userLogged", u);
             model.addAttribute("hasImage", u.getImage() != null);
+        }
+        List<Game> gameList= gameSer.getGames();
+        if(gameList.size()>0){
+            model.addAttribute("Juegos", gameList);
         }
         return "main";
     }
@@ -96,6 +105,10 @@ public class UserController {
                 if(u.getPassword().equals(psw)){
                     session.setAttribute("user", u);
                     model.addAttribute("userLogged", u);
+                    List<Game> gameList= gameSer.getGames();
+                    if(gameList.size()>0){
+                        model.addAttribute("Juegos", gameList);
+                    }
                     return "main";                    
                 }                
             }          

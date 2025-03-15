@@ -30,21 +30,6 @@ function redirigir_partidaDado(){
     window.location.href="/dicePlayProcess"
 }
 
-function redirigir_apuestaDado(){
-    window.location.href="/diceBetProcess"
-}
-function redirigir_volverApostar(){
-    window.location.href="/diceBetAgain"
-}
-
-function redirigir_apuestaRule(){
-    window.location.href="/rouletteBetProcess"
-}
-
-function redirigir_volverApostarRule(){
-    window.location.href="/rouletteBetAgain"
-}
-
 function redirigir_perfil(){
     window.location.href="/profile"
 }

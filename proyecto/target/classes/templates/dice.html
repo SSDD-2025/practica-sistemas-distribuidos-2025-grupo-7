@@ -27,16 +27,26 @@
           <div class="face bottom">4</div>
         </div>
       </div>
-      {{#playingGame}}
+      {{#afterGame}}
         {{#victory}}
           <script>
-            function activarDado(n1,n2){
+            function activarDado(nr){
+
+              //  The switch its used to rotate the dice and make it so the number its the random. ITS ONLY VISUAL
+              switch(nr){
+                case(1): n1=2;n2=2;break;
+                case(2):n1=2;n2=1;break;
+                case(3):n1=3;n2=3;break;
+                case(4):n1=1;n2=1;break;
+                case(5):n1=4;n2=1;break;
+                case(6):n1=2;n2=4;break;
+              }
+
                 const randomX = n1*90;
                 const randomY = n2*90;
-
                 currentX += randomX;
                 currentY += randomY;
-
+                
                 dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
 
                 // Calculate correct face of dice
@@ -48,14 +58,19 @@
           </script>
           <script>
             window.onload=function(){
-              activarDado({{n1}},{{n2}});
+              activarDado({{randomNumber}});
             }
           </script>
           <div style="display: flex; justify-content: space-between;">
             <div style="width: 48%;">
               <p style="color: white;text-align: center; margin-top: 100px;">ENHORABUENAAAAAA!!!</p>
               <p style="color: white;text-align: center; margin-top: 100px;">Pocas veces se gana...</p>
-              <div onclick="redirigir_volverApostar()" style="color: white;width: 100px; height: 40px; border:  1px solid purple;">Volver a apostar</div>
+              <div onclick="playAgain()" style="color: white;width: 100px; height: 40px; border:  1px solid purple;">Volver a apostar</div>
+              <script>
+                function playAgain(){
+                    window.location.href="/game/watch/{{game.id}}"
+                }
+            </script>
             </div>
             <div style="width: 38%;">
               <div style="display: flex; background-color: rgb(49, 49, 49);;">
@@ -66,7 +81,17 @@
         {{/victory}}
         {{^victory}}
         <script>
-          function activarDado(n1,n2){
+          function activarDado(nr){
+            let n1;
+            let n2;
+            switch(nr){
+                case(1): n1=2;n2=2;break;
+                case(2):n1=2;n2=1;break;
+                case(3):n1=3;n2=3;break;
+                case(4):n1=1;n2=1;break;
+                case(5):n1=4;n2=1;break;
+                case(6):n1=2;n2=4;break;
+              }
               const randomX = n1*90;
               const randomY = n2*90;
 
@@ -74,44 +99,54 @@
               currentY += randomY;
 
               dice.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
-
+              alert(currentX)
+              alert(currentY)
               // Calculate correct face of dice
               currentFace = getDiceFace(currentX, currentY);
-
+              
               // Show result
               document.getElementById("currentFace").innerHTML = currentFace;
           }
         </script>
           <script>
             window.onload=function(){
-              activarDado({{n1}},{{n2}});
+              activarDado({{randomNumber}});
             }
           </script>
           <p style="color: white;text-align: center; margin-top: 100px;">Perdiste mi pequeño lebron</p>
-          <div onclick="redirigir_volverApostar()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>      
+          <div onclick="playAgain()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>      
+          <script>
+            function playAgain(){
+                window.location.href="/game/watch/{{game.id}}"
+            }
+        </script>
         {{/victory}}
-      {{/playingGame}}
-      {{^playingGame}}
+      {{/afterGame}}
+      {{^afterGame}}
         {{#userLogged}}
-          {{#partidaCreada}}
+          {{#playingGame}}
           
           <div style="color: white;display: block; align-items: center; text-align: center;margin-top: 100px;">
             <p>Partida Creada, gire para jugar</p>
-            <p>Si el dado corre de tu suerte obtendras {{partidaCreada.win}}$</p>
-            <p>Número elegido: {{nDado}}</p>
-            <div onclick="redirigir_apuestaDado()" style="width: 100px; height: 80px; border: 1px solid purple;">Tirar dado</div>
+            <p>Número elegido: {{selectedNumber}}</p>
+            <div onclick="processPlay()" style="width: 100px; height: 80px; border: 1px solid purple;">Tirar dado</div>
+            <script>
+              processPlay=function(){
+                  window.location.href="/sameGameBetProcess/{{game.id}}"
+              }
+          </script>
             <p style="padding: left 1000px;" id="currentFace"></p>
           </div>        
           <p style="padding: left 1000px;" id="currentFace"></p>
-          {{/partidaCreada}}
-          {{^partidaCreada}}
+          {{/playingGame}}
+          {{^playingGame}}
           <div style="color: white;display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
-            <form action="/dicePlayProcess" method="post" >
+            <form action="/game/watch/{{game.id}}/process" method="post" >
               <p>Dinero a apostar</p>
               <input type="number" step="0.5" name="bet">
               <br>
               <p>Número del dado</p>
-              <input type="number" name="diceNumber" id="inputDado">
+              <input type="number" name="selectedNumber" id="inputDado">
               <br>
               <input type="submit" value="Apostar" style="margin-top: 10px;">
             </form>
@@ -119,13 +154,13 @@
             <span style="color: red;">Saldo insuficiente</span>
             {{/saldoInsuficiente}}
           </div>
-          {{/partidaCreada}}
+          {{/playingGame}}
           <div onclick="redirigir_historialD()" id="boton-ini">Historial</div>
         {{/userLogged}}
         {{^userLogged}}
         <p style="margin-left: 50px; color: white;">Inicie sesión para jugar</p>
         {{/userLogged}}
-      {{/playingGame}}
+      {{/afterGame}}
       <script src="/js/dados.js"></script>
 
       

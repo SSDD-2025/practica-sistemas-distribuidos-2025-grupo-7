@@ -24,11 +24,11 @@
                 
                 <canvas id="canvas" width="500" height="500"></canvas>
                 <div id="spin"></div>
-                {{#postRule}}
+                {{#afterGame}}
                 {{#victory}}
                 <script>
                     window.addEventListener('load', function (){
-                        spin({{n}})
+                        spin({{randomNumber}})
                     });
                 </script>
                 <div style="display: block;">
@@ -37,28 +37,43 @@
                     <div style="display: flex; background-color: rgb(49, 49, 49); margin: 50px;">
                         <img src="/imagenes/leDunk.gif" style="display: flex; width: 500px;">
                     </div>
-                    <div onclick="redirigir_volverApostarRule()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>
+                    <div onclick="playAgain()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>
+                    <script>
+                        function playAgain(){
+                            window.location.href="/game/watch/{{game.id}}"
+                        }
+                    </script>
                 </div>
                 {{/victory}}
                 {{^victory}}
                 <script>
                     window.addEventListener('load', function (){
-                        spin({{n}})
+                        spin({{randomNumber}})
                     });
                 </script>
                 <p>PERDISTE... </p>
                 <p>Es dificil ganar....</p>
-                <div onclick="redirigir_volverApostarRule()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>
+                <div onclick="playAgain()" style="color: white;width: 100px; height: 40px; border: 1px solid purple;" >Volver a apostar</div>
+                <script>
+                    function playAgain(){
+                        window.location.href="/game/watch/{{game.id}}"
+                    }
+                </script>
                 {{/victory}}
-                {{/postRule}}
-                {{^postRule}}
+                {{/afterGame}}
+                {{^afterGame}}
                 <div style="color: white;display: block; align-items: center; justify-content: center;text-align: center; margin-top: 100px;">
                     {{#playingGame}}
-                    <button onclick="redirigir_apuestaRule()">GIRAAAAA</button>
+                    <button onclick="processPlay()" >GIRAAAAA</button>
+                    <script>
+                        processPlay=function(){
+                            window.location.href="/sameGameBetProcess/{{id}}"
+                        }
+                    </script>
                     {{/playingGame}}
                     {{^playingGame}}
                     {{#userLogged}}
-                    <form  id="ruletaForm"   method="post" action="/roulettePlayProcess">
+                    <form  id="ruletaForm"   method="post" action="/game/watch/{{game.id}}/process">
                         <p>Dinero a apostar:</p>
                         <input type="number" step="0.5" name="bet" placeholder="Ingresa un número">
                         <br>
@@ -74,7 +89,7 @@
                     {{/playingGame}}
                     
                 </div>
-                {{/postRule}}
+                {{/afterGame}}
                 <div class="resultado">
                     {{#insufficientBalance}}
                     <p style="color: red;">Saldo insuficiente</p>

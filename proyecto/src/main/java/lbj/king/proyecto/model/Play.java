@@ -44,4 +44,7 @@ public class Play {
     public void setWin(float w){
         this.win=w;
     }
+    public Game getGame(){
+        return this.game;
+    }
 }

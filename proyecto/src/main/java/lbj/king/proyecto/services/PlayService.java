@@ -13,8 +13,14 @@ import lbj.king.proyecto.repositories.PlayRepository;
 @Service
 public class PlayService {
 
+    private final DatabaseInitializer databaseInitializer;
+
     @Autowired
     private PlayRepository playRep;
+
+    PlayService(DatabaseInitializer databaseInitializer) {
+        this.databaseInitializer = databaseInitializer;
+    }
 
     public List<Play> getUsuarios(){
         List<Play> l = playRep.findAll();
@@ -37,5 +43,8 @@ public class PlayService {
     @Transactional
     public void deletePartidaById(Long id){
         playRep.deleteById(id);
+    }
+    public Optional<Play> findById(long id){
+        return playRep.findById(id);
     }
 }

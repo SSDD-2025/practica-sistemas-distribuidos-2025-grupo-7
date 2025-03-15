@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar Documento</title>
+</head>
+<body>
+    <h2>Cargar Documento</h2>
+    <form action="/game/save" method="post" enctype="multipart/form-data">
+        <p>Nombre</p>
+        <input type="text" name="name">
+        <p>Multiplicador de dinero al ganar</p>
+        <input type="number" name="mult">
+        <p>Número mínimo de posibilidades</p>
+        <input type="number" name="minPossibleNumber">
+        <p>Número máximo de posibilidades</p>
+        <input type="number" name="maxPossibleNumber">
+        <p>Archivo</p>
+        <input type="file" name="file" accept=".html, .txt" required>
+        <button type="submit">Subir Documento</button>
+    </form>
+</body>
+</html>

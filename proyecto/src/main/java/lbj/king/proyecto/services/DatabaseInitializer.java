@@ -23,11 +23,11 @@ public class DatabaseInitializer {
 
     @PostConstruct
     public void init(){
-        Game g1=new Game("Ruleta",36);
+        Game g1=new Game("Roulette",36,0,36);
         gameRep.save(g1);
-        Game g2=new Game("Dados",4);
+        Game g2=new Game("Dice",4,1,6);
         gameRep.save(g2);
-        Game g3=new Game("Slots",1);
+        Game g3=new Game("Slots",1,1,1);
         gameRep.save(g3);
 
         Prize p1 = new Prize("Rey de la Rule",1000);
@@ -38,6 +38,7 @@ public class DatabaseInitializer {
         prizeRep.save(p3);
 
         Userr u1 = new Userr("a", "a");
+        u1.setCurrency(10000000);
         userRep.save(u1);
         Userr u2 = new Userr("EjemploDos", "dos");
         userRep.save(u2);

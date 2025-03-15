@@ -38,26 +38,11 @@
             <h3 onclick="redirigirPremios()" style="cursor: pointer; color: yellow ;display: inline-block;margin-left:25px;">Premios</h3>
         </div>
         </div>
-        <div class="div-izq" id="Lista" style="width: 200px;;">
-            <table border="1" style="width: 100%; border-collapse: collapse;">
-                <tr>
-                    <td onclick="redirigirRuleta()" style="cursor: pointer; color: yellow; text-align: center;">- Rule</td>
-                </tr>
-                <tr>
-                    <td onclick="redirigirDados()" style="cursor: pointer; color: yellow; text-align: center;">- Dados</td>
-                </tr>
-                <tr>
-                    <td onclick="redirigirSlot()" style="cursor: pointer; color: yellow; text-align: center;">- Slots</td>
-                </tr>
-            </table>
-        <!--<ul>
-            <li onclick="redirigirRuleta()">Rule</li>
-            <li onclick="redirigirDados()">Dados</li>
-            <li onclick="redirigirSlot()">Slots</li>
-        </ul>-->
-
-        
+        {{#Juegos}}
+        <div class="div-izq" id="Lista" style="width: 200px;margin-top: 0%;text-align: center;">
+            <a href="game/watch/{{id}}" style=" color: yellow;">{{name}}</a> 
         </div>
+        {{/Juegos}}
         <script>
             function a(){
                 document.getElementById("balance").style.display="block"
@@ -68,6 +53,7 @@
         </script>
         {{#userLogged}}
         <div onclick="a()" class="div-izq" style="height: 50px;width: 200px;text-align: center;align-content: center;">Añadir saldo</div>
+        <a href="/game/form" style="color: yellow;"><div class="div-izq" style="height: 50px;width: 200px;text-align: center;align-content: center;">Crear juego</div></a>
         {{/userLogged}}
 
         <img src="/imagenes/leOK.png" style="width: 150px;margin-left: 40px;margin-top: 100px;">

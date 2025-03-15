@@ -30,7 +30,6 @@
                     <div onclick="redirigir_login()" id="boton-ini">Iniciar</div>
                     <div onclick="redirigir_reg()" id="boton-reg">Registrarse</div>
                     {{/userLogged}}
-
                 </div>
                 {{>balance}}
                 <h2 style="color: yellow;">LEKING JAMES</h2>
@@ -39,8 +38,7 @@
                     <img id="lbj" src="/imagenes/pngwing.com.png" style="align-self: center;width: 150px;">
                 </div>
                 <hr style="border-color: black;margin-top: 70px;">
-            
-                <table style="width: 100%; border-spacing: 0 40px;margin-top: 50px;">
+                <!-- > <table style="width: 100%; border-spacing: 0 40px;margin-top: 50px;">
                     <tr>
                         <td onclick="redirigirRuleta()">
                             <img src="/imagenes/ruleta.png" style="width: 200px;" alt="ruleta">
@@ -56,31 +54,16 @@
                             <p style="font-size: 32px; color: blueviolet;">SLOTS</p>
                         </td>
                     </tr>
-                </table>
-                <pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
-                </pre>
+                </table> -->
+                {{#Juegos}}
+                    <a href="game/watch/{{id}}" style="color: azure;">ver</a>
+                    <p style="color:white;font-size: 30px;">{{name}}</p>
+                    <p style="color:white;font-size: 30px;">Price : {{winMultp}}</p>
+                {{/Juegos}}
             
             </div>
         </div>
         {{/dineroNegativo}}
-        
-
-
-
         <script src="/js/redirections.js"></script>
     </body>
 </html>
