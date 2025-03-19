@@ -1,6 +1,14 @@
 package lbj.king.proyecto.services;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
@@ -22,10 +30,20 @@ public class DatabaseInitializer {
     PrizeRepository prizeRep;
 
     @PostConstruct
-    public void init(){
+    public void init() throws IOException{
+        ClassPathResource resource = new ClassPathResource("templates/roulette.html");
+        InputStream inputStream = resource.getInputStream();
+        byte[] fileBytes = inputStream.readAllBytes();
         Game g1=new Game("Roulette",36,0,36);
+        g1.setFich(fileBytes);
         gameRep.save(g1);
+
+        
+        resource = new ClassPathResource("templates/dice.html");
+        inputStream = resource.getInputStream();
+        fileBytes = inputStream.readAllBytes();
         Game g2=new Game("Dice",4,1,6);
+        g2.setFich(fileBytes);
         gameRep.save(g2);
         Game g3=new Game("Slots",1,1,1);
         gameRep.save(g3);

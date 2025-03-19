@@ -82,7 +82,7 @@ public class GameController {
 
             try {
                 //Select path
-                String templatesDir = new File("C:\\Users\\Héctor\\Documents\\distribuidos\\practica-sistemas-distribuidos-2025-grupo-7\\proyecto\\src\\main\\resources\\templates").getAbsolutePath();
+                String templatesDir = new File("proyecto\\src\\main\\resources\\templates").getAbsolutePath();
                 System.out.println("Path: "+ templatesDir);
                 //Create dir
                 File directory = new File(templatesDir);
