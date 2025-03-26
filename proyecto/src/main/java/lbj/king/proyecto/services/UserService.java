@@ -32,8 +32,8 @@ public class UserService {
         userRep.save(u);
     }
 
-    public Optional<Userr> findByName(long n){
-        return userRep.findById(n);
+    public Optional<Userr> findByName(String n){
+        return userRep.findByName(n);
     }
     public Optional<Userr> findById(long n){
         return userRep.findById(n);

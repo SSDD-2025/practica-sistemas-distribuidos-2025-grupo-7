@@ -1,6 +1,8 @@
 package lbj.king.proyecto.model;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,12 +34,16 @@ public class Userr {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Play> playList;
 
+    @ElementCollection(fetch= FetchType.EAGER)
+    private List<String> roles;
+
     protected Userr() {}
 
-    public Userr(String name,String psw){
+    public Userr(String name,String psw,String... roles){
         this.name=name;
         this.password=psw;
         this.currency=0;
+        this.roles=List.of(roles);
         this.playList=new ArrayList<Play>();
         this.prizeList=new ArrayList<Prize>();
     }
@@ -83,6 +89,10 @@ public class Userr {
     }
     public void addPrize(Prize p){
         this.prizeList.add(p);
+    }
+
+    public List<String> getRoles() {
+        return this.roles;
     }
 
 }

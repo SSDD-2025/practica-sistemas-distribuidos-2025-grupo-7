@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
@@ -28,6 +29,8 @@ public class DatabaseInitializer {
     GameRepository gameRep;
     @Autowired
     PrizeRepository prizeRep;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void init() throws IOException{
@@ -55,10 +58,10 @@ public class DatabaseInitializer {
         prizeRep.save(p2);
         prizeRep.save(p3);
 
-        Userr u1 = new Userr("a", "a");
+        Userr u1 = new Userr("a", passwordEncoder.encode("a"),"ADMIN");
         u1.setCurrency(10000000);
         userRep.save(u1);
-        Userr u2 = new Userr("EjemploDos", "dos");
+        Userr u2 = new Userr("b", passwordEncoder.encode("b"),"USER");
         userRep.save(u2);
     }
     
