@@ -54,6 +54,9 @@ public class SecurityConfiguration {
                     .requestMatchers("/profile/**").hasAnyRole("USER","ADMIN")
                     .requestMatchers("/game/form").hasRole("ADMIN")
                     .requestMatchers("/game/save").hasRole("ADMIN")
+					.requestMatchers("/prizes/new").hasAnyRole("ADMIN")
+					.requestMatchers("/prizes/{id}/delete").hasAnyRole("ADMIN")
+
 
 
 					.anyRequest().authenticated())
