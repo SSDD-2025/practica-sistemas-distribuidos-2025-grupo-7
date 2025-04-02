@@ -1,4 +1,5 @@
 package lbj.king.proyecto.controllers;
+import java.security.Principal;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
@@ -33,17 +36,17 @@ public class PlayController {
     }
 
     @PostMapping("/game/watch/{id}/process")
-    public String sameGames(@PathVariable long id,@RequestParam(required = false) Float bet,@RequestParam(required = false) Integer selectedNumber ,Model model, HttpSession session) {
+    public String sameGames(@PathVariable long id,@RequestParam(required = false) Float bet,@RequestParam(required = false) Integer selectedNumber ,Model model, HttpSession session, HttpServletRequest request) {
         
-        System.out.println(id);
+        Userr u;
         //Tries to get user
-        Userr u= (Userr) session.getAttribute("user");
-        Optional<Userr> us=uSer.findById(u.getId());
-        if(!us.isPresent()){
-            System.out.println("Not present");
-            return "error";
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            u = uSer.findByName(principal.getName()).get();
+            model.addAttribute("userLogged", u);
+            model.addAttribute("hasImage", u.getImage());
         }else{
-            u=us.get();
+            return "error";
         }
 
         Game actualGame;
@@ -71,10 +74,7 @@ public class PlayController {
             return "error";
         }
 
-        System.out.println("POSTVER");
-
         if(u.getCurrency()>=bet && actualGame!=null){
-            System.out.println("SIUUUUUUUUUUUU");
             Play p1= new Play(bet,u,actualGame);
             p1.setWin(p1.getBet()*actualGame.getWinMultp());
             playSer.save(p1);
@@ -109,15 +109,18 @@ public class PlayController {
 
 
     @GetMapping("/sameGameBetProcess/{id}")
-    public String sameGameProcess(@PathVariable long id,Model model, HttpSession session) {
+    public String sameGameProcess(@PathVariable long id,Model model, HttpSession session, HttpServletRequest request) {
         Game actualGame;
         //gets user
-        Userr u = (Userr)session.getAttribute("user");
-        Optional<Userr> us=uSer.findById(u.getId());
-        if(!us.isPresent()){
-            return "error";
+        Userr u;
+        //Tries to get user
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            u = uSer.findByName(principal.getName()).get();
+            model.addAttribute("userLogged", u);
+            model.addAttribute("hasImage", u.getImage());
         }else{
-            u=us.get();
+            return "error";
         }
         //gets game
         Optional<Game> og = gameSer.findById(id);

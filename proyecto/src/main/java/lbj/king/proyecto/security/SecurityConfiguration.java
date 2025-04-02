@@ -1,4 +1,4 @@
-package lbj.king.proyecto;
+package lbj.king.proyecto.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import lbj.king.proyecto.services.RepositoryUserDetailsService;
 
 
 @Configuration
@@ -50,9 +48,14 @@ public class SecurityConfiguration {
 					.requestMatchers("/imagenes/**").permitAll()
 					.requestMatchers("/js/**").permitAll()	
                     .requestMatchers("/game/watch/{id}").permitAll()
-					.requestMatchers("/h2-console/**").permitAll()
+					.requestMatchers("/h2-console/**").permitAll()	//FALLA IGUAL
 					// PRIVATE PAGES
-                    .requestMatchers("/profile").hasRole("USER")
+					.requestMatchers("/balanceProcess").hasAnyRole("USER","ADMIN")
+                    .requestMatchers("/profile/**").hasAnyRole("USER","ADMIN")
+                    .requestMatchers("/game/form").hasRole("ADMIN")
+                    .requestMatchers("/game/save").hasRole("ADMIN")
+
+
 					.anyRequest().authenticated())
                 
 			.formLogin(formLogin -> formLogin
@@ -63,7 +66,7 @@ public class SecurityConfiguration {
 			)
 			.logout(logout -> logout
 					.logoutUrl("/logout")
-					.logoutSuccessUrl("/procesarLogout")
+					.logoutSuccessUrl("/")
 					.permitAll()
 			);
 		

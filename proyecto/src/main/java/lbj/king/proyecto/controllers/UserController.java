@@ -45,19 +45,23 @@ public class UserController {
     @Autowired
     private GameService gameSer;
 
-    /* Index without logged user */
     @GetMapping("/")
-    public String getIndex(Model model, HttpSession session) {
-        Userr u = (Userr) session.getAttribute("user");
-        if (u != null) {
-            model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage() != null);
-        }
+    public String getIndex(Model model, HttpServletRequest request) {
+
         List<Game> gameList = gameSer.getGames();
         if (gameList.size() > 0) {
             model.addAttribute("Juegos", gameList);
         }
-        return "main";
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            Userr u = uSer.findByName(principal.getName()).get();
+            model.addAttribute("userLogged", u);
+            model.addAttribute("hasImage", u.getImage());
+            System.out.println(u.getName());
+            return "main";
+        } else {
+            return "main";
+        }
     }
 
     @GetMapping("/register")
@@ -99,54 +103,27 @@ public class UserController {
         return "main";
     }
 
-    // @PostMapping("/loginProcess")
-    // public String postMethodName(@RequestParam String name, @RequestParam String psw, Model model,
-    //         HttpSession session) {
-
-    //     for (Userr u : uSer.getUsuarios()) {
-    //         if (u.getName().equals(name)) {
-    //             if (u.getPassword().equals(psw)) {
-    //                 session.setAttribute("user", u);
-    //                 model.addAttribute("userLogged", u);
-    //                 List<Game> gameList = gameSer.getGames();
-    //                 if (gameList.size() > 0) {
-    //                     model.addAttribute("Juegos", gameList);
-    //                 }
-    //                 return "main";
-    //             }
-    //         }
-    //     }
-    //     model.addAttribute("error", "true");
-    //     return "login";
-    // }
-
-    @GetMapping("/users")
-    public String getUsers(Model model) {
-        model.addAttribute("usuarios", uSer.findAll());
-        return "usuarios";
-    }
-
     @PostMapping("/balanceProcess")
-    public String postSaldo(@RequestParam float money, HttpSession session, Model model) {
-        // TODO: process POST request
+    public String postSaldo(@RequestParam float money, HttpServletRequest request, Model model) {
 
-        if (money > 0) {
-            Userr u = (Userr) session.getAttribute("user");
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            Userr u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            u.setCurrency(u.getCurrency() + money);
-            uSer.save(u);
-
             model.addAttribute("hasImage", u.getImage());
-
-            return "redirect:/";
+            System.out.println(u.getName());
+            if (money > 0) {
+                u.setCurrency(u.getCurrency() + money);
+                uSer.save(u);
+                return "redirect:/";
+            } else {
+                model.addAttribute("dineroNegativo", "true");
+                return "main";
+            }
         } else {
-            model.addAttribute("dineroNegativo", "true");
-
-            Userr u = (Userr) session.getAttribute("user");
-            model.addAttribute("hasImage", u.getImage());
-
-            return "main";
+            throw new NoSuchElementException();
         }
+        
     }
 
     @PostMapping("/profile/saveImage")
@@ -181,12 +158,6 @@ public class UserController {
         } else {
             throw new NoSuchElementException();
         }
-        // Userr u = (Userr)session.getAttribute("user");
-
-        // if(u == null){
-        // return "login";
-        // }
-       
     }
 
     @GetMapping("/profile/image")
