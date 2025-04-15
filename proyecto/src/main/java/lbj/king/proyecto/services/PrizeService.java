@@ -1,19 +1,29 @@
 package lbj.king.proyecto.services;
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
+import lbj.king.proyecto.DTO.PrizeDTO;
+import lbj.king.proyecto.DTO.PrizeMapper;
+import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Prize;
+import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.PrizeRepository;
 
 @Service
 public class PrizeService {
      @Autowired
     private PrizeRepository pRep;
+    @Autowired
+    private PrizeMapper mapper;
 
     public List<Prize> getPremios() {
 
@@ -38,6 +48,61 @@ public class PrizeService {
     @Transactional
     public void deletePrizeById(Long id){
         pRep.deleteById(id);
+    }
+
+    
+    //para api rest
+    private PrizeDTO toDTO(Prize prize) {
+        return mapper.toDTO(prize);
+    }
+
+
+    private Prize toDomain(PrizeDTO prizeDTO) {
+		return mapper.toDomain(prizeDTO);
+	}
+
+
+    private Collection<PrizeDTO> toDTOs(Collection<Prize> prizes) {
+        return mapper.toDTOs(prizes);
+    }
+
+    
+    public Collection<PrizeDTO> getPrizes() {
+        return toDTOs(pRep.findAll());
+    }
+
+
+    public PrizeDTO getPrize(long id) {
+        return toDTO(pRep.findById(id).orElseThrow()); 
+    }
+
+
+    public PrizeDTO createPrize(PrizeDTO prizeDTO) {
+        if(prizeDTO.id() != null){
+            throw new IllegalArgumentException();
+        } 
+        Prize prize = toDomain(prizeDTO); 
+        pRep.save(prize);
+        return toDTO(prize);
+    }
+
+    public PrizeDTO replacePrize(long id, PrizeDTO updatedPrizeDTO) throws SQLException{
+		Prize updatedPrize = toDomain(updatedPrizeDTO);
+		updatedPrize.setId(id);
+
+		pRep.save(updatedPrize);
+
+		return toDTO(updatedPrize);
+    }
+
+    public PrizeDTO deletePrize(long id) {
+        Prize prize = pRep.findById(id).orElseThrow();
+
+		PrizeDTO prizeDTO = toDTO(prize);
+
+		pRep.deleteById(id);
+
+		return prizeDTO;
     }
 
 }
