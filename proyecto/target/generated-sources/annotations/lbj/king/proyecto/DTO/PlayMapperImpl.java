@@ -1,0 +1,71 @@
+package lbj.king.proyecto.DTO;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.annotation.processing.Generated;
+import lbj.king.proyecto.model.Game;
+import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Userr;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-04-15T22:48:10+0200",
+    comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
+)
+@Component
+public class PlayMapperImpl implements PlayMapper {
+
+    @Override
+    public PlayDTO toDTO(Play play) {
+        if ( play == null ) {
+            return null;
+        }
+
+        float bet = 0.0f;
+        float win = 0.0f;
+        Game game = null;
+
+        bet = play.getBet();
+        win = play.getWin();
+        game = play.getGame();
+
+        Long id = null;
+        boolean won = false;
+        Userr user = null;
+
+        PlayDTO playDTO = new PlayDTO( id, bet, win, won, user, game );
+
+        return playDTO;
+    }
+
+    @Override
+    public Collection<PlayDTO> toDTOs(Collection<Play> plays) {
+        if ( plays == null ) {
+            return null;
+        }
+
+        Collection<PlayDTO> collection = new ArrayList<PlayDTO>( plays.size() );
+        for ( Play play : plays ) {
+            collection.add( toDTO( play ) );
+        }
+
+        return collection;
+    }
+
+    @Override
+    public Play toDomain(PlayDTO playDTO) {
+        if ( playDTO == null ) {
+            return null;
+        }
+
+        Play play = new Play();
+
+        if ( playDTO.id() != null ) {
+            play.setId( playDTO.id() );
+        }
+        play.setWin( playDTO.win() );
+
+        return play;
+    }
+}

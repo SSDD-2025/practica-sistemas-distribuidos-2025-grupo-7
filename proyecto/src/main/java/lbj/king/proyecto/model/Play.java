@@ -31,6 +31,10 @@ public class Play {
         this.game=j;
     }
 
+    public void setId(long id){
+        this.id=id;
+    }
+
     public float getWin(){
         return this.win;
     }
