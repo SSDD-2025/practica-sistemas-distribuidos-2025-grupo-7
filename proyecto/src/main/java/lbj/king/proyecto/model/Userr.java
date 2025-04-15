@@ -25,6 +25,8 @@ public class Userr {
     private String password;
     private float currency;
 
+    private String imageUrl;
+
     @Lob
     private Blob image;
 
@@ -75,6 +77,13 @@ public class Userr {
     }
     public long getId(){
         return this.id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Blob getImage() {

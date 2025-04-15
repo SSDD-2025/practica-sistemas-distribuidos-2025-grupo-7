@@ -1,8 +1,10 @@
 package lbj.king.proyecto.controllers;
 
+import java.net.URI;
 import java.security.Principal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -127,21 +129,25 @@ public class UserController {
     }
 
     @PostMapping("/profile/saveImage")
-    public String saveImage(Model model, @RequestParam("image") MultipartFile image, HttpSession session)
-            throws Exception {
+    public String saveImage(@RequestParam("image") MultipartFile image, 
+                        HttpSession session,
+                        HttpServletRequest request) throws Exception {
 
-        Userr u = (Userr) session.getAttribute("user");
+        Principal principal = request.getUserPrincipal();
+        Userr u = uSer.findByName(principal.getName()).orElseThrow();
+        
         if (u == null) {
             return "redirect:/login";
         }
-        if (image.isEmpty()) {
-            return "redirect:/profile";
+
+        if (!image.isEmpty()) {
+            Blob imag = new SerialBlob(image.getBytes());
+            u.setImage(imag);
+            uSer.save(u);
+            
+            session.setAttribute("user", u);
         }
-        Blob imag = new SerialBlob(image.getBytes());
-        u.setImage(imag);
-        uSer.save(u);
-        model.addAttribute("userLogged", u);
-        model.addAttribute("hasImage", u.getImage());
+        
         return "redirect:/profile";
     }
 
