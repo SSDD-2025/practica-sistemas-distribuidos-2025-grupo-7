@@ -1,4 +1,4 @@
-package lbj.king.proyecto.controllers;
+package lbj.king.proyecto.api_rest;
 
 import java.net.URI;
 import java.sql.SQLException;
