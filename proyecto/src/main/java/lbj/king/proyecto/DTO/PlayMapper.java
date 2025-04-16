@@ -3,7 +3,9 @@ package lbj.king.proyecto.DTO;
 import java.util.Collection;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
+import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
 
 @Mapper(componentModel = "spring")
@@ -12,4 +14,6 @@ public interface PlayMapper {
     PlayDTO toDTO (Play play);
     Collection<PlayDTO> toDTOs (Collection<Play> plays);
     Play toDomain (PlayDTO playDTO);
+
+    
 }  

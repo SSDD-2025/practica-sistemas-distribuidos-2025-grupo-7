@@ -1,7 +1,5 @@
 package lbj.king.auth;
 
-import java.io.ObjectInputFilter.Status;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -18,8 +16,6 @@ import lbj.king.proyecto.security.jwt.UserLoginService;
 @RestController
 @RequestMapping("/api/auth")
 public class LoginController {
-
-
 	
 	@Autowired
 	private UserLoginService userService;
@@ -39,9 +35,9 @@ public class LoginController {
 		return userService.refresh(response, refreshToken);
 	}
 
-	// @PostMapping("/logout")
-	// public ResponseEntity<AuthResponse> logOut(HttpServletResponse response) {
-	// 	return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userService.logout(response)));
-	// }
-
+	@PostMapping("/logout")
+	public ResponseEntity<AuthResponse> logOut(HttpServletResponse response) {
+		return ResponseEntity.ok(new AuthResponse(AuthResponse.Status.SUCCESS, userService.logout(response)));
+	}
+	
 }

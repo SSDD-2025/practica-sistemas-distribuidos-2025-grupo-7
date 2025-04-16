@@ -1,4 +1,6 @@
 package lbj.king.proyecto.security.jwt;
+
+
 import java.time.Duration;
 
 public enum TokenType {

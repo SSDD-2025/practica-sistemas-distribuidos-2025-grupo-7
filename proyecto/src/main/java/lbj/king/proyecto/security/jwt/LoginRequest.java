@@ -1,4 +1,6 @@
 package lbj.king.proyecto.security.jwt;
+
+
 public class LoginRequest {
 
 	private String username;

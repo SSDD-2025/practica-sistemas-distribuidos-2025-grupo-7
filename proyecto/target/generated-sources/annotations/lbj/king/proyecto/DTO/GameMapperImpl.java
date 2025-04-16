@@ -7,11 +7,12 @@ import java.util.Collection;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import lbj.king.proyecto.model.Game;
+import lbj.king.proyecto.model.Play;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-16T20:30:33+0200",
+    date = "2025-04-16T23:03:00+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -75,5 +76,21 @@ public class GameMapperImpl implements GameMapper {
         }
 
         return game;
+    }
+
+    @Override
+    public Play toDomain(PlayDTO playDTO) {
+        if ( playDTO == null ) {
+            return null;
+        }
+
+        Play play = new Play();
+
+        if ( playDTO.id() != null ) {
+            play.setId( playDTO.id() );
+        }
+        play.setWin( playDTO.win() );
+
+        return play;
     }
 }
