@@ -53,12 +53,12 @@ public class UserRestController {
     }
 
     @PostMapping("/")
-    public /*ResponseEntity<*/UserrDTO/*>*/ createUser(@RequestBody UserrDTO userrDTO) {        
-        return uSer.createUser(userrDTO);
+    public ResponseEntity<UserrDTO> createUser(@RequestBody UserrDTO userrDTO) {        
+        userrDTO = uSer.createUser(userrDTO);
+        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userrDTO.id()).toUri();
+        return ResponseEntity.created(location).body(userrDTO);
     }
     
-    //FALTA MODIFICAR USER
-    //quizas falte para cambiar un user pero para eso q lo borren supongo
     @PutMapping("/{id}")
 	public UserrDTO replaceUser(@PathVariable long id, @RequestBody UserrDTO updatedUserrDTO) throws SQLException {
 

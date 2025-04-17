@@ -94,10 +94,12 @@ public class UserService {
     public Collection<UserrDTO> getUsers(){
         return toDTOs(userRep.findAll());
     }
+
     public UserrDTO getUser(long id) {
         return toDTO(userRep.findById(id).orElseThrow());
     }
-    public /*ResponseEntity<*/UserrDTO/*>*/ createUser(UserrDTO userrDTO) {       
+
+    public UserrDTO createUser(UserrDTO userrDTO) {       
         if(userrDTO.id() != null){
             throw new IllegalArgumentException();
         } 
