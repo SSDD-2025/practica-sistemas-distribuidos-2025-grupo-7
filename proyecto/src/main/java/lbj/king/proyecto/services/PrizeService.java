@@ -2,20 +2,13 @@ package lbj.king.proyecto.services;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.PrizeMapper;
-import lbj.king.proyecto.DTO.UserrDTO;
-import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Prize;
-import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.PrizeRepository;
 
 @Service

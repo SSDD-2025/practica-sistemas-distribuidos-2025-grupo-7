@@ -3,9 +3,7 @@ package lbj.king.proyecto.DTO;
 import java.util.Collection;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
-import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
 
 @Mapper(componentModel = "spring")
