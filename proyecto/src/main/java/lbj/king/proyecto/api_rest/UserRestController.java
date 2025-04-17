@@ -84,8 +84,8 @@ public class UserRestController {
 
     @PostMapping("/{id}/image")
     public ResponseEntity<Object> createImageUserr(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException{
+        uSer.createImageUserr(id, imageFile.getInputStream(), imageFile.getSize());
         URI location = fromCurrentRequest().build().toUri();
-        uSer.createImageUserr(id, location, imageFile.getInputStream(), imageFile.getSize());
         return ResponseEntity.created(location).build();
     }
 
@@ -105,7 +105,7 @@ public class UserRestController {
 
     @DeleteMapping("/{id}/image")
     public ResponseEntity<Object> deleteImageUserr(@PathVariable long id) throws IOException{
-        uSer.deleteUserr(id);
+        uSer.deleteImageUserr(id);
         return ResponseEntity.noContent().build();
     }
 }

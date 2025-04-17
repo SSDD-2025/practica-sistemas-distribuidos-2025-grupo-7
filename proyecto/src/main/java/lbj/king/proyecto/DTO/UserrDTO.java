@@ -10,11 +10,11 @@ import lbj.king.proyecto.model.Prize;
 
 public record UserrDTO(
         Long id,
-        String name,
-        List<String> roles,
+        String name,   
         float currency,
         boolean imageBool,
-        List<Prize> prizeList
+        List<String> roles,
+        List<PrizeDTO> prizeList
 
         ) {
 }

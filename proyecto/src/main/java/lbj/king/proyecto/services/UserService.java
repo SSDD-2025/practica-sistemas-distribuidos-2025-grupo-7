@@ -123,7 +123,7 @@ public class UserService {
         return toDTO(userr);
     }
 
-    public void createImageUserr(long id, URI location, InputStream inputStream, long size) {
+    public void createImageUserr(long id, InputStream inputStream, long size) {
         Userr userr = userRep.findById(id).orElseThrow();
         userr.setImage(BlobProxy.generateProxy(inputStream, size));
 

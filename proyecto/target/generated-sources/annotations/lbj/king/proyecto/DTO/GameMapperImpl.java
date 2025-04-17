@@ -7,12 +7,13 @@ import java.util.List;
 import javax.annotation.processing.Generated;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T19:41:58+0200",
+    date = "2025-04-17T20:01:49+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -95,6 +96,37 @@ public class GameMapperImpl implements GameMapper {
         return play;
     }
 
+    protected Prize prizeDTOToPrize(PrizeDTO prizeDTO) {
+        if ( prizeDTO == null ) {
+            return null;
+        }
+
+        String name = null;
+        Integer price = null;
+
+        name = prizeDTO.name();
+        price = prizeDTO.price();
+
+        Prize prize = new Prize( name, price );
+
+        prize.setOwned( prizeDTO.owned() );
+
+        return prize;
+    }
+
+    protected List<Prize> prizeDTOListToPrizeList(List<PrizeDTO> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Prize> list1 = new ArrayList<Prize>( list.size() );
+        for ( PrizeDTO prizeDTO : list ) {
+            list1.add( prizeDTOToPrize( prizeDTO ) );
+        }
+
+        return list1;
+    }
+
     protected String[] stringListToStringArray(List<String> list) {
         if ( list == null ) {
             return null;
@@ -130,7 +162,12 @@ public class GameMapperImpl implements GameMapper {
             userr.setId( userrDTO.id() );
         }
         userr.setImageBool( userrDTO.imageBool() );
-        userr.setImage( userrDTO.image() );
+        if ( userr.getPrizeList() != null ) {
+            List<Prize> list = prizeDTOListToPrizeList( userrDTO.prizeList() );
+            if ( list != null ) {
+                userr.getPrizeList().addAll( list );
+            }
+        }
 
         return userr;
     }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T19:48:43+0200",
+    date = "2025-04-17T20:01:49+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -24,25 +24,22 @@ public class UserrMapperImpl implements UserrMapper {
 
         Long id = null;
         String name = null;
-        List<String> roles = null;
         float currency = 0.0f;
         boolean imageBool = false;
-        List<Prize> prizeList = null;
+        List<String> roles = null;
+        List<PrizeDTO> prizeList = null;
 
         id = userr.getId();
         name = userr.getName();
+        currency = userr.getCurrency();
+        imageBool = userr.getImageBool();
         List<String> list = userr.getRoles();
         if ( list != null ) {
             roles = new ArrayList<String>( list );
         }
-        currency = userr.getCurrency();
-        imageBool = userr.getImageBool();
-        List<Prize> list1 = userr.getPrizeList();
-        if ( list1 != null ) {
-            prizeList = new ArrayList<Prize>( list1 );
-        }
+        prizeList = prizeListToPrizeDTOList( userr.getPrizeList() );
 
-        UserrDTO userrDTO = new UserrDTO( id, name, roles, currency, imageBool, prizeList );
+        UserrDTO userrDTO = new UserrDTO( id, name, currency, imageBool, roles, prizeList );
 
         return userrDTO;
     }
@@ -83,13 +80,81 @@ public class UserrMapperImpl implements UserrMapper {
         }
         userr.setImageBool( userrDTO.imageBool() );
         if ( userr.getPrizeList() != null ) {
-            List<Prize> list = userrDTO.prizeList();
+            List<Prize> list = prizeDTOListToPrizeList( userrDTO.prizeList() );
             if ( list != null ) {
                 userr.getPrizeList().addAll( list );
             }
         }
 
         return userr;
+    }
+
+    protected PrizeDTO prizeToPrizeDTO(Prize prize) {
+        if ( prize == null ) {
+            return null;
+        }
+
+        Long id = null;
+        String name = null;
+        int price = 0;
+        Boolean owned = null;
+        String userName = null;
+
+        id = prize.getId();
+        name = prize.getName();
+        if ( prize.getPrice() != null ) {
+            price = prize.getPrice();
+        }
+        owned = prize.getOwned();
+        userName = prize.getUserName();
+
+        PrizeDTO prizeDTO = new PrizeDTO( id, name, price, owned, userName );
+
+        return prizeDTO;
+    }
+
+    protected List<PrizeDTO> prizeListToPrizeDTOList(List<Prize> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<PrizeDTO> list1 = new ArrayList<PrizeDTO>( list.size() );
+        for ( Prize prize : list ) {
+            list1.add( prizeToPrizeDTO( prize ) );
+        }
+
+        return list1;
+    }
+
+    protected Prize prizeDTOToPrize(PrizeDTO prizeDTO) {
+        if ( prizeDTO == null ) {
+            return null;
+        }
+
+        String name = null;
+        Integer price = null;
+
+        name = prizeDTO.name();
+        price = prizeDTO.price();
+
+        Prize prize = new Prize( name, price );
+
+        prize.setOwned( prizeDTO.owned() );
+
+        return prize;
+    }
+
+    protected List<Prize> prizeDTOListToPrizeList(List<PrizeDTO> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Prize> list1 = new ArrayList<Prize>( list.size() );
+        for ( PrizeDTO prizeDTO : list ) {
+            list1.add( prizeDTOToPrize( prizeDTO ) );
+        }
+
+        return list1;
     }
 
     protected String[] stringListToStringArray(List<String> list) {
