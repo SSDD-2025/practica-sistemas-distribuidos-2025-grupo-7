@@ -19,7 +19,6 @@ import lbj.king.proyecto.services.UserService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,25 +47,25 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-    public UserrDTO getUser(@RequestParam long id) {
+    public UserrDTO getUser(@PathVariable long id) {
         return uSer.getUser(id);
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserrDTO> createUser(@RequestBody UserrDTO userrDTO) {        
+    public ResponseEntity<UserrDTO> createUser(@PathVariable UserrDTO userrDTO) {        
         userrDTO = uSer.createUser(userrDTO);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userrDTO.id()).toUri();
         return ResponseEntity.created(location).body(userrDTO);
     }
     
     @PutMapping("/{id}")
-	public UserrDTO replaceUser(@PathVariable long id, @RequestBody UserrDTO updatedUserrDTO) throws SQLException {
+	public UserrDTO replaceUser(@PathVariable long id, @PathVariable UserrDTO updatedUserrDTO) throws SQLException {
 
 		return uSer.replaceUser(id, updatedUserrDTO);
 	}
 
     @DeleteMapping("/{id}")
-    public UserrDTO deletUserr(@RequestBody Long id){
+    public UserrDTO deletUserr(@PathVariable Long id){
         Userr userr = uSer.findById(id).orElseThrow();
         uSer.deleteUserById(id);
         return mapper.toDTO(userr);

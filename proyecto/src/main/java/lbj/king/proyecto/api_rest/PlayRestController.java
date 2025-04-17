@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,7 +37,7 @@ public class PlayRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<PlayDTO> createBook(@RequestBody PlayDTO playDTO) {
+    public ResponseEntity<PlayDTO> createBook(@PathVariable PlayDTO playDTO) {
 
 		playDTO = playService.createPlay(playDTO);
 
@@ -48,7 +47,7 @@ public class PlayRestController {
 	}
 
     @PutMapping("/{id}")
-	public PlayDTO replaceplay(@PathVariable long id, @RequestBody PlayDTO updatedplayDTO) throws SQLException {
+	public PlayDTO replaceplay(@PathVariable long id, @PathVariable PlayDTO updatedplayDTO) throws SQLException {
 
 		return playService.replacePlay(id, updatedplayDTO);
 	}
