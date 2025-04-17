@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T11:53:39+0200",
+    date = "2025-04-17T14:18:46+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -22,15 +22,16 @@ public class PlayMapperImpl implements PlayMapper {
             return null;
         }
 
+        Long id = null;
         float bet = 0.0f;
         float win = 0.0f;
         Game game = null;
 
+        id = play.getId();
         bet = play.getBet();
         win = play.getWin();
         game = play.getGame();
 
-        Long id = null;
         boolean won = false;
         Userr user = null;
 

@@ -14,7 +14,7 @@ public class Play {
     
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     
     @ManyToOne
     private Userr user;
@@ -33,6 +33,10 @@ public class Play {
 
     public void setId(long id){
         this.id=id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public float getWin(){

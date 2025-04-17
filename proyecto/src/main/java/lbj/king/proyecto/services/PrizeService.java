@@ -86,14 +86,18 @@ public class PrizeService {
         return toDTO(prize);
     }
 
-    public PrizeDTO replacePrize(long id, PrizeDTO updatedPrizeDTO) throws SQLException{
-		Prize updatedPrize = toDomain(updatedPrizeDTO);
-		updatedPrize.setId(id);
-
-		pRep.save(updatedPrize);
-
-		return toDTO(updatedPrize);
+    public PrizeDTO replacePrize(long id, PrizeDTO updatedPrizeDTO) throws SQLException {
+        Prize existing = pRep.findById(id).orElseThrow();
+    
+        existing.setName(updatedPrizeDTO.name());
+        existing.setPrice(updatedPrizeDTO.price());
+        existing.setOwned(updatedPrizeDTO.owned());
+    
+        pRep.save(existing); 
+    
+        return toDTO(existing);
     }
+    
 
     public PrizeDTO deletePrize(long id) {
         Prize prize = pRep.findById(id).orElseThrow();

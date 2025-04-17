@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 public class Prize {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String name;
     private Integer price;
@@ -26,15 +26,16 @@ public class Prize {
         this.price=price;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
     }
     public Integer getPrice() {
         return price;
