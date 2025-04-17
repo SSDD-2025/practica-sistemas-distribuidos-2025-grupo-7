@@ -1,5 +1,6 @@
 package lbj.king.proyecto.DTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import lbj.king.proyecto.model.Userr;
 
@@ -10,5 +11,7 @@ import java.util.List;
 public interface UserrMapper {
     UserrDTO toDTO (Userr userr);
     List<UserrDTO> toDTOs(Collection <Userr> userrs);
-    Userr toDomain (UserrDTO userrDTO);
+    
+    @Mapping(target = "image", ignore = true)
+    Userr toDomain(UserrDTO userDTO);
 }
