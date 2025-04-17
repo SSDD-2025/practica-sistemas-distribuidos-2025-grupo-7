@@ -59,6 +59,11 @@ public class UserRestController {
     
     //FALTA MODIFICAR USER
     //quizas falte para cambiar un user pero para eso q lo borren supongo
+    @PutMapping("/{id}")
+	public UserrDTO replaceUser(@PathVariable long id, @RequestBody UserrDTO updatedUserrDTO) throws SQLException {
+
+		return uSer.replaceUser(id, updatedUserrDTO);
+	}
 
     @DeleteMapping("/{id}")
     public UserrDTO deletUserr(@RequestBody Long id){

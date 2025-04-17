@@ -27,6 +27,7 @@ import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.DTO.UserrMapper;
+import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.PlayRepository;
 import lbj.king.proyecto.repositories.UserRepository;
@@ -105,8 +106,14 @@ public class UserService {
         return toDTO(userr);
     }
     
-    //FALTA MODIFICAR USER
-    //quizas falte para cambiar un user pero para eso q lo borren supongo
+    public UserrDTO replaceUser(long id, UserrDTO updatedUserrDTO) throws SQLException{
+		Userr updatedUserr = toDomain(updatedUserrDTO);
+		updatedUserr.setId(id);
+
+		userRep.save(updatedUserr);
+
+		return toDTO(updatedUserr);
+    }
 
     public UserrDTO deleteUserr(long id){
         Userr userr = userRep.findById(id).orElseThrow();
