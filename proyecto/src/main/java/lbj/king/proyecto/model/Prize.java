@@ -27,6 +27,13 @@ public class Prize {
     }
 
 
+    public String getUserName(){
+        if(this.owned == true){
+            return this.owner.getName();
+        } else {
+            return null;
+        }
+    }
     public String getName() {
         return name;
     }

@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 import lbj.king.proyecto.model.Game;
+import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.GameRepository;
+import lbj.king.proyecto.repositories.PlayRepository;
 import lbj.king.proyecto.repositories.PrizeRepository;
 import lbj.king.proyecto.repositories.UserRepository;
 
@@ -29,6 +31,8 @@ public class DatabaseInitializer {
     GameRepository gameRep;
     @Autowired
     PrizeRepository prizeRep;
+    @Autowired
+    PlayRepository playRep;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -63,6 +67,13 @@ public class DatabaseInitializer {
         userRep.save(u1);
         Userr u2 = new Userr("b", passwordEncoder.encode("b"),"USER");
         userRep.save(u2);
+
+        
+        Play play1 = new Play(1, u1, g1);
+        playRep.save(play1);
+        p1.setOwned(true);
+        p1.setOwner(u1);
+        prizeRep.save(p1);
     }
     
 }

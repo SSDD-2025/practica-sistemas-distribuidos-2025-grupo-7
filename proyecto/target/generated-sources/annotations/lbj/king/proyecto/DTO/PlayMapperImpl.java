@@ -3,14 +3,12 @@ package lbj.king.proyecto.DTO;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.processing.Generated;
-import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
-import lbj.king.proyecto.model.Userr;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T14:18:46+0200",
+    date = "2025-04-17T14:38:02+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -25,17 +23,18 @@ public class PlayMapperImpl implements PlayMapper {
         Long id = null;
         float bet = 0.0f;
         float win = 0.0f;
-        Game game = null;
+        String userName = null;
+        String gameName = null;
 
         id = play.getId();
         bet = play.getBet();
         win = play.getWin();
-        game = play.getGame();
+        userName = play.getUserName();
+        gameName = play.getGameName();
 
         boolean won = false;
-        Userr user = null;
 
-        PlayDTO playDTO = new PlayDTO( id, bet, win, won, user, game );
+        PlayDTO playDTO = new PlayDTO( id, bet, win, won, userName, gameName );
 
         return playDTO;
     }

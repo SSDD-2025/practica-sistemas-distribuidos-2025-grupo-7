@@ -39,6 +39,14 @@ public class Play {
         return id;
     }
 
+    public String getGameName(){
+        return this.game.getName();
+    }
+
+    public String getUserName(){
+        return this.user.getName();
+    }
+
     public float getWin(){
         return this.win;
     }
