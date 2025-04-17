@@ -15,45 +15,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lbj.king.proyecto.DTO.PrizeDTO;
-import lbj.king.proyecto.services.PrizeService;
+import lbj.king.proyecto.DTO.GameDTO;
+import lbj.king.proyecto.services.GameService;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
+
+
 @RestController
-@RequestMapping("/api/prizes")
-public class PrizeRestController {
-    
+@RequestMapping("/api/games")
+public class GameRestController {
     @Autowired
-    private PrizeService prizeService;
+    private GameService gameService;
 
     @GetMapping("/")
-    public Collection<PrizeDTO> getPrizes() {
-        return prizeService.getPrizes();
+    public Collection<GameDTO> getGames() {
+        return gameService.getGamesR();
     }
 
     @GetMapping("/{id}")
-    public PrizeDTO getPrizeById(Long id) {
-        return prizeService.getPrize(id);
+    public GameDTO getGame(Long id) {
+        return gameService.getGame(id);
     }
 
     @PostMapping("/")
-    public ResponseEntity<PrizeDTO> createPrize(@RequestBody PrizeDTO prizeDTO) {
-
-		prizeDTO = prizeService.createPrize(prizeDTO);
-
-		URI location = fromCurrentRequest().path("/{id}").buildAndExpand(prizeDTO.id()).toUri();
-
-		return ResponseEntity.created(location).body(prizeDTO);
+    public ResponseEntity<GameDTO> createGame(@RequestBody GameDTO gameDTO) {
+		gameDTO = gameService.createGame(gameDTO);
+		URI location = fromCurrentRequest().path("/{id}").buildAndExpand(gameDTO.id()).toUri();
+		return ResponseEntity.created(location).body(gameDTO);
 	}
 
     @PutMapping("/{id}")
-	public PrizeDTO replacePrize(@PathVariable long id, @RequestBody PrizeDTO updatedPrizeDTO) throws SQLException {
+	public GameDTO replaceGame(@PathVariable long id, @RequestBody GameDTO updatedgameDTO) throws SQLException {
 
-		return prizeService.replacePrize(id, updatedPrizeDTO);
+		return gameService.replaceGame(id, updatedgameDTO);
 	}
 
     @DeleteMapping("/{id}")
-    public PrizeDTO deletePrize(@PathVariable long id) {
-        return prizeService.deletePrize(id);
+    public GameDTO deleteGame(@PathVariable long id) {
+        return gameService.deleteGame(id);
     }
 }

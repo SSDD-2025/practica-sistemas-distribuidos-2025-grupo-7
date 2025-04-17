@@ -2,7 +2,6 @@ package lbj.king.proyecto.model;
 import java.sql.Blob;
 import java.util.*;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,6 +41,9 @@ public class Game {
         this.maxPossibleNumber=maxPosibleNum;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
     public long getId(){
         return id;
     }
