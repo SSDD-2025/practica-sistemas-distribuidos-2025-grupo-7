@@ -61,7 +61,10 @@ public class Userr {
     }
 
     public String getName(){
-        return this.name;
+        if(this.name != null){
+            return this.name;
+        }
+        return null;
     }
     public String getPassword(){
         return this.password;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +37,7 @@ public class PrizeRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<PrizeDTO> createPrize(@PathVariable PrizeDTO prizeDTO) {
+    public ResponseEntity<PrizeDTO> createPrize(@RequestBody PrizeDTO prizeDTO) {
 
 		prizeDTO = prizeService.createPrize(prizeDTO);
 

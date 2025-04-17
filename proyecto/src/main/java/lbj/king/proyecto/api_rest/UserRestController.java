@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.annotation.Resource;
 
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -52,7 +53,7 @@ public class UserRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<UserrDTO> createUser(@PathVariable UserrDTO userrDTO) {        
+    public ResponseEntity<UserrDTO> createUser(@RequestBody UserrDTO userrDTO) {        
         userrDTO = uSer.createUser(userrDTO);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(userrDTO.id()).toUri();
         return ResponseEntity.created(location).body(userrDTO);

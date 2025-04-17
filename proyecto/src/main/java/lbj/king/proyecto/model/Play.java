@@ -1,5 +1,6 @@
 package lbj.king.proyecto.model;
 import jakarta.persistence.ManyToOne;
+import lbj.king.proyecto.DTO.GameDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,14 +40,6 @@ public class Play {
         return id;
     }
 
-    public String getGameName(){
-        return this.game.getName();
-    }
-
-    public String getUserName(){
-        return this.user.getName();
-    }
-
     public float getWin(){
         return this.win;
     }
@@ -62,5 +55,20 @@ public class Play {
     }
     public Game getGame(){
         return this.game;
+    }
+    public Userr getUser(){
+        return this.user;
+    }
+    public void setBet(float bet){
+        this.bet = bet;
+    }
+    public void setwon(boolean won){
+        this.won = won;
+    }
+    public void setUser(Userr user){
+        this.user = user;
+    }
+    public void setGame(Game game){
+        this.game = game;
     }
 }

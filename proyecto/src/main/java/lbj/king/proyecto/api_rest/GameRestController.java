@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +38,7 @@ public class GameRestController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<GameDTO> createGame(@PathVariable GameDTO gameDTO) {
+    public ResponseEntity<GameDTO> createGame(@RequestBody GameDTO gameDTO) {
 		gameDTO = gameService.createGame(gameDTO);
 		URI location = fromCurrentRequest().path("/{id}").buildAndExpand(gameDTO.id()).toUri();
 		return ResponseEntity.created(location).body(gameDTO);

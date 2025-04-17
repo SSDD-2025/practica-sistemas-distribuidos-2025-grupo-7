@@ -7,11 +7,12 @@ import java.util.List;
 import javax.annotation.processing.Generated;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Userr;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T14:38:02+0200",
+    date = "2025-04-17T18:47:46+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -67,6 +68,10 @@ public class GameMapperImpl implements GameMapper {
         if ( gameDTO.id() != null ) {
             game.setId( gameDTO.id() );
         }
+        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
+        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
+        game.setName( gameDTO.name() );
+        game.setWinMultp( gameDTO.winMultp() );
 
         return game;
     }
@@ -79,11 +84,53 @@ public class GameMapperImpl implements GameMapper {
 
         Play play = new Play();
 
+        play.setBet( playDTO.bet() );
         if ( playDTO.id() != null ) {
             play.setId( playDTO.id() );
         }
+        play.setUser( userrDTOToUserr( playDTO.user() ) );
         play.setWin( playDTO.win() );
+        play.setwon( playDTO.won() );
 
         return play;
+    }
+
+    protected String[] stringListToStringArray(List<String> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        String[] stringTmp = new String[list.size()];
+        int i = 0;
+        for ( String string : list ) {
+            stringTmp[i] = string;
+            i++;
+        }
+
+        return stringTmp;
+    }
+
+    protected Userr userrDTOToUserr(UserrDTO userrDTO) {
+        if ( userrDTO == null ) {
+            return null;
+        }
+
+        String name = null;
+        String[] roles = null;
+
+        name = userrDTO.name();
+        roles = stringListToStringArray( userrDTO.roles() );
+
+        String psw = null;
+
+        Userr userr = new Userr( name, psw, roles );
+
+        userr.setCurrency( userrDTO.currency() );
+        if ( userrDTO.id() != null ) {
+            userr.setId( userrDTO.id() );
+        }
+        userr.setImage( userrDTO.image() );
+
+        return userr;
     }
 }

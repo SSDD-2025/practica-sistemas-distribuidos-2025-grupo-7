@@ -1,0 +1,63 @@
+
+// para prueba post de users
+
+{
+    "name": "g",
+    "password": "g",
+    "roles": [
+            "USER"
+        ],
+    "currency": 1,
+    "image": null
+}
+
+
+// para prueba post de games
+
+{
+    "name": "nuevo",
+    "winMultp": 36.0,
+    "minPossibleNumber": 0,
+    "maxPossibleNumber": 36,
+    "image": null
+}
+
+//apra prueba post de play
+{
+    "bet": 10.0,
+    "win": 0.0,
+    "won": false,
+    "user": {
+        "id": 1,
+        "name": "a",
+        "roles": [
+            "ADMIN"
+        ],
+        "currency": 1.0E7,
+        "image": null
+    },
+    "game": {
+        "id": 1,
+        "name": "Roulette",
+        "winMultp": 36.0,
+        "minPossibleNumber": 0,
+        "maxPossibleNumber": 36,
+        "image": null
+    }
+}
+
+//para prueba post de prizes
+{
+    "name": "aaaaaaaaaa",
+    "price": 1000,
+    "owned": true,
+    "user": {
+        "id": 1,
+        "name": "a",
+        "roles": [
+            "ADMIN"
+        ],
+        "currency": 1.0E7,
+        "image": null
+    }
+}

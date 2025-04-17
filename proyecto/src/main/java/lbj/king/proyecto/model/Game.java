@@ -72,4 +72,17 @@ public class Game {
     public String getName(){
         return this.name;
     }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setWinMultp(float winMultp){
+        this.winMultp = winMultp;
+    }
+    public void setMinPossibleNumber(int minPosibleNumber){
+        this.minPossibleNumber = minPosibleNumber;
+    }
+    public void setMaxPossibleNumber(int maxPossibleNumber){
+        this.maxPossibleNumber = maxPossibleNumber;
+    }
+
 }

@@ -1,5 +1,7 @@
 package lbj.king.proyecto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,12 +30,30 @@ public class Prize {
 
 
     public String getUserName(){
-        if(this.owned == true){
+        if(this.owner != null){
             return this.owner.getName();
         } else {
             return null;
         }
     }
+
+    public Userr getUser(){
+        return this.owner;
+    }
+    public void setUser(Userr u){
+        this.owner = u;
+    }
+
+    public Long getUserId(){
+        if(this.owner == null){
+            return null;
+        }
+        return this.owner.getId();
+    }
+    public void setUserId(Long id){
+        this.owner.setId(id);
+    }
+
     public String getName() {
         return name;
     }

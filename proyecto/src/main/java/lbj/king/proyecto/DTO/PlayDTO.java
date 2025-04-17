@@ -8,9 +8,8 @@ public record PlayDTO(
     float bet,
     float win,
     boolean won,
-    String userName,
-    String gameName
-    // Game game
+    UserrDTO user,
+    GameDTO game
 ) {
  
     
