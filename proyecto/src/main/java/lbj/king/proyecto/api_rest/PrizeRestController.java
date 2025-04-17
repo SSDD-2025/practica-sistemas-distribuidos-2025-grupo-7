@@ -31,7 +31,7 @@ public class PrizeRestController {
     }
 
     @GetMapping("/{id}")
-    public PrizeDTO getPrizeById(Long id) {
+    public PrizeDTO getPrizeById(@PathVariable long id) {
         return prizeService.getPrize(id);
     }
 

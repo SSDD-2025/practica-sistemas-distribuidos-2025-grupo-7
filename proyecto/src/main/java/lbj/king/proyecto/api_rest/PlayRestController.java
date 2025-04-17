@@ -32,7 +32,7 @@ public class PlayRestController {
     }
 
     @GetMapping("/{id}")
-    public PlayDTO getplayById(Long id) {
+    public PlayDTO getplayById(@PathVariable long id) {
         return playService.getPlay(id);
     }
 
