@@ -25,10 +25,10 @@ public class Userr {
     private String password;
     private float currency;
 
-    private String imageUrl;
 
     @Lob
     private Blob image;
+    private boolean imageBool;
 
     @OneToMany(mappedBy = "owner")
     private List<Prize> prizeList;
@@ -85,11 +85,11 @@ public class Userr {
         this.id = id;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public boolean getImageBool() {
+        return imageBool;
     }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageBool(boolean imageBool) {
+        this.imageBool = imageBool;
     }
 
     public Blob getImage() {

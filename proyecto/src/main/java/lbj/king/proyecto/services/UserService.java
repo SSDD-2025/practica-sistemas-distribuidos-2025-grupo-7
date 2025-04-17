@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.DTO.UserrMapper;
@@ -125,7 +125,6 @@ public class UserService {
 
     public void createImageUserr(long id, URI location, InputStream inputStream, long size) {
         Userr userr = userRep.findById(id).orElseThrow();
-        userr.setImageUrl(location.toString());
         userr.setImage(BlobProxy.generateProxy(inputStream, size));
 
         userRep.save(userr);
@@ -133,7 +132,7 @@ public class UserService {
     public Resource getImageUserr(long id) throws SQLException{
         Userr userr = userRep.findById(id).orElseThrow();
         if (userr.getImage() != null) {
-            return (Resource) new InputStreamResource(userr.getImage().getBinaryStream());
+            return new InputStreamResource(userr.getImage().getBinaryStream());
         } else {
             throw new NoSuchElementException();
         }

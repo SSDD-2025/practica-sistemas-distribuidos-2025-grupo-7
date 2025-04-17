@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.processing.Generated;
+import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T18:29:39+0200",
+    date = "2025-04-17T19:09:56+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -27,6 +28,7 @@ public class UserrMapperImpl implements UserrMapper {
         List<String> roles = null;
         float currency = 0.0f;
         Blob image = null;
+        boolean imageBool = false;
 
         id = userr.getId();
         name = userr.getName();
@@ -36,8 +38,11 @@ public class UserrMapperImpl implements UserrMapper {
         }
         currency = userr.getCurrency();
         image = userr.getImage();
+        imageBool = userr.getImageBool();
 
-        UserrDTO userrDTO = new UserrDTO( id, name, roles, currency, image );
+        List<Prize> prizeList = null;
+
+        UserrDTO userrDTO = new UserrDTO( id, name, roles, currency, image, imageBool, prizeList );
 
         return userrDTO;
     }
@@ -77,6 +82,7 @@ public class UserrMapperImpl implements UserrMapper {
             userr.setId( userrDTO.id() );
         }
         userr.setImage( userrDTO.image() );
+        userr.setImageBool( userrDTO.imageBool() );
 
         return userr;
     }

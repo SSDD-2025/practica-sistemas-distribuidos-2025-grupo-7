@@ -143,6 +143,7 @@ public class UserController {
         if (!image.isEmpty()) {
             Blob imag = new SerialBlob(image.getBytes());
             u.setImage(imag);
+            u.setImageBool(true);
             uSer.save(u);
             
             session.setAttribute("user", u);
