@@ -9,7 +9,7 @@ public record GameDTO(
     float winMultp,
     int minPossibleNumber,
     int maxPossibleNumber,
-    byte[] fich,
+    //byte[] fich,
     Blob image
     ) {
     

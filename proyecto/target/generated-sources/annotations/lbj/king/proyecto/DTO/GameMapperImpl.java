@@ -2,7 +2,6 @@ package lbj.king.proyecto.DTO;
 
 import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T11:53:39+0200",
+    date = "2025-04-17T12:08:47+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -29,21 +28,16 @@ public class GameMapperImpl implements GameMapper {
         float winMultp = 0.0f;
         int minPossibleNumber = 0;
         int maxPossibleNumber = 0;
-        byte[] fich = null;
 
         id = game.getId();
         name = game.getName();
         winMultp = game.getWinMultp();
         minPossibleNumber = game.getMinPossibleNumber();
         maxPossibleNumber = game.getMaxPossibleNumber();
-        byte[] fich1 = game.getFich();
-        if ( fich1 != null ) {
-            fich = Arrays.copyOf( fich1, fich1.length );
-        }
 
         Blob image = null;
 
-        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, fich, image );
+        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, image );
 
         return gameDTO;
     }
@@ -70,10 +64,6 @@ public class GameMapperImpl implements GameMapper {
 
         Game game = new Game();
 
-        byte[] fich = gameDTO.fich();
-        if ( fich != null ) {
-            game.setFich( Arrays.copyOf( fich, fich.length ) );
-        }
         if ( gameDTO.id() != null ) {
             game.setId( gameDTO.id() );
         }
