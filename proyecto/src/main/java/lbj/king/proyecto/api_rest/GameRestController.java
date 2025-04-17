@@ -45,7 +45,7 @@ public class GameRestController {
 	}
 
     @PutMapping("/{id}")
-	public GameDTO replaceGame(@PathVariable long id, @PathVariable GameDTO updatedgameDTO) throws SQLException {
+	public GameDTO replaceGame(@PathVariable long id, @RequestBody GameDTO updatedgameDTO) throws SQLException {
 
 		return gameService.replaceGame(id, updatedgameDTO);
 	}

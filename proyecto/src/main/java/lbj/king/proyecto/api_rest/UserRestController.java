@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.DTO.UserrMapper;
+import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
+import lbj.king.proyecto.services.PrizeService;
 import lbj.king.proyecto.services.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.annotation.Resource;
+import org.springframework.core.io.Resource;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +43,8 @@ public class UserRestController {
     private UserService uSer;
     @Autowired
     private UserrMapper mapper;
+    @Autowired
+    private PrizeService prizeSer;
 
     @GetMapping("/")
     public Collection<UserrDTO> getUsers() {
@@ -60,7 +64,7 @@ public class UserRestController {
     }
     
     @PutMapping("/{id}")
-	public UserrDTO replaceUser(@PathVariable long id, @PathVariable UserrDTO updatedUserrDTO) throws SQLException {
+	public UserrDTO replaceUser(@PathVariable long id, @RequestBody UserrDTO updatedUserrDTO) throws SQLException {
 
 		return uSer.replaceUser(id, updatedUserrDTO);
 	}
@@ -68,6 +72,12 @@ public class UserRestController {
     @DeleteMapping("/{id}")
     public UserrDTO deletUserr(@PathVariable Long id){
         Userr userr = uSer.findById(id).orElseThrow();
+        if (userr.getPrizeList() != null){
+            for (Prize p : userr.getPrizeList()) {
+                    prizeSer.changePrize(p);
+
+                }
+        }
         uSer.deleteUserById(id);
         return mapper.toDTO(userr);
     }

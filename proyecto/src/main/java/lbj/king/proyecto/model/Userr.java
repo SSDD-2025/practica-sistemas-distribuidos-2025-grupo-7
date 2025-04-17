@@ -75,7 +75,7 @@ public class Userr {
     public List<Play> getLista(){
         return this.playList;
     }
-    public List<Prize> getPremios(){
+    public List<Prize> getPrizeList(){
         return this.prizeList;
     }
     public long getId(){

@@ -7,12 +7,13 @@ import java.util.List;
 import javax.annotation.processing.Generated;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T18:47:46+0200",
+    date = "2025-04-17T19:41:59+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -65,14 +66,14 @@ public class PlayMapperImpl implements PlayMapper {
 
         Play play = new Play();
 
-        play.setBet( playDTO.bet() );
-        play.setGame( gameDTOToGame( playDTO.game() ) );
         if ( playDTO.id() != null ) {
             play.setId( playDTO.id() );
         }
-        play.setUser( userrDTOToUserr( playDTO.user() ) );
         play.setWin( playDTO.win() );
+        play.setBet( playDTO.bet() );
         play.setwon( playDTO.won() );
+        play.setUser( userrDTOToUserr( playDTO.user() ) );
+        play.setGame( gameDTOToGame( playDTO.game() ) );
 
         return play;
     }
@@ -87,6 +88,7 @@ public class PlayMapperImpl implements PlayMapper {
         List<String> roles = null;
         float currency = 0.0f;
         Blob image = null;
+        boolean imageBool = false;
 
         id = userr.getId();
         name = userr.getName();
@@ -96,8 +98,11 @@ public class PlayMapperImpl implements PlayMapper {
         }
         currency = userr.getCurrency();
         image = userr.getImage();
+        imageBool = userr.getImageBool();
 
-        UserrDTO userrDTO = new UserrDTO( id, name, roles, currency, image );
+        List<Prize> prizeList = null;
+
+        UserrDTO userrDTO = new UserrDTO( id, name, roles, currency, image, imageBool, prizeList );
 
         return userrDTO;
     }
@@ -124,24 +129,6 @@ public class PlayMapperImpl implements PlayMapper {
         GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, image );
 
         return gameDTO;
-    }
-
-    protected Game gameDTOToGame(GameDTO gameDTO) {
-        if ( gameDTO == null ) {
-            return null;
-        }
-
-        Game game = new Game();
-
-        if ( gameDTO.id() != null ) {
-            game.setId( gameDTO.id() );
-        }
-        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
-        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
-        game.setName( gameDTO.name() );
-        game.setWinMultp( gameDTO.winMultp() );
-
-        return game;
     }
 
     protected String[] stringListToStringArray(List<String> list) {
@@ -178,8 +165,27 @@ public class PlayMapperImpl implements PlayMapper {
         if ( userrDTO.id() != null ) {
             userr.setId( userrDTO.id() );
         }
+        userr.setImageBool( userrDTO.imageBool() );
         userr.setImage( userrDTO.image() );
 
         return userr;
+    }
+
+    protected Game gameDTOToGame(GameDTO gameDTO) {
+        if ( gameDTO == null ) {
+            return null;
+        }
+
+        Game game = new Game();
+
+        if ( gameDTO.id() != null ) {
+            game.setId( gameDTO.id() );
+        }
+        game.setName( gameDTO.name() );
+        game.setWinMultp( gameDTO.winMultp() );
+        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
+        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
+
+        return game;
     }
 }

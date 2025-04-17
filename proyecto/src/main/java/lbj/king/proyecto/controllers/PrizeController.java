@@ -70,7 +70,7 @@ public class PrizeController {
         Userr u = uSer.findById(aux.getId()).get();
 		Prize prize = premioSer.findById(id);
         
-        u.getPremios().remove(prize);
+        u.getPrizeList().remove(prize);
         uSer.save(u);
         premioSer.deletePrizeById(id);
         

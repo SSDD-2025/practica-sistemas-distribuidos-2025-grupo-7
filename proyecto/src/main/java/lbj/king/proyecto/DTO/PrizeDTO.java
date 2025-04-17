@@ -7,7 +7,7 @@ public record PrizeDTO(
     String name,
     int price,
     Boolean owned,
-    UserrDTO user
+    String userName
 ) {
     
 }

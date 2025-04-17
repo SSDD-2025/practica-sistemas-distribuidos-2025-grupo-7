@@ -47,7 +47,7 @@ public class PrizeRestController {
 	}
 
     @PutMapping("/{id}")
-	public PrizeDTO replacePrize(@PathVariable long id, @PathVariable PrizeDTO updatedPrizeDTO) throws SQLException {
+	public PrizeDTO replacePrize(@PathVariable long id, @RequestBody PrizeDTO updatedPrizeDTO) throws SQLException {
 
 		return prizeService.replacePrize(id, updatedPrizeDTO);
 	}

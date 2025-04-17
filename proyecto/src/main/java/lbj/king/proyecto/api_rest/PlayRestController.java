@@ -48,7 +48,7 @@ public class PlayRestController {
 	}
 
     @PutMapping("/{id}")
-	public PlayDTO replacePlay(@PathVariable long id, @PathVariable PlayDTO updatedplayDTO) throws SQLException {
+	public PlayDTO replacePlay(@PathVariable long id, @RequestBody PlayDTO updatedplayDTO) throws SQLException {
 
 		return playService.replacePlay(id, updatedplayDTO);
 	}

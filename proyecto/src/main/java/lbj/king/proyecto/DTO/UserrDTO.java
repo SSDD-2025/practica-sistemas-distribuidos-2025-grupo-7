@@ -13,7 +13,6 @@ public record UserrDTO(
         String name,
         List<String> roles,
         float currency,
-        Blob image,
         boolean imageBool,
         List<Prize> prizeList
 

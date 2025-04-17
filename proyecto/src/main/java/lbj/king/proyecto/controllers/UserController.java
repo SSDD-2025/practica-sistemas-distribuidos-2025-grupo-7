@@ -196,8 +196,8 @@ public class UserController {
         } else {
             u = us.get();
         }
-        if (u != null || u.getPremios() != null) {
-            for (Prize p : u.getPremios()) {
+        if (u != null || u.getPrizeList() != null) {
+            for (Prize p : u.getPrizeList()) {
                 prizeSer.changePrize(p);
 
             }

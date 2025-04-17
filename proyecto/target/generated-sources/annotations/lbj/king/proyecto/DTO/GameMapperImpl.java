@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T18:47:46+0200",
+    date = "2025-04-17T19:41:58+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -68,10 +68,10 @@ public class GameMapperImpl implements GameMapper {
         if ( gameDTO.id() != null ) {
             game.setId( gameDTO.id() );
         }
-        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
-        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
         game.setName( gameDTO.name() );
         game.setWinMultp( gameDTO.winMultp() );
+        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
+        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
 
         return game;
     }
@@ -84,13 +84,13 @@ public class GameMapperImpl implements GameMapper {
 
         Play play = new Play();
 
-        play.setBet( playDTO.bet() );
         if ( playDTO.id() != null ) {
             play.setId( playDTO.id() );
         }
-        play.setUser( userrDTOToUserr( playDTO.user() ) );
         play.setWin( playDTO.win() );
+        play.setBet( playDTO.bet() );
         play.setwon( playDTO.won() );
+        play.setUser( userrDTOToUserr( playDTO.user() ) );
 
         return play;
     }
@@ -129,6 +129,7 @@ public class GameMapperImpl implements GameMapper {
         if ( userrDTO.id() != null ) {
             userr.setId( userrDTO.id() );
         }
+        userr.setImageBool( userrDTO.imageBool() );
         userr.setImage( userrDTO.image() );
 
         return userr;
