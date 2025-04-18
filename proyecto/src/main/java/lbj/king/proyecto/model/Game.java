@@ -27,8 +27,7 @@ public class Game {
     private List<Play> bets;
     @Lob
     private byte[] fich;
-    @Lob
-    private Blob image=null;
+
     
     public Game(){
 
