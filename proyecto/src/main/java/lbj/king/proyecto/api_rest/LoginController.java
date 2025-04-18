@@ -1,4 +1,4 @@
-package lbj.king.auth;
+package lbj.king.proyecto.api_rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lbj.king.proyecto.security.jwt.AuthResponse;
+import lbj.king.proyecto.security.jwt.AuthResponse.Status;
 import lbj.king.proyecto.security.jwt.LoginRequest;
 import lbj.king.proyecto.security.jwt.UserLoginService;
 
@@ -37,7 +38,7 @@ public class LoginController {
 
 	@PostMapping("/logout")
 	public ResponseEntity<AuthResponse> logOut(HttpServletResponse response) {
-		return ResponseEntity.ok(new AuthResponse(AuthResponse.Status.SUCCESS, userService.logout(response)));
+		return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userService.logout(response)));
 	}
 	
 }
