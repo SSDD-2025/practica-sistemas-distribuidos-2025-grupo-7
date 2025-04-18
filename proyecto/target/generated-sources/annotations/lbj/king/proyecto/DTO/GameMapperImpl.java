@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-17T20:01:49+0200",
+    date = "2025-04-18T12:12:37+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -96,6 +96,45 @@ public class GameMapperImpl implements GameMapper {
         return play;
     }
 
+    protected String[] stringListToStringArray(List<String> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        String[] stringTmp = new String[list.size()];
+        int i = 0;
+        for ( String string : list ) {
+            stringTmp[i] = string;
+            i++;
+        }
+
+        return stringTmp;
+    }
+
+    protected Userr userrBasicDTOToUserr(UserrBasicDTO userrBasicDTO) {
+        if ( userrBasicDTO == null ) {
+            return null;
+        }
+
+        String name = null;
+        String[] roles = null;
+
+        name = userrBasicDTO.name();
+        roles = stringListToStringArray( userrBasicDTO.roles() );
+
+        String psw = null;
+
+        Userr userr = new Userr( name, psw, roles );
+
+        userr.setCurrency( userrBasicDTO.currency() );
+        if ( userrBasicDTO.id() != null ) {
+            userr.setId( userrBasicDTO.id() );
+        }
+        userr.setImageBool( userrBasicDTO.imageBool() );
+
+        return userr;
+    }
+
     protected Prize prizeDTOToPrize(PrizeDTO prizeDTO) {
         if ( prizeDTO == null ) {
             return null;
@@ -109,6 +148,7 @@ public class GameMapperImpl implements GameMapper {
 
         Prize prize = new Prize( name, price );
 
+        prize.setUser( userrBasicDTOToUserr( prizeDTO.user() ) );
         prize.setOwned( prizeDTO.owned() );
 
         return prize;
@@ -125,21 +165,6 @@ public class GameMapperImpl implements GameMapper {
         }
 
         return list1;
-    }
-
-    protected String[] stringListToStringArray(List<String> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        String[] stringTmp = new String[list.size()];
-        int i = 0;
-        for ( String string : list ) {
-            stringTmp[i] = string;
-            i++;
-        }
-
-        return stringTmp;
     }
 
     protected Userr userrDTOToUserr(UserrDTO userrDTO) {

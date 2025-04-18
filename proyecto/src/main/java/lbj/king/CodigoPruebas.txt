@@ -3,38 +3,47 @@
 
 {
     "name": "g",
-    "password": "g",
+    "currency": 1.0,
+    "imageBool": false,
     "roles": [
-            "USER"
-        ],
-    "currency": 1,
-    "image": null
+        "USER"
+    ],
+    "prizeList": []
 }
 
 
 // para prueba post de games
 
 {
-    "name": "nuevo",
-    "winMultp": 36.0,
-    "minPossibleNumber": 0,
-    "maxPossibleNumber": 36,
+    "name": "nuevo juego",
+    "winMultp": 2.0,
+    "minPossibleNumber": 1,
+    "maxPossibleNumber": 2,
     "image": null
 }
 
 //apra prueba post de play
 {
-    "bet": 10.0,
-    "win": 0.0,
+    "bet": 2.0,
+    "win": 4.0,
     "won": false,
     "user": {
         "id": 1,
         "name": "a",
+        "currency": 1.0E7,
+        "imageBool": false,
         "roles": [
             "ADMIN"
         ],
-        "currency": 1.0E7,
-        "image": null
+        "prizeList": [
+            {
+                "id": 1,
+                "name": "Rey de la Rule",
+                "price": 1000,
+                "owned": true,
+                "userName": "a"
+            }
+        ]
     },
     "game": {
         "id": 1,
