@@ -70,3 +70,70 @@
         "image": null
     }
 }
+
+//prueba put users
+{
+    "name": "modificado",
+    "currency": 3,
+    "imagebool": false,
+    "prizeList": null,
+    "roles": ["ADMIN"]
+}
+//pruebas put games
+
+{
+    "name": "modif",
+    "winMultp": 36.0,
+    "minPossibleNumber": 0,
+    "maxPossibleNumber": 36,
+    "image": null
+}
+
+//pruebas put plays
+{
+        "bet": 56.0,
+        "win": 0.0,
+        "won": false,
+        "user": {
+            "id": 1,
+            "name": "a",
+            "currency": 1.0E7,
+            "imageBool": false,
+            "roles": [
+                "ADMIN"
+            ],
+            "prizeList": [
+                {
+                    "id": 1,
+                    "name": "Rey de la Rule",
+                    "price": 1000,
+                    "owned": true,
+                    "user": {
+                        "id": 1,
+                        "name": "a",
+                        "currency": 1.0E7,
+                        "imageBool": false,
+                        "roles": [
+                            "ADMIN"
+                        ]
+                    }
+                }
+            ]
+        },
+        "game": {
+            "id": 1,
+            "name": "Roulette",
+            "winMultp": 36.0,
+            "minPossibleNumber": 0,
+            "maxPossibleNumber": 36,
+            "image": null
+        }
+    }
+
+//pruebas put prizes
+{
+    "name": "modif",
+    "price": 3000,
+    "owned": false,
+    "user": null
+}
