@@ -63,6 +63,8 @@ public class DatabaseInitializer {
         userRep.save(u1);
         Userr u2 = new Userr("b", passwordEncoder.encode("b"),"USER");
         userRep.save(u2);
+        Userr u3 = new Userr("c", passwordEncoder.encode("c"),"USER");
+        userRep.save(u3);
 
         
         Play play1 = new Play(1, u1, g1);
