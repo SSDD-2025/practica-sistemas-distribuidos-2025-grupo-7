@@ -5,7 +5,7 @@ public record PlayDTO(
     float bet,
     float win,
     boolean won,
-    UserrDTO user,
+    UserrBasicDTO user,
     GameDTO game
 ) {
  

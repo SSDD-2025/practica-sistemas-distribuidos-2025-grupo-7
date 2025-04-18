@@ -1,19 +1,17 @@
 package lbj.king.proyecto.DTO;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
-import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-18T12:35:40+0200",
+    date = "2025-04-18T16:41:59+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -37,9 +35,7 @@ public class GameMapperImpl implements GameMapper {
         minPossibleNumber = game.getMinPossibleNumber();
         maxPossibleNumber = game.getMaxPossibleNumber();
 
-        Blob image = null;
-
-        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, image );
+        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber );
 
         return gameDTO;
     }
@@ -69,10 +65,10 @@ public class GameMapperImpl implements GameMapper {
         if ( gameDTO.id() != null ) {
             game.setId( gameDTO.id() );
         }
+        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
+        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
         game.setName( gameDTO.name() );
         game.setWinMultp( gameDTO.winMultp() );
-        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
-        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
 
         return game;
     }
@@ -85,13 +81,13 @@ public class GameMapperImpl implements GameMapper {
 
         Play play = new Play();
 
+        play.setBet( playDTO.bet() );
         if ( playDTO.id() != null ) {
             play.setId( playDTO.id() );
         }
+        play.setUser( userrBasicDTOToUserr( playDTO.user() ) );
         play.setWin( playDTO.win() );
-        play.setBet( playDTO.bet() );
         play.setwon( playDTO.won() );
-        play.setUser( userrDTOToUserr( playDTO.user() ) );
 
         return play;
     }
@@ -131,68 +127,6 @@ public class GameMapperImpl implements GameMapper {
             userr.setId( userrBasicDTO.id() );
         }
         userr.setImageBool( userrBasicDTO.imageBool() );
-
-        return userr;
-    }
-
-    protected Prize prizeDTOToPrize(PrizeDTO prizeDTO) {
-        if ( prizeDTO == null ) {
-            return null;
-        }
-
-        String name = null;
-        Integer price = null;
-
-        name = prizeDTO.name();
-        price = prizeDTO.price();
-
-        Prize prize = new Prize( name, price );
-
-        prize.setUser( userrBasicDTOToUserr( prizeDTO.user() ) );
-        prize.setOwned( prizeDTO.owned() );
-
-        return prize;
-    }
-
-    protected List<Prize> prizeDTOListToPrizeList(List<PrizeDTO> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<Prize> list1 = new ArrayList<Prize>( list.size() );
-        for ( PrizeDTO prizeDTO : list ) {
-            list1.add( prizeDTOToPrize( prizeDTO ) );
-        }
-
-        return list1;
-    }
-
-    protected Userr userrDTOToUserr(UserrDTO userrDTO) {
-        if ( userrDTO == null ) {
-            return null;
-        }
-
-        String name = null;
-        String[] roles = null;
-
-        name = userrDTO.name();
-        roles = stringListToStringArray( userrDTO.roles() );
-
-        String psw = null;
-
-        Userr userr = new Userr( name, psw, roles );
-
-        userr.setCurrency( userrDTO.currency() );
-        if ( userrDTO.id() != null ) {
-            userr.setId( userrDTO.id() );
-        }
-        userr.setImageBool( userrDTO.imageBool() );
-        if ( userr.getPrizeList() != null ) {
-            List<Prize> list = prizeDTOListToPrizeList( userrDTO.prizeList() );
-            if ( list != null ) {
-                userr.getPrizeList().addAll( list );
-            }
-        }
 
         return userr;
     }

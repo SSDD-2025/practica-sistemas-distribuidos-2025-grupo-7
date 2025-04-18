@@ -8,9 +8,8 @@ public record GameDTO(
     String name,
     float winMultp,
     int minPossibleNumber,
-    int maxPossibleNumber,
+    int maxPossibleNumber
     //byte[] fich,
-    Blob image
     ) {
     
 }
