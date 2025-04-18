@@ -22,12 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PrizeController {
     @Autowired
     private PrizeService premioSer;
+
     @Autowired
     private UserService uSer;
 
     @GetMapping("/prizes")
     public String showPremios(Model model, HttpServletRequest request) {
-         Principal principal = request.getUserPrincipal();
+        Principal principal = request.getUserPrincipal();
         if (principal != null) {
             Userr u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
@@ -39,53 +40,49 @@ public class PrizeController {
     }
 
     @GetMapping("/prizes/{id}")
-    public String comprarPremio(Model model,@PathVariable long id, HttpSession session) {
-        Userr user = (Userr) session.getAttribute("user");
+    public String comprarPremio(Model model, @PathVariable long id, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Userr user = uSer.findByName(principal.getName()).get();
         Prize premio = premioSer.findById(id);
-        if (user == null) {
-            return "login";
-        }else{
-            if (user.getCurrency()>=premio.getPrice() && !premio.getOwned()){
+
+        if (user.getCurrency() >= premio.getPrice() && !premio.getOwned()) {
             premio.setOwner(user);
             premio.setOwned(true);
             premioSer.save(premio);
-            user.setCurrency(user.getCurrency()-premio.getPrice());
+
+            user.setCurrency(user.getCurrency() - premio.getPrice());
             uSer.save(user);
-            session.setAttribute("user", user);
-            }else{
-                return "prizeError";
-            }
+        } else {
+            model.addAttribute("userLogged", user);
+            model.addAttribute("hasImage", user.getImage());
+            return "prizeError";
         }
+
         model.addAttribute("userLogged", user);
         model.addAttribute("hasImage", user.getImage());
         return "redirect:/prizes";
     }
-    
+
     @PostMapping("/prizes/{id}/delete")
-    public String deleteGame(Model model, @PathVariable long id, HttpSession session) {
-        Userr aux = (Userr) session.getAttribute("user");
-        if(aux == null){
-            return "login";
-        }
-        Userr u = uSer.findById(aux.getId()).get();
-		Prize prize = premioSer.findById(id);
-        
-        u.getPrizeList().remove(prize);
-        uSer.save(u);
+    public String deleteGame(Model model, @PathVariable long id, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        Userr user = uSer.findByName(principal.getName()).get();
+        Prize prize = premioSer.findById(id);
+
+        user.getPrizeList().remove(prize);
+        uSer.save(user);
         premioSer.deletePrizeById(id);
-        
-        
-        model.addAttribute("userLogged", u);
-        model.addAttribute("hasImage", u.getImage());
+
+        model.addAttribute("userLogged", user);
+        model.addAttribute("hasImage", user.getImage());
 
         return "redirect:/prizes";
     }
 
     @PostMapping("/prizes/new")
     public String newPrize(@RequestParam String prizeName, @RequestParam int prizeValue) {
-        Prize p = new Prize(prizeName,prizeValue);
+        Prize p = new Prize(prizeName, prizeValue);
         premioSer.save(p);
         return "redirect:/prizes";
     }
-    
 }

@@ -130,7 +130,8 @@ public class SecurityConfiguration {
 
 
 					// .anyRequest().authenticated()
-					.anyRequest().permitAll())
+					.anyRequest().permitAll()
+					)
 
                 
 			.formLogin(formLogin -> formLogin
