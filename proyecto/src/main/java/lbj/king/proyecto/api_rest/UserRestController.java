@@ -55,6 +55,15 @@ public class UserRestController {
 		return uSer.getLoggedUserDTO();
 	}
 
+    @PostMapping("/me/addCurrency")
+    public ResponseEntity<Object> addCurrency(@RequestParam int currency) throws IOException{
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Userr userr = uSer.findByName(username).orElseThrow();
+        userr.setCurrency(userr.getCurrency() + currency);
+        uSer.save(userr);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @GetMapping("/")
     public Collection<UserrDTO> getUsers() {
@@ -75,12 +84,6 @@ public class UserRestController {
     
     @PutMapping("/{id}")
 	public UserrDTO replaceUser(@PathVariable long id, @RequestBody UserrDTO updatedUserrDTO) throws SQLException {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr userr = uSer.findById(id).orElseThrow();
-        Userr user2 = uSer.findByName(username).orElseThrow();
-        if (!userr.getName().equals(username) && !user2.getRoles().contains("ADMIN")) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
 		return uSer.replaceUser(id, updatedUserrDTO);
 	}
 
@@ -103,29 +106,41 @@ public class UserRestController {
         return mapper.toDTO(userr);
     }
 
-    @PostMapping("/{id}/image")
-    public ResponseEntity<Object> createImageUserr(@PathVariable long id, @RequestParam MultipartFile imageFile) throws IOException{
+    @PostMapping("/me/image")
+    public ResponseEntity<Object> createImageUserr(@RequestParam MultipartFile imageFile) throws IOException{
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Userr userr = uSer.findByName(username).orElseThrow();
+        long id = userr.getId();
         uSer.createImageUserr(id, imageFile.getInputStream(), imageFile.getSize());
         URI location = fromCurrentRequest().build().toUri();
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/{id}/image")
-    public ResponseEntity<Object> getImageUserr(@PathVariable long id) throws SQLException, IOException {
+    @GetMapping("/me/image")
+    public ResponseEntity<Object> getImageUserr() throws SQLException, IOException {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Userr userr = uSer.findByName(username).orElseThrow();
+        long id = userr.getId();
         Resource image =  uSer.getImageUserr(id);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
             .body(image);
     }
     
-    @PutMapping("/{id}/image")
-    public ResponseEntity<Object> replaceImageUserr(@PathVariable long id, @RequestParam MultipartFile image) throws IOException {
+    @PutMapping("/me/image")
+    public ResponseEntity<Object> replaceImageUserr(@RequestParam MultipartFile image) throws IOException {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Userr userr = uSer.findByName(username).orElseThrow();
+        long id = userr.getId();
         uSer.replaceImageUserr(id, image.getInputStream(), image.getSize());
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}/image")
-    public ResponseEntity<Object> deleteImageUserr(@PathVariable long id) throws IOException{
+    @DeleteMapping("/me/image")
+    public ResponseEntity<Object> deleteImageUserr() throws IOException{
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Userr userr = uSer.findByName(username).orElseThrow();
+        long id = userr.getId();
         uSer.deleteImageUserr(id);
         return ResponseEntity.noContent().build();
     }

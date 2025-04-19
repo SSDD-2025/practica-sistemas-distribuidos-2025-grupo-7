@@ -78,10 +78,10 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.PUT,"/api/plays/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/plays/**").hasAnyRole("USER","ADMIN")
 
-					.requestMatchers(HttpMethod.GET, "/api/users/me").hasAnyRole("USER","ADMIN")
+					.requestMatchers(HttpMethod.GET, "/api/users/me/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.GET,"/api/users/**").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/users/").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT,"/api/users/**").hasAnyRole("USER","ADMIN")
+                    .requestMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/users/**").hasAnyRole("USER","ADMIN")
 
                     .requestMatchers(HttpMethod.POST,"/api/games/").hasRole("ADMIN")
