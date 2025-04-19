@@ -68,12 +68,12 @@ public class SecurityConfiguration {
 			.authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS
 			
-					.requestMatchers(HttpMethod.GET,"/api/prizes/").hasAnyRole("USER","ADMIN")
+					.requestMatchers(HttpMethod.GET,"/api/prizes/**").hasAnyRole("USER","ADMIN")
                     .requestMatchers(HttpMethod.POST,"/api/prizes/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/prizes/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasRole("ADMIN")
 
-					.requestMatchers(HttpMethod.GET,"/api/plays/").hasAnyRole("USER","ADMIN")
+					.requestMatchers(HttpMethod.GET,"/api/plays/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/plays/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/plays/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/plays/**").hasAnyRole("USER","ADMIN")
@@ -84,7 +84,6 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.PUT,"/api/users/**").hasAnyRole("USER","ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/users/**").hasAnyRole("USER","ADMIN")
 
-					.requestMatchers(HttpMethod.GET,"/api/games/").hasAnyRole("USER","ADMIN")
                     .requestMatchers(HttpMethod.POST,"/api/games/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/games/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/games/**").hasRole("ADMIN")
