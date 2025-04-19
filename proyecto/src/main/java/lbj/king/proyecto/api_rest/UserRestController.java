@@ -9,7 +9,9 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.DTO.UserrMapper;
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.core.io.Resource;
 
 import org.springframework.web.bind.annotation.PutMapping;
@@ -73,13 +75,24 @@ public class UserRestController {
     
     @PutMapping("/{id}")
 	public UserrDTO replaceUser(@PathVariable long id, @RequestBody UserrDTO updatedUserrDTO) throws SQLException {
-
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Userr userr = uSer.findById(id).orElseThrow();
+        Userr user2 = uSer.findByName(username).orElseThrow();
+        if (!userr.getName().equals(username) && !user2.getRoles().contains("ADMIN")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 		return uSer.replaceUser(id, updatedUserrDTO);
 	}
 
     @DeleteMapping("/{id}")
     public UserrDTO deletUserr(@PathVariable Long id){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Userr userr = uSer.findById(id).orElseThrow();
+        Userr user2 = uSer.findByName(username).orElseThrow();
+        if (!userr.getName().equals(username) && !user2.getRoles().contains("ADMIN")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         if (userr.getPrizeList() != null){
             for (Prize p : userr.getPrizeList()) {
                     prizeSer.changePrize(p);

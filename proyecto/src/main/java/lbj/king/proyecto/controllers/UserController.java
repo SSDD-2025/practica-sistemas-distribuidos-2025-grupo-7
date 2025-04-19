@@ -169,71 +169,73 @@ public class UserController {
     }
 
     @GetMapping("/profile/image")
-    public ResponseEntity<Object> downloadImage(HttpSession session, Model model) throws SQLException {
+public ResponseEntity<Object> downloadImage(HttpServletRequest request) throws SQLException {
+    Principal principal = request.getUserPrincipal();
+    Userr u = uSer.findByName(principal.getName()).get();
 
-        Userr u = (Userr) session.getAttribute("user");
-
-        if (u.getImage() == null) {
-            System.out.println(" El usuario no tiene imagen.");
-            return ResponseEntity.notFound().build();
-        }
-
-        if (u != null && u.getImage() != null) {
-            Blob imag = u.getImage();
-            InputStreamResource file = new InputStreamResource(imag.getBinaryStream());
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "image/jpeg").contentLength(imag.length())
-                    .body(file);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    if (u.getImage() == null) {
+        System.out.println("El usuario no tiene imagen.");
+        return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/deleteUser")
-    public String deleteUser(Model model, HttpSession session) {
-        Userr u = (Userr) session.getAttribute("user");
-        Optional<Userr> us = uSer.findById(u.getId());
-        if (!us.isPresent()) {
-            return "diceError";
-        } else {
-            u = us.get();
-        }
-        if (u != null || u.getPrizeList() != null) {
-            for (Prize p : u.getPrizeList()) {
-                prizeSer.changePrize(p);
+    Blob imag = u.getImage();
+    InputStreamResource file = new InputStreamResource(imag.getBinaryStream());
+    return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+            .contentLength(imag.length())
+            .body(file);
+}
 
-            }
-            uSer.deleteUserById(u.getId());
-            session.invalidate();
-        }
-        return "redirect:/";
+@PostMapping("/deleteUser")
+public String deleteUser(HttpServletRequest request) {
+    Principal principal = request.getUserPrincipal();
+    Userr u = uSer.findByName(principal.getName()).get();
+
+    Optional<Userr> us = uSer.findById(u.getId());
+    if (!us.isPresent()) {
+        return "diceError";
     }
 
-    @PostMapping("/deleteGames")
-    public String deleteGames(Model model, HttpSession session) {
-        Userr u = (Userr) session.getAttribute("user");
-        if (u != null) {
-            pSer.deletePartidasByUsuarioId(u.getId());
-        }
-        model.addAttribute("userLogged", u);
-        model.addAttribute("hasImage", u.getImage());
-        model.addAttribute("listGames", u.getLista());
-        return "redirect:/profile";
+    for (Prize p : u.getPrizeList()) {
+        prizeSer.changePrize(p); // Suelto premios
     }
 
-    @PostMapping("/game/{partida_id}/delete")
-    public String deleteGame(Model model, @PathVariable long partida_id, HttpSession session) {
-        Userr aux = (Userr) session.getAttribute("user");
-        Userr u = uSer.findById(aux.getId()).get();
-        Play partida = pSer.findByName(partida_id).get();
+    uSer.deleteUserById(u.getId());
+    request.getSession().invalidate(); // Cerramos sesión
 
-        u.getLista().remove(partida);
-        pSer.deletePartidaById(partida_id);
-        uSer.save(u);
+    return "redirect:/";
+}
 
-        model.addAttribute("userLogged", u);
-        model.addAttribute("hasImage", u.getImage());
-        model.addAttribute("listGames", u.getLista());
-        return "profile";
-    }
+@PostMapping("/deleteGames")
+public String deleteGames(Model model, HttpServletRequest request) {
+    Principal principal = request.getUserPrincipal();
+    Userr u = uSer.findByName(principal.getName()).get();
+
+    pSer.deletePartidasByUsuarioId(u.getId());
+
+    model.addAttribute("userLogged", u);
+    model.addAttribute("hasImage", u.getImage());
+    model.addAttribute("listGames", u.getLista());
+
+    return "redirect:/profile";
+}
+
+@PostMapping("/game/{partida_id}/delete")
+public String deleteGame(Model model, @PathVariable long partida_id, HttpServletRequest request) {
+    Principal principal = request.getUserPrincipal();
+    Userr u = uSer.findByName(principal.getName()).get();
+
+    Play partida = pSer.findByName(partida_id).get();
+
+    u.getLista().remove(partida);
+    pSer.deletePartidaById(partida_id);
+    uSer.save(u);
+
+    model.addAttribute("userLogged", u);
+    model.addAttribute("hasImage", u.getImage());
+    model.addAttribute("listGames", u.getLista());
+
+    return "profile";
+}
 
 }
