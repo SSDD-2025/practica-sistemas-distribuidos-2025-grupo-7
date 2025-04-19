@@ -43,7 +43,7 @@ public class PrizeController {
     public String comprarPremio(Model model, @PathVariable long id, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         Userr user = uSer.findByName(principal.getName()).get();
-        Prize premio = premioSer.findById(id);
+        Prize premio = premioSer.findById(id).orElseThrow();
 
         if (user.getCurrency() >= premio.getPrice() && !premio.getOwned()) {
             premio.setOwner(user);
@@ -64,10 +64,10 @@ public class PrizeController {
     }
 
     @PostMapping("/prizes/{id}/delete")
-    public String deleteGame(Model model, @PathVariable long id, HttpServletRequest request) {
+    public String deletePrize(Model model, @PathVariable long id, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         Userr user = uSer.findByName(principal.getName()).get();
-        Prize prize = premioSer.findById(id);
+        Prize prize = premioSer.findById(id).orElseThrow();
 
         user.getPrizeList().remove(prize);
         uSer.save(user);

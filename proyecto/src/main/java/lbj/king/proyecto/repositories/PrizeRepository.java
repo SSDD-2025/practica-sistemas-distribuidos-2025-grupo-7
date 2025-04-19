@@ -7,5 +7,5 @@ import lbj.king.proyecto.model.Userr;
 
 public interface PrizeRepository extends JpaRepository<Prize,Long> {
     public Prize findPremioByOwner(Userr owner);
-    public Prize findPremioById(Long id);
+
 }
