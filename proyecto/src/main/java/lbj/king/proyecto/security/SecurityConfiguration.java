@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -66,17 +67,19 @@ public class SecurityConfiguration {
 		http
 			.authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS
-                    // .requestMatchers(HttpMethod.POST,"/api/prizes/").hasRole("ADMIN")
-                    // .requestMatchers(HttpMethod.PUT,"/api/prizes/**").hasRole("ADMIN")
-                    // .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasRole("ADMIN")
+					//comprar premio
+                    .requestMatchers(HttpMethod.POST,"/api/prizes/").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT,"/api/prizes/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasRole("ADMIN")
 
-					// .requestMatchers(HttpMethod.POST,"/api/plays/").hasRole("ADMIN")
-                    // .requestMatchers(HttpMethod.PUT,"/api/plays/**").hasRole("ADMIN")
-                    // .requestMatchers(HttpMethod.DELETE,"/api/plays/**").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.POST,"/api/plays/").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT,"/api/plays/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE,"/api/plays/**").hasRole("USER")
 
-					// .requestMatchers(HttpMethod.POST,"/api/users/").hasRole("ADMIN")
-                    // .requestMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
-                    // .requestMatchers(HttpMethod.DELETE,"/api/users/**").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.GET, "/api/users/me").hasRole("USER")
+					.requestMatchers(HttpMethod.POST,"/api/users/").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE,"/api/users/**").hasAnyRole("USER","ADMIN")
 					// PUBLIC ENDPOINTS
 					.anyRequest().permitAll()
 			);
@@ -110,27 +113,28 @@ public class SecurityConfiguration {
 		http
 			.authorizeHttpRequests(authorize -> authorize
 					// PUBLIC PAGES
-					// .requestMatchers("/").permitAll()
-                    // .requestMatchers("/register").permitAll()
-                    // .requestMatchers("/registerProcess").permitAll()
-                    // .requestMatchers("/loginProcess").permitAll()
-					// .requestMatchers("/css/**").permitAll()
-					// .requestMatchers("/imagenes/**").permitAll()
-					// .requestMatchers("/js/**").permitAll()	
-                    // .requestMatchers("/game/watch/{id}").permitAll()
-					// .requestMatchers("/h2-console/**").permitAll()	//FALLA IGUAL
-					// // PRIVATE PAGES
-					// .requestMatchers("/balanceProcess").hasAnyRole("USER","ADMIN")
-                    // .requestMatchers("/profile/**").hasAnyRole("USER","ADMIN")
-                    // .requestMatchers("/game/form").hasRole("ADMIN")
-                    // .requestMatchers("/game/save").hasRole("ADMIN")
-					// .requestMatchers("/prizes/new").hasAnyRole("ADMIN")
-					// .requestMatchers("/prizes/{id}/delete").hasAnyRole("ADMIN")
+					.requestMatchers("/").permitAll()
+					.requestMatchers("/login").permitAll()
+                    .requestMatchers("/register").permitAll()
+                    .requestMatchers("/registerProcess").permitAll()
+                    .requestMatchers("/loginProcess").permitAll()
+					.requestMatchers("/css/**").permitAll()
+					.requestMatchers("/imagenes/**").permitAll()
+					.requestMatchers("/js/**").permitAll()	
+                    .requestMatchers("/game/watch/{id}").permitAll()
+					.requestMatchers("/h2-console/**").permitAll()	//FALLA IGUAL
+					// PRIVATE PAGES
+					.requestMatchers("/balanceProcess").hasAnyRole("USER","ADMIN")
+                    .requestMatchers("/profile/**").hasAnyRole("USER","ADMIN")
+                    .requestMatchers("/game/form").hasRole("ADMIN")
+                    .requestMatchers("/game/save").hasRole("ADMIN")
+					.requestMatchers("/prizes/new").hasAnyRole("ADMIN")
+					.requestMatchers("/prizes/{id}/delete").hasAnyRole("ADMIN")
 
 
 
-					// .anyRequest().authenticated()
-					.anyRequest().permitAll()
+					.anyRequest().authenticated()
+					// .anyRequest().permitAll()
 					)
 
                 

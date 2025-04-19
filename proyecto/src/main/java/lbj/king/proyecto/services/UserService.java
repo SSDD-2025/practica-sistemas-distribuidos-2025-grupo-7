@@ -14,6 +14,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import jakarta.transaction.Transactional;
 import lbj.king.proyecto.DTO.UserrDTO;
@@ -87,6 +88,15 @@ public class UserService {
 
     public UserrDTO getUser(long id) {
         return toDTO(userRep.findById(id).orElseThrow());
+    }
+
+    public Userr getLoggedUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRep.findByName(username).get();
+    }
+
+    public UserrDTO getLoggedUserDTO() {
+        return mapper.toDTO(getLoggedUser());
     }
 
     public UserrDTO createUser(UserrDTO userrDTO) {       

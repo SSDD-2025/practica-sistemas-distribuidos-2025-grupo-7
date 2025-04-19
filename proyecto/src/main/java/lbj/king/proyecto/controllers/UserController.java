@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,8 @@ public class UserController {
     private PrizeService prizeSer;
     @Autowired
     private GameService gameSer;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String getIndex(Model model, HttpServletRequest request) {
@@ -88,7 +91,7 @@ public class UserController {
                 return "register";
             }
         }
-        Userr newUser = new Userr(name, psw);
+        Userr newUser = new Userr(name, passwordEncoder.encode(psw), "USER");
         uSer.save(newUser);
         List<Game> gameList = gameSer.getGames();
         if (gameList.size() > 0) {

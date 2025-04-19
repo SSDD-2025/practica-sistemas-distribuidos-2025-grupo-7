@@ -46,6 +46,14 @@ public class UserRestController {
     @Autowired
     private PrizeService prizeSer;
 
+
+
+    @GetMapping("/me")
+	public UserrDTO me() {
+		return uSer.getLoggedUserDTO();
+	}
+
+
     @GetMapping("/")
     public Collection<UserrDTO> getUsers() {
         return uSer.getUsers();
