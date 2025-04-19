@@ -27,6 +27,7 @@ public class Game {
     private List<Play> bets;
     @Lob
     private byte[] fich;
+    private boolean hasFich=false;
 
     
     public Game(){
@@ -61,6 +62,13 @@ public class Game {
     }
     public byte[] getFich(){
         return this.fich;
+    }
+
+    public boolean hasFich(){
+        return this.hasFich;
+    }
+    public void setHasFich(boolean hasFich){
+        this.hasFich=hasFich;
     }
     public int getMinPossibleNumber(){
         return this.minPossibleNumber;

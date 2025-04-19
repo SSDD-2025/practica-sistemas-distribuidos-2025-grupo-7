@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-19T11:35:42+0200",
+    date = "2025-04-19T19:11:23+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -118,7 +118,9 @@ public class PlayMapperImpl implements PlayMapper {
         minPossibleNumber = game.getMinPossibleNumber();
         maxPossibleNumber = game.getMaxPossibleNumber();
 
-        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber );
+        boolean hasFich = false;
+
+        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, hasFich );
 
         return gameDTO;
     }
@@ -172,6 +174,7 @@ public class PlayMapperImpl implements PlayMapper {
         if ( gameDTO.id() != null ) {
             game.setId( gameDTO.id() );
         }
+        game.setHasFich( gameDTO.hasFich() );
         game.setName( gameDTO.name() );
         game.setWinMultp( gameDTO.winMultp() );
         game.setMinPossibleNumber( gameDTO.minPossibleNumber() );

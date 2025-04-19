@@ -56,12 +56,29 @@ public class UserRestController {
 	}
 
     @PostMapping("/me/addCurrency")
-    public ResponseEntity<Object> addCurrency(@RequestParam int currency) throws IOException{
+    public UserrDTO addCurrency(@RequestParam int currency) throws IOException{
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Userr userr = uSer.findByName(username).orElseThrow();
         userr.setCurrency(userr.getCurrency() + currency);
         uSer.save(userr);
-        return ResponseEntity.noContent().build();
+        return uSer.getLoggedUserDTO();
+    }
+
+    @DeleteMapping("/me")
+    public UserrDTO deletUserrMe(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        
+        Userr user = uSer.findByName(username).orElseThrow();
+       
+
+        if (user.getPrizeList() != null){
+            for (Prize p : user.getPrizeList()) {
+                    prizeSer.changePrize(p);
+
+                }
+        }
+        uSer.deleteUserById(user.getId());
+        return mapper.toDTO(user);
     }
 
 
@@ -89,12 +106,7 @@ public class UserRestController {
 
     @DeleteMapping("/{id}")
     public UserrDTO deletUserr(@PathVariable Long id){
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Userr userr = uSer.findById(id).orElseThrow();
-        Userr user2 = uSer.findByName(username).orElseThrow();
-        if (!userr.getName().equals(username) && !user2.getRoles().contains("ADMIN")) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
 
         if (userr.getPrizeList() != null){
             for (Prize p : userr.getPrizeList()) {

@@ -1,6 +1,5 @@
 package lbj.king.proyecto.DTO;
 
-import java.sql.Blob;
 
 
 public record GameDTO(
@@ -8,8 +7,8 @@ public record GameDTO(
     String name,
     float winMultp,
     int minPossibleNumber,
-    int maxPossibleNumber
-    //byte[] fich,
+    int maxPossibleNumber,
+    boolean hasFich
     ) {
     
 }

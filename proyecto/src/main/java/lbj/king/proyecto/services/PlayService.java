@@ -54,6 +54,10 @@ public class PlayService {
         return playRep.findById(id);
     }
 
+    public Collection<Play> findByUserId(long id){
+        return playRep.findByUserId(id);
+    }
+
 
     //para api rest
     private PlayDTO toDTO(Play play) {

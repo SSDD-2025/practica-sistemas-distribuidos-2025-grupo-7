@@ -69,6 +69,7 @@ public class DatabaseInitializer {
         
         Play play1 = new Play(1, u1, g1);
         playRep.save(play1);
+        
         p1.setOwned(true);
         p1.setOwner(u1);
         prizeRep.save(p1);

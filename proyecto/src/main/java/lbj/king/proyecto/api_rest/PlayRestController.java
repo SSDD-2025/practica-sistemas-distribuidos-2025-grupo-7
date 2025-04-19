@@ -4,6 +4,7 @@ import java.net.URI;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import lbj.king.proyecto.DTO.PlayDTO;
+import lbj.king.proyecto.DTO.PlayMapper;
 import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PlayService;
+import lbj.king.proyecto.services.UserService;
+
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 
@@ -30,10 +35,21 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 public class PlayRestController {
     @Autowired
     private PlayService playService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PlayMapper playMapper;
 
     @GetMapping("/")
     public Collection<PlayDTO> getPlays() {
         return playService.getPlays();
+    }
+    @GetMapping("/me")
+    public Collection<PlayDTO> getMyPlays() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Userr user = userService.findByName(username).orElseThrow();
+        
+        return playMapper.toDTOs(playService.findByUserId(user.getId()));
     }
 
     @GetMapping("/{id}")

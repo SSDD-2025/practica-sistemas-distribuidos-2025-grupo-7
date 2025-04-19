@@ -113,6 +113,7 @@ public class GameController {
                 // save it in games
                 Game g = new Game(name, mult,minPossibleNumber,maxPossibleNumber);
                 g.setFich(file.getBytes());
+                g.setHasFich(true);
                 gameSer.save(g);
                 // Pass the html code introduced to the new file
                 File f = new File(filePath);
