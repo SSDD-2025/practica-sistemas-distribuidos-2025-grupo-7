@@ -46,6 +46,9 @@ public class Play {
     public void won(){
         this.won=true;
     }
+    public boolean getWon(){
+        return this.won;
+    }
     public float getBet(){
         return bet;
     }
