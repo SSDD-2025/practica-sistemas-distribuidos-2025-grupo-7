@@ -159,24 +159,24 @@ public class SecurityConfiguration {
 			);
 		
 		// // Disable CSRF at the moment
-		// http.csrf(csrf -> csrf.disable());
+		http.csrf(csrf -> csrf.disable());
 
 		// http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-		// Disable Form login Authentication
-        http.formLogin(formLogin -> formLogin.disable());
+		// //Disable Form login Authentication
+        // http.formLogin(formLogin -> formLogin.disable());
 
-        // Disable CSRF protection (it is difficult to implement in REST APIs)
-        http.csrf(csrf -> csrf.disable());
+        // // Disable CSRF protection (it is difficult to implement in REST APIs)
+        // http.csrf(csrf -> csrf.disable());
 
-        // Disable Basic Authentication
-        http.httpBasic(httpBasic -> httpBasic.disable());
+        // // Disable Basic Authentication
+        // http.httpBasic(httpBasic -> httpBasic.disable());
 
-        // Stateless session
-        http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        // // Stateless session
+        // http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		// Add JWT Token filter
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		// // Add JWT Token filter
+		// http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}

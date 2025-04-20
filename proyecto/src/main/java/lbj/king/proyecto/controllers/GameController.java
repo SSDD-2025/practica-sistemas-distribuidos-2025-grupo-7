@@ -70,7 +70,7 @@ public class GameController {
             model.addAttribute("userLogged", u);
             model.addAttribute("hasImage", u.getImage());
         }
-        Game g= gameSer.findByName("Ruleta");
+        Game g= gameSer.findByName("Roulette");
         model.addAttribute("listGames", g.getList());
         return "record";
     }
@@ -81,9 +81,8 @@ public class GameController {
             Userr u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
             model.addAttribute("hasImage", u.getImage());
-            return "main";
         }
-        Game g= gameSer.findByName("Dados");
+        Game g= gameSer.findByName("Dice");
         model.addAttribute("listGames", g.getList());
         return "record";
     }
