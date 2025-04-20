@@ -77,6 +77,11 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/loginError")
+	public String loginError() {
+		return "loginError";
+	}
+
     @GetMapping("/logout")
     public String getLogout(Model model) {
         return "logout";

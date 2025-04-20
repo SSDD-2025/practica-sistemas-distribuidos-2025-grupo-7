@@ -148,7 +148,7 @@ public class SecurityConfiguration {
                 
 			.formLogin(formLogin -> formLogin
 					.loginPage("/login")
-					.failureUrl("/error")
+					.failureUrl("/loginError")
 					.defaultSuccessUrl("/profile")
 					.permitAll()
 			)
