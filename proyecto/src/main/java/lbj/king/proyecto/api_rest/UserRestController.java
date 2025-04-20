@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.core.io.Resource;
-
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,8 +84,8 @@ public class UserRestController {
 
 
     @GetMapping("/")
-    public Collection<UserrDTO> getUsers() {
-        return uSer.getUsers();
+    public Page<UserrDTO> getUsers(Pageable pageable) {
+        return uSer.getUsersPageable(pageable);
     }
 
     @GetMapping("/{id}")

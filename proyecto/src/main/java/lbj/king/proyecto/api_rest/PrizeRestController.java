@@ -4,6 +4,8 @@ import java.net.URI;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +42,8 @@ public class PrizeRestController {
     private PrizeMapper prizeMapper;
 
     @GetMapping("/")
-    public Collection<PrizeDTO> getPrizes() {
-        return prizeService.getPrizes();
+    public Page<PrizeDTO> getPrizes(Pageable pageable) {
+        return prizeService.getPrizesPageable(pageable);
     }
 
     @GetMapping("/{id}")

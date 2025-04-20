@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import lbj.king.proyecto.DTO.PrizeDTO;
@@ -61,10 +63,13 @@ public class PrizeService {
     }
 
     
-    public Collection<PrizeDTO> getPrizes() {
-        return toDTOs(pRep.findAll());
-    }
+    // public Collection<PrizeDTO> getPrizes() {
+    //     return toDTOs(pRep.findAll());
+    // }
 
+    public Page<PrizeDTO> getPrizesPageable(Pageable pageable) {
+		return pRep.findAll(pageable).map(this::toDTO);
+	}
 
     public PrizeDTO getPrize(long id) {
         return toDTO(pRep.findById(id).orElseThrow()); 

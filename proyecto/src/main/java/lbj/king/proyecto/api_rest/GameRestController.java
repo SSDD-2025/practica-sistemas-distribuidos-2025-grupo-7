@@ -5,6 +5,8 @@ import java.net.URI;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +37,8 @@ public class GameRestController {
     private GameService gameService;
 
     @GetMapping("/")
-    public Collection<GameDTO> getGames() {
-        return gameService.getGamesR();
+    public Page<GameDTO> getGames(Pageable pageable) {
+        return gameService.getGamesPageable(pageable);
     }
 
     @GetMapping("/{id}")

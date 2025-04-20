@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -55,8 +57,8 @@ public class PlayRestController {
     private GameMapper gameMapper;
 
     @GetMapping("/")
-    public Collection<PlayDTO> getPlays() {
-        return playService.getPlays();
+    public Page<PlayDTO> getPlays(Pageable pageable) {
+        return playService.getPlaysPageable(pageable);
     }
     @GetMapping("/me")
     public Collection<PlayDTO> getMyPlays() {

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -72,8 +74,12 @@ public class PlayService {
         return mapper.toDTOs(plays);
     }
 
-    public Collection<PlayDTO> getPlays() {
-        return toDTOs(playRep.findAll());
+    // public Collection<PlayDTO> getPlays() {
+    //     return toDTOs(playRep.findAll());
+    // }
+
+    public Page<PlayDTO> getPlaysPageable(Pageable pageable){
+        return playRep.findAll(pageable).map(this::toDTO);
     }
 
     public PlayDTO getPlay(long id) {

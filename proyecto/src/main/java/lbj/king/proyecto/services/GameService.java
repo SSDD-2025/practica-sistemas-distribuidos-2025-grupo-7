@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.GameMapper;
@@ -48,9 +50,13 @@ public class GameService {
     }
 
     
-    public Collection<GameDTO> getGamesR() {
-        return toDTOs(gameRep.findAll());
-    }
+    // public Collection<GameDTO> getGamesR() {
+    //     return toDTOs(gameRep.findAll());
+    // }
+
+    public Page<GameDTO> getGamesPageable(Pageable pageable) {
+		return gameRep.findAll(pageable).map(this::toDTO);
+	}
 
 
     public GameDTO getGame(long id) {

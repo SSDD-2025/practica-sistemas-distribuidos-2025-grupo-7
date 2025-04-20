@@ -14,6 +14,8 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import jakarta.transaction.Transactional;
@@ -82,9 +84,13 @@ public class UserService {
 	}
 
 
-    public Collection<UserrDTO> getUsers(){
-        return toDTOs(userRep.findAll());
-    }
+    // public Collection<UserrDTO> getUsers(){
+    //     return toDTOs(userRep.findAll());
+    // }
+
+	public Page<UserrDTO> getUsersPageable(Pageable pageable) {
+		return userRep.findAll(pageable).map(this::toDTO);
+	}
 
     public UserrDTO getUser(long id) {
         return toDTO(userRep.findById(id).orElseThrow());
