@@ -3,7 +3,6 @@ package lbj.king.proyecto.api_rest;
 import java.io.File;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
