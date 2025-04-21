@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-21T18:45:46+0200",
+    date = "2025-04-21T21:34:42+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -42,9 +42,9 @@ public class UserrMapperImpl implements UserrMapper {
         prizeList = prizeListToPrizeDTOList( userr.getPrizeList() );
         image = userr.getImage();
 
-        List<GameDTO> gameList = null;
+        List<PlayDTO> playList = null;
 
-        UserrDTO userrDTO = new UserrDTO( id, name, currency, imageBool, roles, prizeList, gameList, image );
+        UserrDTO userrDTO = new UserrDTO( id, name, currency, imageBool, roles, prizeList, playList, image );
 
         return userrDTO;
     }
@@ -83,8 +83,8 @@ public class UserrMapperImpl implements UserrMapper {
         if ( userrDTO.id() != null ) {
             userr.setId( userrDTO.id() );
         }
-        userr.setImageBool( userrDTO.imageBool() );
         userr.setImage( userrDTO.image() );
+        userr.setImageBool( userrDTO.imageBool() );
         if ( userr.getPrizeList() != null ) {
             List<Prize> list = prizeDTOListToPrizeList( userrDTO.prizeList() );
             if ( list != null ) {
@@ -209,8 +209,9 @@ public class UserrMapperImpl implements UserrMapper {
 
         Prize prize = new Prize( name, price );
 
-        prize.setUser( userrBasicDTOToUserr( prizeDTO.user() ) );
         prize.setOwned( prizeDTO.owned() );
+        prize.setOwner( userrBasicDTOToUserr( prizeDTO.getOwner() ) );
+        prize.setUser( userrBasicDTOToUserr( prizeDTO.user() ) );
 
         return prize;
     }

@@ -176,7 +176,7 @@ public class UserController {
             UserrDTO aux = uSer.findById(u.id()).get();
             model.addAttribute("userLogged", aux);
             model.addAttribute("hasImage", u.image());
-            model.addAttribute("listGames", aux.gameList());
+            model.addAttribute("listGames", aux.playList());
             model.addAttribute("userId", aux.id());
             return "profile";
         } else {
@@ -231,7 +231,7 @@ public String deleteGames(Model model, HttpServletRequest request) {
 
     model.addAttribute("userLogged", u);
     model.addAttribute("hasImage", u.image());
-    model.addAttribute("listGames", u.gameList());
+    model.addAttribute("listGames", u.playList());
 
     return "redirect:/profile";
 }
@@ -243,13 +243,13 @@ public String deleteGame(Model model, @PathVariable long partida_id, HttpServlet
 
     PlayDTO partida = pSer.findById(partida_id).get();
 
-    u.gameList().remove(partida);
+    u.playList().remove(partida);
     pSer.deletePartidaById(partida_id);
     uSer.save(u);
 
     model.addAttribute("userLogged", u);
     model.addAttribute("hasImage", u.image());
-    model.addAttribute("listGames", u.gameList());
+    model.addAttribute("listGames", u.playList());
 
     return "profile";
 }
