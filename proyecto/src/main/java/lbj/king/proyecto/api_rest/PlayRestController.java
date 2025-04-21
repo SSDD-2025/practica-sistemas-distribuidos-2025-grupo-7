@@ -89,6 +89,14 @@ public class PlayRestController {
         return playService.getPlaysByUser(user.id(), PageRequest.of(0, 10));
     }
 
+    @GetMapping("/me")
+    public Page<PlayDTO> getMyPlays() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Userr user = userService.findByName(username).orElseThrow();
+        
+        return playService.getPlaysByUser(user.getId(), PageRequest.of(0, 10));
+    }
+
     @GetMapping("/{id}")
     public PlayDTO getPlayById(@PathVariable long id) {
         return playService.getPlay(id);
