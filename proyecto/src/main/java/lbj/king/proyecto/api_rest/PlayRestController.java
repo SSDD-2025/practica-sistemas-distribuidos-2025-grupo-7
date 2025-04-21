@@ -1,18 +1,14 @@
 package lbj.king.proyecto.api_rest;
 
-<<<<<<< HEAD
+
 import java.net.URI;
 import java.security.Principal;
-=======
->>>>>>> e7fec7885a538422492c8a937a0e896e40771191
+
 import java.sql.SQLException;
 import java.util.Collection;
 
-<<<<<<< HEAD
 import java.util.Optional;
 import org.h2.engine.User;
-=======
->>>>>>> e7fec7885a538422492c8a937a0e896e40771191
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
