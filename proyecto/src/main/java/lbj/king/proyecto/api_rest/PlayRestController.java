@@ -29,11 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.GameMapper;
 import lbj.king.proyecto.DTO.PlayDTO;
 import lbj.king.proyecto.DTO.PlayMapper;
 import lbj.king.proyecto.DTO.PlayRequestDTO;
+import lbj.king.proyecto.DTO.UserrBasicDTO;
 import lbj.king.proyecto.DTO.UserrBasicMapper;
+import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Userr;
@@ -66,16 +69,24 @@ public class PlayRestController {
         @RequestParam(defaultValue = "10") int size,
         HttpServletRequest request) {
 
-        Userr u = userService.findById(userId).orElseThrow();
+        UserrDTO u = userService.findById(userId).orElseThrow();
 
         Pageable pageable = PageRequest.of(page, size);
-        return playService.getPlaysByUser(u.getId(), pageable);
+        return playService.getPlaysByUser(u.id(), pageable);
     }
 
     @GetMapping("/")
     public Page<PlayDTO> getPlays() {
         Pageable pageable = PageRequest.of(0, 10);
         return playService.getPlaysPageable(pageable);
+    }
+    
+    @GetMapping("/me")
+    public Page<PlayDTO> getMyPlays() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserrDTO user = userService.findByName(username).orElseThrow();
+        
+        return playService.getPlaysByUser(user.id(), PageRequest.of(0, 10));
     }
 
     @GetMapping("/{id}")
@@ -87,40 +98,46 @@ public class PlayRestController {
     public ResponseEntity<?> createPlay(@RequestBody PlayRequestDTO req) {
         // Obtener usuario autenticado
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr user = userService.findByName(username).orElseThrow();
+        UserrDTO user = userService.findByName(username).orElseThrow();
 
         // Validar juego
-        Game game = gameService.findById(req.gameId()).orElseThrow();
+        GameDTO game = gameService.findById(req.gameId()).orElseThrow();
 
         // Validaciones
         if (req.bet() == null || req.bet() <= 0 || req.selectedNumber() == null) {
             return ResponseEntity.badRequest().body("Apuesta o número no válidos.");
         }
 
-        if (req.selectedNumber() < game.getMinPossibleNumber() || req.selectedNumber() > game.getMaxPossibleNumber()) {
+        if (req.selectedNumber() < game.minPossibleNumber() || req.selectedNumber() > game.maxPossibleNumber()) {
             return ResponseEntity.badRequest().body("Número fuera de rango.");
         }
 
-        if (user.getCurrency() < req.bet()) {
+        if (user.currency() < req.bet()) {
             return ResponseEntity.badRequest().body("Saldo insuficiente.");
         }
 
         // Crear la partida
-        Play play = new Play(req.bet(), user, game);
-        play.setWin(req.bet() * game.getWinMultp());
+        // Play play = new Play(req.bet(), user, game);
+        UserrBasicDTO userBasic = userService.findByNameBasic(username).orElseThrow();
+        PlayDTO play = new PlayDTO(null, req.bet(), 0, false, userBasic, game);
+
+        // play.setWin(req.bet() * game.getWinMultp());
+        playService.setWinDTO(play.id(), game.winMultp(), req.bet());
 
         // Restar apuesta
-        user.setCurrency(user.getCurrency() - req.bet());
+        // user.setCurrency(user.getCurrency() - req.bet());
+        userService.updateLessCurrencyUser(user.id(), req.bet());
 
         // Generar número aleatorio
-        int randomNumber = (int) (Math.random() * (game.getMaxPossibleNumber() - game.getMinPossibleNumber() + 1)) + game.getMinPossibleNumber();
+        int randomNumber = (int) (Math.random() * (game.maxPossibleNumber() - game.minPossibleNumber() + 1)) + game.minPossibleNumber();
 
         boolean victory = false;
         if (req.selectedNumber() == randomNumber) {
             victory = true;
             play.won();
-            float premio = play.getBet() * game.getWinMultp();
-            user.setCurrency(user.getCurrency() + premio);
+            float premio = play.bet() * game.winMultp();
+            // user.setCurrency(user.getCurrency() + premio);
+            userService.updateCurrencyUser(user.id(), premio);
         }
 
         // Guardar
@@ -129,13 +146,14 @@ public class PlayRestController {
 
         // Respuesta
         PlayDTO result = new PlayDTO(
-            play.getId(),
-            play.getBet(),
-            play.getWin(),
-            play.getWon(),
-            userrMapper.toDTO(user),
-            gameMapper.toDTO(game)
+            play.id(),
+            play.bet(),
+            play.win(),
+            play.won(),
+            play.user(),
+            play.game()
         );
+
 
     return ResponseEntity.ok(result);
     }
@@ -150,9 +168,9 @@ public class PlayRestController {
     public ResponseEntity<?> deletePlay(@PathVariable Long id) {
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-    Play play = playService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    PlayDTO play = playService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-    if (!play.getUser().getName().equals(username)) {
+    if (!play.user().name().equals(username)) {
         throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }
 

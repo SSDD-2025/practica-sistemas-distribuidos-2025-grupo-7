@@ -2,12 +2,15 @@ package lbj.king.proyecto.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lbj.king.proyecto.DTO.GameDTO;
+import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.GameService;
@@ -35,9 +38,9 @@ public class GameController {
     public String getSlot(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());
+            model.addAttribute("hasImage", u.image());
         }
         return "slot";
     }
@@ -45,9 +48,9 @@ public class GameController {
     public String getDice(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());
+            model.addAttribute("hasImage", u.image());
         }
         return "dice";
     }
@@ -55,9 +58,9 @@ public class GameController {
     public String getRoulette(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());
+            model.addAttribute("hasImage", u.image());
         }
         return "roulette";
     }
@@ -66,24 +69,24 @@ public class GameController {
     public String getHR(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());
+            model.addAttribute("hasImage", u.image());
         }
-        Game g= gameSer.findByName("Roulette");
-        model.addAttribute("listGames", g.getList());
+        GameDTO g= gameSer.findByName("Roulette").orElseThrow();
+        model.addAttribute("listGames", g.playList());
         return "record";
     }
     @GetMapping("/diceRecord")
     public String getHD(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());
+            model.addAttribute("hasImage", u.image());
         }
-        Game g= gameSer.findByName("Dice");
-        model.addAttribute("listGames", g.getList());
+        GameDTO g= gameSer.findByName("Dice").orElseThrow();
+        model.addAttribute("listGames", g.playList());//es lista de partidas no de games :(
         return "record";
     }
 
@@ -110,10 +113,12 @@ public class GameController {
                 // html name 
                 String filePath = templatesDir + "/"+name+".html";
                 // save it in games
-                Game g = new Game(name, mult,minPossibleNumber,maxPossibleNumber);
-                g.setFich(file.getBytes());
-                g.setHasFich(true);
-                gameSer.save(g);
+                GameDTO g = new GameDTO(null, name, mult,minPossibleNumber,maxPossibleNumber, true, List.of());
+                
+                // g.setFich(file.getBytes());
+                // g.setHasFich(true);
+                // gameSer.save(g);
+                gameSer.updateGameFile(g.id(), file);
                 // Pass the html code introduced to the new file
                 File f = new File(filePath);
                 file.transferTo(f);
@@ -125,9 +130,9 @@ public class GameController {
             }
             Principal principal = request.getUserPrincipal();
             if (principal != null) {
-                Userr u = uSer.findByName(principal.getName()).get();
+                UserrDTO u = uSer.findByName(principal.getName()).get();
                 model.addAttribute("userLogged", u);
-                model.addAttribute("hasImage", u.getImage());
+                model.addAttribute("hasImage", u.image());
             }
         return "redirect:/";
     }
@@ -135,17 +140,17 @@ public class GameController {
     @GetMapping("/game/watch/{id}")
     public String watchGame(@PathVariable long id,Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        Game g=gameSer.findById(id).get();
+        GameDTO g=gameSer.findById(id).get();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());
+            model.addAttribute("hasImage", u.image());
             model.addAttribute("game", g);
-            System.out.println(u.getName());
-            return g.getName();
+            System.out.println(u.name());
+            return g.name();
         } else {
             model.addAttribute("game", g);
-            return g.getName();
+            return g.name();
         }
     }
 }

@@ -1,7 +1,6 @@
 package lbj.king.proyecto.services;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,40 +11,81 @@ import jakarta.transaction.Transactional;
 import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.PrizeMapper;
 import lbj.king.proyecto.model.Prize;
+import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.PrizeRepository;
+import lbj.king.proyecto.repositories.UserRepository;
 
 @Service
 public class PrizeService {
      @Autowired
     private PrizeRepository pRep;
     @Autowired
+    private UserRepository userRep;
+    @Autowired
     private PrizeMapper mapper;
 
-    public List<Prize> getPremios() {
+    // public List<Prize> getPremios() {
 
-        List<Prize> premios = this.pRep.findAll();
-        return premios;
+    //     List<Prize> premios = this.pRep.findAll();
+    //     return premios;
         
+    // }
+
+    // public void save(Prize p) {
+    //     pRep.save(p);
+    // }
+
+    // public Optional<Prize> findById(long id) {
+    //     return pRep.findById(id);
+    // }
+
+    // public void changePrize(Prize p){
+    //     p.setOwner(null);
+    //     p.setOwned(false);
+    // }
+
+    // @Transactional
+    // public void deletePrizeById(Long id){
+    //     pRep.deleteById(id);
+    // }
+
+
+    public Collection<PrizeDTO> getPrizes() {
+        return toDTOs(pRep.findAll());
     }
 
-    public void save(Prize p) {
-        pRep.save(p);
+    public PrizeDTO save(PrizeDTO prizeDTO) {
+        Prize prize = toDomain(prizeDTO);
+        pRep.save(prize);
+        return toDTO(prize);
     }
 
-    public Optional<Prize> findById(long id) {
-        return pRep.findById(id);
+    public Optional<PrizeDTO> findById(Long id) {
+        return pRep.findById(id)
+            .map(this::toDTO);
     }
 
-    public void changePrize(Prize p){
-        p.setOwner(null);
-        p.setOwned(false);
+    public void changePrize(PrizeDTO prizeDTO){
+        Prize prize = toDomain(prizeDTO);
+        prize.setOwner(null);
+        prize.setOwned(false);
     }
 
     @Transactional
-    public void deletePrizeById(Long id){
+    public PrizeDTO deletePrizeById(Long id){
+        Prize prize = pRep.findById(id).orElseThrow();
         pRep.deleteById(id);
+        return toDTO(prize);
     }
 
+    public void setOwnerPrize(Long prizeId, Long userId){
+        Prize prize = pRep.findById(prizeId).orElseThrow();
+        Userr user =  userRep.findById(userId).orElseThrow();
+        
+        prize.setOwner(user);
+        prize.setOwned(true);
+        pRep.save(prize);
+    }
     
     //para api rest
     private PrizeDTO toDTO(Prize prize) {

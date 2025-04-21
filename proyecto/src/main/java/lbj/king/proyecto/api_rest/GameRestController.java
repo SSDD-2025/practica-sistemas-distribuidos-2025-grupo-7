@@ -3,6 +3,7 @@ package lbj.king.proyecto.api_rest;
 import java.io.File;
 import java.net.URI;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -69,10 +70,13 @@ public class GameRestController {
 
             String filePath = templatesDir + "/" + name + ".html";
 
-            Game g = new Game(name, mult, min, max);
-            g.setFich(file.getBytes());
-            g.setHasFich(true);
-            gameService.save(g);
+            // Game g = new Game(name, mult, min, max);
+            GameDTO g = new GameDTO(null, name, mult, min, max, false, List.of());
+
+            // g.setFich(file.getBytes());
+            // g.setHasFich(true);
+            // gameService.save(g);
+            gameService.updateGameFile(g.id(), file);
 
             File f = new File(filePath);
             file.transferTo(f);

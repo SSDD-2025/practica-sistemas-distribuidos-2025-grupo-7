@@ -2,11 +2,13 @@ package lbj.king.proyecto.services;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.transaction.Transactional;
+import lbj.king.proyecto.DTO.UserrBasicDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.DTO.UserrMapper;
+import lbj.king.proyecto.model.Game;
+import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
+import lbj.king.proyecto.repositories.GameRepository;
 import lbj.king.proyecto.repositories.PlayRepository;
 import lbj.king.proyecto.repositories.UserRepository;
 
@@ -33,42 +40,125 @@ public class UserService {
     private UserRepository userRep;
     @Autowired
     private PlayRepository pRep;
+    @Autowired
+    private GameRepository gameRep;
 
     //para api rest
     @Autowired
     private UserrMapper mapper;
 
-    public List<Userr> getUsuarios(){
-        List<Userr> l = userRep.findAll();
-        return l;
+    // public List<Userr> getUsuarios(){
+    //     List<Userr> l = userRep.findAll();
+    //     return l;
+    // }
+
+    // public void save(Userr u){
+    //     userRep.save(u);
+    // }
+
+    // public Optional<Userr> findByName(String n){
+    //     return userRep.findByName(n);
+    // }
+    // public Optional<Userr> findById(long n){
+    //     return userRep.findById(n);
+    // }
+
+    // public void save(Userr u, MultipartFile imag) throws IOException{
+	// 	if(!imag.isEmpty()) {
+	// 		u.setImage(BlobProxy.generateProxy(imag.getInputStream(), imag.getSize()));
+	// 	}
+	// 	this.save(u);
+	// }
+    // public List<Userr> findAll(){
+    //     return userRep.findAll();
+    // }
+
+
+    // @Transactional
+    // public void deleteUserById(Long userId) {
+    //     pRep.deleteByUserId(userId);
+    //     userRep.deleteById(userId);
+    // }
+
+    public Collection<UserrDTO> getUsers(){
+        return toDTOs(userRep.findAll());
     }
 
-    public void save(Userr u){
+    public UserrDTO save(UserrDTO userDTO) {
+        Userr user = toDomain(userDTO);
+        userRep.save(user);
+        return toDTO(user);
+    }
+
+    public Optional<UserrDTO> findByName(String name) {
+        return userRep.findByName(name)
+                .map(this::toDTO);
+    }
+    public Optional<UserrBasicDTO> findByNameBasic(String name) {
+        return userRep.findByNameBasic(name);
+    }
+
+    public Optional<UserrDTO> findById(long id) {
+        return userRep.findById(id)
+                .map(this::toDTO);
+    }
+
+    public UserrDTO save(UserrDTO userDTO, MultipartFile image) throws IOException {
+        Userr user = toDomain(userDTO);
+        if(!image.isEmpty()) {
+            user.setImage(BlobProxy.generateProxy(image.getInputStream(), image.getSize()));
+        }
+        userRep.save(user);
+        return toDTO(user);
+    }
+
+    public List<UserrDTO> findAll() {
+        return userRep.findAll().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public void updateCurrencyUser(Long id, float money){
+        Userr u = userRep.findById(id).orElseThrow();
+        u.setCurrency(u.getCurrency() + money);
+        userRep.save(u);
+    }
+    
+    public void updateLessCurrencyUser(Long id, float money){
+        Userr u = userRep.findById(id).orElseThrow();
+        u.setCurrency(u.getCurrency() - money);
         userRep.save(u);
     }
 
-    public Optional<Userr> findByName(String n){
-        return userRep.findByName(n);
-    }
-    public Optional<Userr> findById(long n){
-        return userRep.findById(n);
-    }
-
-    public void save(Userr u, MultipartFile imag) throws IOException{
-		if(!imag.isEmpty()) {
-			u.setImage(BlobProxy.generateProxy(imag.getInputStream(), imag.getSize()));
-		}
-		this.save(u);
-	}
-    public List<Userr> findAll(){
-        return userRep.findAll();
+    public void setImageUser(Long id, Blob imag){
+        Userr u = userRep.findById(id).orElseThrow();
+        u.setImage(imag);
+        u.setImageBool(true);
+        userRep.save(u);
     }
 
+    public void addPlayToId(Long playId, Long userId){
+        Userr user = userRep.findById(userId).orElseThrow();
+        Play play = pRep.findById(playId).orElseThrow();
+        user.addPlay(play);
+        userRep.save(user);
+    }
 
+    public void userWinPlay(Long userId, Long playId, Long gameId ){
+        Userr user = userRep.findById(userId).orElseThrow();
+        Play play = pRep.findById(playId).orElseThrow();
+        Game game = gameRep.findById(gameId).orElseThrow();
+        user.setCurrency(user.getCurrency()+play.getBet()*game.getWinMultp());
+        userRep.save(user);
+    }
+    
+    
     @Transactional
-    public void deleteUserById(Long userId) {
+    public UserrDTO deleteUserById(Long userId) {
+        Userr user = userRep.findById(userId).orElseThrow();
         pRep.deleteByUserId(userId);
         userRep.deleteById(userId);
+        return toDTO(user);
     }
 
     //para api rest

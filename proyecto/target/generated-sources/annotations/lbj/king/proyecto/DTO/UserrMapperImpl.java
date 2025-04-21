@@ -1,5 +1,6 @@
 package lbj.king.proyecto.DTO;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-21T11:29:16+0200",
+    date = "2025-04-21T16:21:32+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -28,6 +29,7 @@ public class UserrMapperImpl implements UserrMapper {
         boolean imageBool = false;
         List<String> roles = null;
         List<PrizeDTO> prizeList = null;
+        Blob image = null;
 
         id = userr.getId();
         name = userr.getName();
@@ -38,8 +40,11 @@ public class UserrMapperImpl implements UserrMapper {
             roles = new ArrayList<String>( list );
         }
         prizeList = prizeListToPrizeDTOList( userr.getPrizeList() );
+        image = userr.getImage();
 
-        UserrDTO userrDTO = new UserrDTO( id, name, currency, imageBool, roles, prizeList );
+        List<GameDTO> gameList = null;
+
+        UserrDTO userrDTO = new UserrDTO( id, name, currency, imageBool, roles, prizeList, gameList, image );
 
         return userrDTO;
     }
@@ -78,6 +83,7 @@ public class UserrMapperImpl implements UserrMapper {
         if ( userrDTO.id() != null ) {
             userr.setId( userrDTO.id() );
         }
+        userr.setImage( userrDTO.image() );
         userr.setImageBool( userrDTO.imageBool() );
         if ( userr.getPrizeList() != null ) {
             List<Prize> list = prizeDTOListToPrizeList( userrDTO.prizeList() );
@@ -203,8 +209,8 @@ public class UserrMapperImpl implements UserrMapper {
 
         Prize prize = new Prize( name, price );
 
-        prize.setUser( userrBasicDTOToUserr( prizeDTO.user() ) );
         prize.setOwned( prizeDTO.owned() );
+        prize.setUser( userrBasicDTOToUserr( prizeDTO.user() ) );
 
         return prize;
     }

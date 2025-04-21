@@ -3,6 +3,7 @@ package lbj.king.proyecto.controllers;
 import java.security.Principal;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -25,6 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lbj.king.proyecto.DTO.GameDTO;
+import lbj.king.proyecto.DTO.PlayDTO;
+import lbj.king.proyecto.DTO.PrizeDTO;
+import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Prize;
@@ -52,16 +57,16 @@ public class UserController {
     @GetMapping("/")
     public String getIndex(Model model, HttpServletRequest request) {
 
-        List<Game> gameList = gameSer.getGames();
+        Collection<GameDTO> gameList = gameSer.getGames();
         if (gameList.size() > 0) {
             model.addAttribute("Juegos", gameList);
         }
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).orElseThrow();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());
-            System.out.println(u.getName());
+            model.addAttribute("hasImage", u.image());
+            // System.out.println(u.getName());
             return "main";
         } else {
             return "main";
@@ -93,15 +98,15 @@ public class UserController {
     @PostMapping("/registerProcess")
     public String procesarRegistro(@RequestParam String name, @RequestParam String psw, Model model) {
 
-        for (Userr u : uSer.getUsuarios()) {
-            if (u.getName().equals(name)) {
+        for (UserrDTO u : uSer.getUsers()) {
+            if (u.name().equals(name)) {
                 model.addAttribute("registered", "true");
                 return "register";
             }
         }
-        Userr newUser = new Userr(name, passwordEncoder.encode(psw), "USER");
+        UserrDTO newUser = new UserrDTO(null, name, 0, false, List.of("USER"), List.of(), List.of(), null);
         uSer.save(newUser);
-        List<Game> gameList = gameSer.getGames();
+        Collection<GameDTO> gameList = gameSer.getGames();
         if (gameList.size() > 0) {
             model.addAttribute("Juegos", gameList);
         }
@@ -119,13 +124,14 @@ public class UserController {
 
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.getImage());
-            System.out.println(u.getName());
+            model.addAttribute("hasImage", u.image());
+            System.out.println(u.name());
             if (money > 0) {
-                u.setCurrency(u.getCurrency() + money);
-                uSer.save(u);
+                // u.setCurrency(u.getCurrency() + money);
+                // uSer.save(u);
+                uSer.updateCurrencyUser(u.id(), money);
                 return "redirect:/";
             } else {
                 model.addAttribute("dineroNegativo", "true");
@@ -143,7 +149,7 @@ public class UserController {
                         HttpServletRequest request) throws Exception {
 
         Principal principal = request.getUserPrincipal();
-        Userr u = uSer.findByName(principal.getName()).orElseThrow();
+        UserrDTO u = uSer.findByName(principal.getName()).orElseThrow();
         
         if (u == null) {
             return "redirect:/login";
@@ -151,9 +157,10 @@ public class UserController {
 
         if (!image.isEmpty()) {
             Blob imag = new SerialBlob(image.getBytes());
-            u.setImage(imag);
-            u.setImageBool(true);
-            uSer.save(u);
+            // u.setImage(imag);
+            // u.setImageBool(true);
+            // uSer.save(u);
+            uSer.setImageUser(u.id(), imag);
             
             session.setAttribute("user", u);
         }
@@ -165,12 +172,12 @@ public class UserController {
     public String profile(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Userr u = uSer.findByName(principal.getName()).get();
-            Userr aux = uSer.findById(u.getId()).get();
+            UserrDTO u = uSer.findByName(principal.getName()).get();
+            UserrDTO aux = uSer.findById(u.id()).get();
             model.addAttribute("userLogged", aux);
-            model.addAttribute("hasImage", u.getImage());
-            model.addAttribute("listGames", aux.getLista());
-            model.addAttribute("userId", aux.getId());
+            model.addAttribute("hasImage", u.image());
+            model.addAttribute("listGames", aux.gameList());
+            model.addAttribute("userId", aux.id());
             return "profile";
         } else {
             throw new NoSuchElementException();
@@ -180,14 +187,14 @@ public class UserController {
     @GetMapping("/profile/image")
 public ResponseEntity<Object> downloadImage(HttpServletRequest request) throws SQLException {
     Principal principal = request.getUserPrincipal();
-    Userr u = uSer.findByName(principal.getName()).get();
+    UserrDTO u = uSer.findByName(principal.getName()).get();
 
-    if (u.getImage() == null) {
+    if (u.image() == null) {
         System.out.println("El usuario no tiene imagen.");
         return ResponseEntity.notFound().build();
     }
 
-    Blob imag = u.getImage();
+    Blob imag = u.image();
     InputStreamResource file = new InputStreamResource(imag.getBinaryStream());
     return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
@@ -198,18 +205,18 @@ public ResponseEntity<Object> downloadImage(HttpServletRequest request) throws S
 @PostMapping("/deleteUser")
 public String deleteUser(HttpServletRequest request) {
     Principal principal = request.getUserPrincipal();
-    Userr u = uSer.findByName(principal.getName()).get();
+    UserrDTO u = uSer.findByName(principal.getName()).get();
 
-    Optional<Userr> us = uSer.findById(u.getId());
+    Optional<UserrDTO> us = uSer.findById(u.id());
     if (!us.isPresent()) {
         return "diceError";
     }
 
-    for (Prize p : u.getPrizeList()) {
+    for (PrizeDTO p : u.prizeList()) {
         prizeSer.changePrize(p); // Suelto premios
     }
 
-    uSer.deleteUserById(u.getId());
+    uSer.deleteUserById(u.id());
     request.getSession().invalidate(); // Cerramos sesión
 
     return "redirect:/";
@@ -218,13 +225,13 @@ public String deleteUser(HttpServletRequest request) {
 @PostMapping("/deleteGames")
 public String deleteGames(Model model, HttpServletRequest request) {
     Principal principal = request.getUserPrincipal();
-    Userr u = uSer.findByName(principal.getName()).get();
+    UserrDTO u = uSer.findByName(principal.getName()).get();
 
-    pSer.deletePartidasByUsuarioId(u.getId());
+    pSer.deletePartidasByUsuarioId(u.id());
 
     model.addAttribute("userLogged", u);
-    model.addAttribute("hasImage", u.getImage());
-    model.addAttribute("listGames", u.getLista());
+    model.addAttribute("hasImage", u.image());
+    model.addAttribute("listGames", u.gameList());
 
     return "redirect:/profile";
 }
@@ -232,17 +239,17 @@ public String deleteGames(Model model, HttpServletRequest request) {
 @PostMapping("/game/{partida_id}/delete")
 public String deleteGame(Model model, @PathVariable long partida_id, HttpServletRequest request) {
     Principal principal = request.getUserPrincipal();
-    Userr u = uSer.findByName(principal.getName()).get();
+    UserrDTO u = uSer.findByName(principal.getName()).get();
 
-    Play partida = pSer.findByName(partida_id).get();
+    PlayDTO partida = pSer.findById(partida_id).get();
 
-    u.getLista().remove(partida);
+    u.gameList().remove(partida);
     pSer.deletePartidaById(partida_id);
     uSer.save(u);
 
     model.addAttribute("userLogged", u);
-    model.addAttribute("hasImage", u.getImage());
-    model.addAttribute("listGames", u.getLista());
+    model.addAttribute("hasImage", u.image());
+    model.addAttribute("listGames", u.gameList());
 
     return "profile";
 }

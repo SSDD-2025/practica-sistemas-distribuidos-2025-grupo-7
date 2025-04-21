@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.DTO.UserrMapper;
 import lbj.king.proyecto.model.Prize;
@@ -56,8 +57,11 @@ public class UserRestController {
     @PostMapping("/me/addCurrency")
     public UserrDTO addCurrency(@RequestParam int currency) throws IOException{
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr userr = uSer.findByName(username).orElseThrow();
-        userr.setCurrency(userr.getCurrency() + currency);
+        UserrDTO userr = uSer.findByName(username).orElseThrow();
+
+        // userr.setCurrency(userr.getCurrency() + currency);
+        uSer.updateCurrencyUser(userr.id(), currency);
+        
         uSer.save(userr);
         return uSer.getLoggedUserDTO();
     }
@@ -66,17 +70,18 @@ public class UserRestController {
     public UserrDTO deletUserrMe(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         
-        Userr user = uSer.findByName(username).orElseThrow();
+        UserrDTO user = uSer.findByName(username).orElseThrow();
        
 
-        if (user.getPrizeList() != null){
-            for (Prize p : user.getPrizeList()) {
+        if (user.prizeList() != null){
+            for (PrizeDTO p : user.prizeList()) {
                     prizeSer.changePrize(p);
 
                 }
         }
-        uSer.deleteUserById(user.getId());
-        return mapper.toDTO(user);
+        uSer.deleteUserById(user.id());
+        // return mapper.toDTO(user);
+        return user;
     }
 
 
@@ -104,23 +109,23 @@ public class UserRestController {
 
     @DeleteMapping("/{id}")
     public UserrDTO deletUserr(@PathVariable Long id){
-        Userr userr = uSer.findById(id).orElseThrow();
+        UserrDTO userr = uSer.findById(id).orElseThrow();
 
-        if (userr.getPrizeList() != null){
-            for (Prize p : userr.getPrizeList()) {
+        if (userr.prizeList() != null){
+            for (PrizeDTO p : userr.prizeList()) {
                     prizeSer.changePrize(p);
-
                 }
         }
         uSer.deleteUserById(id);
-        return mapper.toDTO(userr);
+        // return mapper.toDTO(userr);
+        return userr;
     }
 
     @PostMapping("/me/image")
     public ResponseEntity<Object> createImageUserr(@RequestParam MultipartFile imageFile) throws IOException{
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr userr = uSer.findByName(username).orElseThrow();
-        long id = userr.getId();
+        UserrDTO userr = uSer.findByName(username).orElseThrow();
+        long id = userr.id();
         uSer.createImageUserr(id, imageFile.getInputStream(), imageFile.getSize());
         URI location = fromCurrentRequest().build().toUri();
         return ResponseEntity.created(location).build();
@@ -129,8 +134,8 @@ public class UserRestController {
     @GetMapping("/me/image")
     public ResponseEntity<Object> getImageUserr() throws SQLException, IOException {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr userr = uSer.findByName(username).orElseThrow();
-        long id = userr.getId();
+        UserrDTO userr = uSer.findByName(username).orElseThrow();
+        long id = userr.id();
         Resource image =  uSer.getImageUserr(id);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
@@ -140,8 +145,8 @@ public class UserRestController {
     @PutMapping("/me/image")
     public ResponseEntity<Object> replaceImageUserr(@RequestParam MultipartFile image) throws IOException {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr userr = uSer.findByName(username).orElseThrow();
-        long id = userr.getId();
+        UserrDTO userr = uSer.findByName(username).orElseThrow();
+        long id = userr.id();
         uSer.replaceImageUserr(id, image.getInputStream(), image.getSize());
         return ResponseEntity.noContent().build();
     }
@@ -149,8 +154,8 @@ public class UserRestController {
     @DeleteMapping("/me/image")
     public ResponseEntity<Object> deleteImageUserr() throws IOException{
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr userr = uSer.findByName(username).orElseThrow();
-        long id = userr.getId();
+        UserrDTO userr = uSer.findByName(username).orElseThrow();
+        long id = userr.id();
         uSer.deleteImageUserr(id);
         return ResponseEntity.noContent().build();
     }

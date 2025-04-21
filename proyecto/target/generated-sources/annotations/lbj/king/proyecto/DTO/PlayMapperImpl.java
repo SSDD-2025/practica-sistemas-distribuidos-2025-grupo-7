@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-21T11:29:16+0200",
+    date = "2025-04-21T17:48:34+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -64,14 +64,14 @@ public class PlayMapperImpl implements PlayMapper {
 
         Play play = new Play();
 
+        play.setBet( playDTO.bet() );
+        play.setGame( gameDTOToGame( playDTO.game() ) );
         if ( playDTO.id() != null ) {
             play.setId( playDTO.id() );
         }
-        play.setWin( playDTO.win() );
-        play.setBet( playDTO.bet() );
-        play.setwon( playDTO.won() );
         play.setUser( userrBasicDTOToUserr( playDTO.user() ) );
-        play.setGame( gameDTOToGame( playDTO.game() ) );
+        play.setWin( playDTO.win() );
+        play.setwon( playDTO.won() );
 
         return play;
     }
@@ -119,10 +119,30 @@ public class PlayMapperImpl implements PlayMapper {
         maxPossibleNumber = game.getMaxPossibleNumber();
 
         boolean hasFich = false;
+        List<GameDTO> gameList = null;
 
-        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, hasFich );
+        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, hasFich, gameList );
 
         return gameDTO;
+    }
+
+    protected Game gameDTOToGame(GameDTO gameDTO) {
+        if ( gameDTO == null ) {
+            return null;
+        }
+
+        Game game = new Game();
+
+        if ( gameDTO.id() != null ) {
+            game.setId( gameDTO.id() );
+        }
+        game.setHasFich( gameDTO.hasFich() );
+        game.setName( gameDTO.name() );
+        game.setWinMultp( gameDTO.winMultp() );
+        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
+        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
+
+        return game;
     }
 
     protected String[] stringListToStringArray(List<String> list) {
@@ -162,24 +182,5 @@ public class PlayMapperImpl implements PlayMapper {
         userr.setImageBool( userrBasicDTO.imageBool() );
 
         return userr;
-    }
-
-    protected Game gameDTOToGame(GameDTO gameDTO) {
-        if ( gameDTO == null ) {
-            return null;
-        }
-
-        Game game = new Game();
-
-        if ( gameDTO.id() != null ) {
-            game.setId( gameDTO.id() );
-        }
-        game.setHasFich( gameDTO.hasFich() );
-        game.setName( gameDTO.name() );
-        game.setWinMultp( gameDTO.winMultp() );
-        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
-        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
-
-        return game;
     }
 }

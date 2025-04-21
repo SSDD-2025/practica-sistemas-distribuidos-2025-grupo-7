@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.PrizeMapper;
+import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PrizeService;
@@ -73,20 +74,25 @@ public class PrizeRestController {
     @PostMapping("/{id}/buy")
     public PrizeDTO buyPrize(@PathVariable long id) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr user = userService.findByName(username).orElseThrow();
-        Prize prize = prizeService.findById(id).orElseThrow();
-        if (user.getCurrency() >= prize.getPrice() && !prize.getOwned()) {
-            prize.setOwner(user);
-            prize.setOwned(true);
-            prizeService.save(prize);
+        UserrDTO user = userService.findByName(username).orElseThrow();
+        PrizeDTO prize = prizeService.findById(id).orElseThrow();
+        if (user.currency() >= prize.price() && !prize.owned()) {
 
-            user.setCurrency(user.getCurrency() - prize.getPrice());
+            // prize.setOwner(user);
+            // prize.setOwned(true);
+            // prizeService.save(prize);
+            prizeService.setOwnerPrize(prize.id(), user.id());
+
+            // user.setCurrency(user.getCurrency() - prize.getPrice());
+            userService.updateLessCurrencyUser(user.id(), prize.price());
+
             userService.save(user);
         }else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Insufficient currency or prize already owned");
         } 
 
-        return prizeMapper.toDTO(prize);
+        // return prizeMapper.toDTO(prize);
+        return prize;
     }
     
 }
