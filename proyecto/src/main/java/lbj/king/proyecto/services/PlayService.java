@@ -74,10 +74,10 @@ public class PlayService {
         return toDTO(play);
     }
 
-    public Optional<PlayDTO> findByName(String name) {
-        return playRep.findByName(name)
-                .map(this::toDTO);
-    }
+    // public Optional<PlayDTO> findByName(String name) {
+    //     return playRep.findByName(name)
+    //             .map(this::toDTO);
+    // }
 
     public Optional<PlayDTO> findById(long id) {
         return playRep.findById(id)

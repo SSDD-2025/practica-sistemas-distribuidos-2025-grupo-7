@@ -15,5 +15,5 @@ public interface PlayRepository extends JpaRepository<Play,Long> {
     void deleteByUserId(@Param("userId") Long userId);
     Collection<Play> findByUserId(@Param("userId") Long userId);
     Page<Play> findPageByUserId(@Param("userId") Long userId,Pageable pageable);
-    Optional<Play> findByName(String name);
+    // Optional<Play> findByName(String name);
 }
