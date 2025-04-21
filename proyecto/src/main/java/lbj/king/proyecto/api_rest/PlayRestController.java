@@ -1,12 +1,8 @@
 package lbj.king.proyecto.api_rest;
 
-import java.net.URI;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +24,6 @@ import lbj.king.proyecto.DTO.PlayDTO;
 import lbj.king.proyecto.DTO.PlayMapper;
 import lbj.king.proyecto.DTO.PlayRequestDTO;
 import lbj.king.proyecto.DTO.UserrBasicMapper;
-import lbj.king.proyecto.DTO.UserrMapper;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Userr;
@@ -36,7 +31,6 @@ import lbj.king.proyecto.services.GameService;
 import lbj.king.proyecto.services.PlayService;
 import lbj.king.proyecto.services.UserService;
 
-import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 
 

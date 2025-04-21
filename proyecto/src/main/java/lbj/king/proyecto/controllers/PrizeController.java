@@ -12,7 +12,6 @@ import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PrizeService;
 import lbj.king.proyecto.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

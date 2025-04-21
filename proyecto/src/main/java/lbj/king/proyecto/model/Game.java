@@ -1,5 +1,4 @@
 package lbj.king.proyecto.model;
-import java.sql.Blob;
 import java.util.*;
 
 import jakarta.persistence.CascadeType;

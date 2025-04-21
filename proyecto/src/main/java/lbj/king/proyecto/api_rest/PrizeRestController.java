@@ -2,7 +2,6 @@ package lbj.king.proyecto.api_rest;
 
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.PrizeMapper;
-import lbj.king.proyecto.model.Play;
 import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PrizeService;
