@@ -7,5 +7,9 @@ public record PrizeDTO(
     Boolean owned,
     UserrBasicDTO user
 ) {
+    public int getPrice() { return price; } // Para {{Price}}
     
+    public UserrBasicDTO getOwner() { return user; } // Para {{Owner.name}}
+    
+    public boolean isOwned() { return owned != null && owned; }
 }
