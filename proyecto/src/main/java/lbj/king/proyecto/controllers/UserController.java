@@ -14,6 +14,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,6 +75,8 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model, HttpServletRequest request) {
+        CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("token", token.getToken()); 
         return "login";
     }
 
@@ -167,6 +170,7 @@ public class UserController {
             model.addAttribute("userLogged", aux);
             model.addAttribute("hasImage", u.getImage());
             model.addAttribute("listGames", aux.getLista());
+            model.addAttribute("userId", aux.getId());
             return "profile";
         } else {
             throw new NoSuchElementException();

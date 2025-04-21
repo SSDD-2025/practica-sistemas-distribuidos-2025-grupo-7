@@ -1,17 +1,21 @@
 package lbj.king.proyecto.api_rest;
 
 import java.net.URI;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.Optional;
 import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +24,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lbj.king.proyecto.DTO.GameMapper;
 import lbj.king.proyecto.DTO.PlayDTO;
 import lbj.king.proyecto.DTO.PlayMapper;
@@ -56,16 +62,22 @@ public class PlayRestController {
     @Autowired
     private GameMapper gameMapper;
 
-    @GetMapping("/")
-    public Page<PlayDTO> getPlays(Pageable pageable) {
-        return playService.getPlaysPageable(pageable);
+    @GetMapping
+    public Page<PlayDTO> getMyPlays(@RequestParam Long userId,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        HttpServletRequest request) {
+
+        Userr u = userService.findById(userId).orElseThrow();
+
+        Pageable pageable = PageRequest.of(page, size);
+        return playService.getPlaysByUser(u.getId(), pageable);
     }
-    @GetMapping("/me")
-    public Collection<PlayDTO> getMyPlays() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Userr user = userService.findByName(username).orElseThrow();
-        
-        return playMapper.toDTOs(playService.findByUserId(user.getId()));
+
+    @GetMapping("/")
+    public Page<PlayDTO> getPlays() {
+        Pageable pageable = PageRequest.of(0, 10);
+        return playService.getPlaysPageable(pageable);
     }
 
     @GetMapping("/{id}")

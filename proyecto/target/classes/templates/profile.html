@@ -41,38 +41,37 @@
                             <input type="file" name="image" required style="padding: 10px; font-size: 20px;">
                             <br>
                             <input type="submit" value="Guardar imagen" style="padding: 10px 20px; font-size: 16px; background-color: purple; color: yellow; border: none;">
+                            <input type="hidden" name="_csrf" value="{{token}}"/>
                         </form>                        
                     </div>
                 </div>
                 <div style="width: 48%;">
                     <h1 style="color: yellow;">Historial de Partidas</h1>
-                    <table border="1" style="width: 48%; color: purple; font-size: 22px; border-color: yellow;">
+                    <table border="1" style="width: 100%; color: purple; font-size: 22px; border-color: yellow;">
+                      <thead>
                         <tr>
-                            <th>Apostado</th>
-                            <th>A ganar</th>
-                            <th>¿Ganaste?</th>
-                            <th>Juego</th>
+                          <th>Apostado</th>
+                          <th>A ganar</th>
+                          <th>¿Ganaste?</th>
+                          <th>Juego</th>
+                          <th>Acción</th>
                         </tr>
-                        {{#listGames}}
-                        <tr>
-                            <td>{{bet}}</td>
-                            <td>{{win}}</td>
-                            <td>{{#won}}Ganada{{/won}}{{^won}}Perdida{{/won}}</td>
-                            <td>{{game.name}}</td>
-                            <td>
-                                <form action="/game/{{id}}/delete" method="post">
-                                    <button type="submit" class="btn btn-danger" style="background-color: purple; color: yellow; font-size: 16px; border: none;">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                        {{/listGames}}
+                      </thead>
+                      <tbody id="plays-container">
+                        <!-- Aquí se insertan dinámicamente -->
+                      </tbody>
                     </table>
-                </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                      <button id="load-more-btn" onclick="cargarPartidas()">Más resultados</button>
+                      <div id="spinner" style="display: none;">⏳ Cargando...</div>
+                    </div>
+                  </div>
                 
                 <div style="width: 10%; margin-top: 50px; margin-right: 50px;">
                     <form action="/deleteGames" method="post" onsubmit="return confirm('Ahora nadie sabra que eres ludopata')">
                         <input type="hidden" name="userId" value="{{userLogged}}">
                         <button type="submit" class="btn btn-danger" style="background-color: purple; color: yellow; font-size: 30px;">Borrar Historial</button>
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
                     </form>                    
                 </div>
 
@@ -80,6 +79,7 @@
                     <form action="/deleteUser" method="post" onsubmit="return confirm('Lebron estaria decepcionado')">
                         <input type="hidden" name="userId" value="{{userLogged}}">
                         <button type="submit" class="btn btn-danger" style="background-color: purple; color: yellow; font-size: 30px;">Eliminar Cuenta</button>
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
                     </form>                    
                 </div>
 
@@ -87,6 +87,59 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="userId" value="{{userLogged.id}}">
+        <script>
+            let currentPage = 0;
+            const pageSize = 10;
+        
+            window.addEventListener("DOMContentLoaded", () => {
+              cargarPartidas();
+            });
+        
+            const userId = document.getElementById('userId').value;
+
+            function cargarPartidas() {
+              const spinner = document.getElementById("spinner");
+              spinner.style.display = "inline-block";
+        
+              fetch(`/api/plays?userId=${userId}&page=${currentPage}&size=${pageSize}`)
+              .then(response => {
+                if (!response.ok) throw new Error("Fallo la carga");
+                return response.json();
+              })
+              .then(data => {
+                const container = document.getElementById("plays-container");
+        
+                data.content.forEach(play => {
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
+                    <td>${play.bet}</td>
+                    <td>${play.win}</td>
+                    <td>${play.won ? 'Ganada' : 'Perdida'}</td>
+                    <td>${play.gameName}</td>
+                    <td>
+                      <form action="/game/${play.id}/delete" method="post">
+                        <button type="submit" style="background-color: purple; color: yellow;">Eliminar</button>
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
+                      </form>
+                    </td>
+                  `;
+                  container.appendChild(row);
+                });
+        
+                currentPage++;
+                if (data.last) {
+                  document.getElementById("load-more-btn").style.display = "none";
+                }
+              })
+              .catch(error => {
+                console.error("Error al cargar partidas:", error);
+              })
+              .finally(() => {
+                spinner.style.display = "none";
+              });
+            }
+          </script>
     </div>
 
     <script src="/js/redirections.js"></script>

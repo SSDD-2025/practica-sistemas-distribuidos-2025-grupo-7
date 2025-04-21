@@ -17,6 +17,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.transaction.Transactional;
 import lbj.king.proyecto.DTO.UserrDTO;
@@ -159,6 +160,27 @@ public class UserService {
         userr.setImage(null);
         userr.setImage(null);
         userRep.save(userr);
+
+    }
+
+
+    public Optional<Userr>  getUser() {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username;
+
+        if (principal instanceof UserDetails) {
+
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+
+            username = principal.toString();
+
+        }
+
+        return userRep.findByName(username);
 
     }
 }

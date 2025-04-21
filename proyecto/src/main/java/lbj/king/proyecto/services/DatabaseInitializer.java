@@ -67,8 +67,36 @@ public class DatabaseInitializer {
         userRep.save(u3);
 
         
-        Play play1 = new Play(1, u1, g1);
+        Play play1 = new Play(10f, u1, g1); // Dados
         playRep.save(play1);
+
+        Play play2 = new Play(20f, u1, g2); // Ruleta
+        playRep.save(play2);
+
+        Play play3 = new Play(15f, u1, g3); // Tragaperras
+        playRep.save(play3);
+
+        Play play4 = new Play(5f, u1, g1);
+        playRep.save(play4);
+
+        Play play5 = new Play(50f, u1, g2);
+        playRep.save(play5);
+
+        Play play6 = new Play(25f, u1, g1);
+        playRep.save(play6);
+
+        Play play7 = new Play(30f, u1, g2);
+        playRep.save(play7);
+
+        Play play8 = new Play(12f, u1, g3);
+        playRep.save(play8);
+
+        Play play9 = new Play(8f, u1, g1);
+        playRep.save(play9);
+
+        Play play10 = new Play(40f, u1, g2);
+        playRep.save(play10);
+
         
         p1.setOwned(true);
         p1.setOwner(u1);

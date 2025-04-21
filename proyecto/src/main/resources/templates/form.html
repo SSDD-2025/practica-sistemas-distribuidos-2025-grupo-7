@@ -19,6 +19,7 @@
         <p>Archivo</p>
         <input type="file" name="file" accept=".html, .txt" required>
         <button type="submit">Subir Documento</button>
+        <input type="hidden" name="_csrf" value="{{token}}"/>
     </form>
 </body>
 </html>

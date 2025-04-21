@@ -69,17 +69,19 @@ public class SecurityConfiguration {
                     // PRIVATE ENDPOINTS
 			
 					.requestMatchers(HttpMethod.GET,"/api/prizes/**").hasAnyRole("USER","ADMIN")
+					.requestMatchers(HttpMethod.POST,"/api/prizes/**").hasAnyRole("USER","ADMIN")
                     .requestMatchers(HttpMethod.POST,"/api/prizes/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/prizes/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasRole("ADMIN")
 
-					.requestMatchers(HttpMethod.GET,"/api/plays/**").hasAnyRole("USER","ADMIN")
+					// .requestMatchers(HttpMethod.GET,"/api/plays/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/plays/").hasAnyRole("USER","ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/plays/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/plays/**").hasAnyRole("USER","ADMIN")
 
 					.requestMatchers(HttpMethod.GET, "/api/users/me/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.GET,"/api/users/**").hasRole("ADMIN")
+					.requestMatchers(HttpMethod.POST, "/api/users/me/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/users/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.DELETE, "/api/users/me/**").hasAnyRole("USER","ADMIN")
@@ -123,21 +125,19 @@ public class SecurityConfiguration {
 					// PUBLIC PAGES
 					.requestMatchers("/").permitAll()
 					.requestMatchers("/login").permitAll()
+					.requestMatchers("/loginError").permitAll()
+					.requestMatchers("/logout").permitAll()
                     .requestMatchers("/register").permitAll()
                     .requestMatchers("/registerProcess").permitAll()
-                    .requestMatchers("/loginProcess").permitAll()
 					.requestMatchers("/css/**").permitAll()
 					.requestMatchers("/imagenes/**").permitAll()
 					.requestMatchers("/js/**").permitAll()	
                     .requestMatchers("/game/watch/{id}").permitAll()
-					.requestMatchers("/h2-console/**").permitAll()	//FALLA IGUAL
 					// PRIVATE PAGES
-					.requestMatchers("/balanceProcess").hasAnyRole("USER","ADMIN")
-                    .requestMatchers("/profile/**").hasAnyRole("USER","ADMIN")
                     .requestMatchers("/game/form").hasRole("ADMIN")
                     .requestMatchers("/game/save").hasRole("ADMIN")
 					.requestMatchers("/prizes/new").hasAnyRole("ADMIN")
-					.requestMatchers("/prizes/{id}/delete").hasAnyRole("ADMIN")
+					.requestMatchers("/prizes/**").hasAnyRole("ADMIN")
 
 
 
@@ -159,7 +159,7 @@ public class SecurityConfiguration {
 			);
 		
 		// // Disable CSRF at the moment
-		http.csrf(csrf -> csrf.disable());
+		// http.csrf(csrf -> csrf.disable());
 
 		// http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

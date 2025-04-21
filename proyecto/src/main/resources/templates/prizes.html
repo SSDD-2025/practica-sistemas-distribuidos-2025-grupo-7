@@ -37,6 +37,7 @@
               {{^owner}}
               <form action = "/prizes/{{id}}" method = "get">
                 <input type = "submit" value = "Buy">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
               </form>
               {{/owner}}
               {{#owned}}
@@ -44,6 +45,7 @@
               {{/owned}}
               <form action="/prizes/{{id}}/delete" method="post">
                 <button type="submit" class="btn btn-danger" style="background-color: red; color: black; font-size: 16px; border: none;">Delete</button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
               </form>
             </div>
             {{/premios}}

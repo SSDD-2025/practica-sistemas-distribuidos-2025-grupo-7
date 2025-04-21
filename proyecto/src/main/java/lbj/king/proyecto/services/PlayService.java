@@ -74,9 +74,13 @@ public class PlayService {
         return mapper.toDTOs(plays);
     }
 
-    // public Collection<PlayDTO> getPlays() {
-    //     return toDTOs(playRep.findAll());
-    // }
+    public Collection<PlayDTO> getPlays() {
+        return toDTOs(playRep.findAll());
+    }
+
+    public Page<PlayDTO> getPlaysByUser(long userId, Pageable pageable) {
+        return playRep.findPageByUserId(userId, pageable).map(this::toDTO);
+    }
 
     public Page<PlayDTO> getPlaysPageable(Pageable pageable){
         return playRep.findAll(pageable).map(this::toDTO);

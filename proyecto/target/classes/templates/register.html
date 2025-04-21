@@ -24,6 +24,7 @@
                         <p style="color: red;">Usuario ya registrado</p>
                         {{/registered}}
                         <input type="submit" value="Crear usuario">
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
                     </form>
                     <p onclick="redirigir_inicio()">Atras</p>
                 </div>
