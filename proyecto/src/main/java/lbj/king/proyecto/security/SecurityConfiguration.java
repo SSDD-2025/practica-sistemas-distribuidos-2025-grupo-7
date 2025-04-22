@@ -70,11 +70,11 @@ public class SecurityConfiguration {
 			
 					.requestMatchers(HttpMethod.GET,"/api/prizes/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/prizes/**").hasAnyRole("USER","ADMIN")
-                    .requestMatchers(HttpMethod.POST,"/api/prizes/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/prizes/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasRole("ADMIN")
 
-					// .requestMatchers(HttpMethod.GET,"/api/plays/**").hasAnyRole("USER","ADMIN")
+					.requestMatchers(HttpMethod.GET,"/api/plays").permitAll()
+					.requestMatchers(HttpMethod.GET,"/api/plays/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/plays/").hasAnyRole("USER","ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/plays/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/plays/**").hasAnyRole("USER","ADMIN")
@@ -86,8 +86,6 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.DELETE, "/api/users/me/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.DELETE,"/api/users/**").hasRole("ADMIN")
-
-					.requestMatchers(HttpMethod.GET, "/api/games/**").hasAnyRole("USER","ADMIN")
 
                     .requestMatchers(HttpMethod.POST,"/api/games/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/games/**").hasRole("ADMIN")
@@ -146,7 +144,6 @@ public class SecurityConfiguration {
 
 
 					.anyRequest().authenticated()
-					// .anyRequest().permitAll()
 					)
 
                 
@@ -161,26 +158,7 @@ public class SecurityConfiguration {
 					.logoutSuccessUrl("/")
 					.permitAll()
 			);
-		
-		// // Disable CSRF at the moment
-		// http.csrf(csrf -> csrf.disable());
 
-		// http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-		// //Disable Form login Authentication
-        // http.formLogin(formLogin -> formLogin.disable());
-
-        // // Disable CSRF protection (it is difficult to implement in REST APIs)
-        // http.csrf(csrf -> csrf.disable());
-
-        // // Disable Basic Authentication
-        // http.httpBasic(httpBasic -> httpBasic.disable());
-
-        // // Stateless session
-        // http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-		// // Add JWT Token filter
-		// http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
