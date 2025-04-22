@@ -6,7 +6,7 @@ import java.security.Principal;
 
 import java.sql.SQLException;
 import java.util.Collection;
-
+import java.util.List;
 import java.util.Optional;
 import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +81,13 @@ public class PlayRestController {
         Pageable pageable = PageRequest.of(0, 10);
         return playService.getPlaysPageable(pageable);
     }
-    
+
+    @GetMapping("/game/{id}")
+    public List<PlayDTO> getPlaysByGame(@PathVariable long id) {
+        GameDTO game = gameService.findById(id).orElseThrow();
+        return gameService.getPlaysByGame(game.id());
+    }
+
     @GetMapping("/me")
     public Page<PlayDTO> getMyPlays() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();

@@ -2,6 +2,7 @@ package lbj.king.proyecto.services;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +119,12 @@ public class GameService {
     public Page<GameDTO> getGamesPageable(Pageable pageable) {
 		return gameRep.findAll(pageable).map(this::toDTO);
 	}
+    public List<PlayDTO> getPlaysByGame(long id) {
+        // return gameRep.findPageByGame(id, pageable).map(this::toDTO);
+        GameDTO game = toDTO(gameRep.findById(id).orElseThrow());
+        List<PlayDTO> list = game.playList();
+        return list;
+    }
 
 
     public GameDTO getGame(long id) {
