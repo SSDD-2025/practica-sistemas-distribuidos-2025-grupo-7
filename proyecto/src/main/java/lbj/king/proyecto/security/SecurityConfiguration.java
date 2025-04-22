@@ -137,6 +137,7 @@ public class SecurityConfiguration {
 					// PRIVATE PAGES
                     .requestMatchers("/game/form").hasRole("ADMIN")
                     .requestMatchers("/game/save").hasRole("ADMIN")
+					.requestMatchers("/game/delete/**").hasRole("ADMIN")
 
 
 
@@ -155,7 +156,6 @@ public class SecurityConfiguration {
 					.logoutSuccessUrl("/")
 					.permitAll()
 			);
-
 
 		return http.build();
 	}

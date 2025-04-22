@@ -48,8 +48,6 @@ public class DatabaseInitializer {
         Game g2=new Game("Dice",4,1,6);
         g2.setFich(fileBytes);
         gameRep.save(g2);
-        Game g3=new Game("Slots",1,1,1);
-        gameRep.save(g3);
 
         Prize p1 = new Prize("Rey de la Rule",1000);
         Prize p2 = new Prize("Rey de la Tragaperras",2000);
@@ -73,8 +71,6 @@ public class DatabaseInitializer {
         Play play2 = new Play(20f, u1, g2); // Ruleta
         playRep.save(play2);
 
-        Play play3 = new Play(15f, u1, g3); // Tragaperras
-        playRep.save(play3);
 
         Play play4 = new Play(5f, u1, g1);
         playRep.save(play4);
@@ -88,8 +84,6 @@ public class DatabaseInitializer {
         Play play7 = new Play(30f, u1, g2);
         playRep.save(play7);
 
-        Play play8 = new Play(12f, u1, g3);
-        playRep.save(play8);
 
         Play play9 = new Play(8f, u1, g1);
         playRep.save(play9);

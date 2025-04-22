@@ -100,6 +100,12 @@
             </div>
             {{#userLogged}}
             <div onclick="redirigir_historialR()" id="boton-ini" style="align-self: center;display: flex;">Historial</div>
+            <script>
+                deleteGame=function(){
+                    window.location.href="/game/delete/{{game.id}}"
+                }
+            </script>
+              <div onclick="deleteGame()" id="boton-ini" style="background-color: red;height: 40px;">Eliminar juego</div>
             {{/userLogged}}
         </div>
     </div>

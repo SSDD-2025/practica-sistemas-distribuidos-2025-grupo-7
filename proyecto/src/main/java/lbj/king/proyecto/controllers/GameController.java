@@ -2,6 +2,7 @@ package lbj.king.proyecto.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,14 +157,47 @@ public class GameController {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
             UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
-
+            Collection<GameDTO> gameList = gameSer.getGames();
+            if (gameList.size() > 0) {
+                model.addAttribute("Juegos", gameList);
+            }
             model.addAttribute("hasImage", uAux.image());
             model.addAttribute("game", g);
             System.out.println(u.name());
             return g.name();
         } else {
+            Collection<GameDTO> gameList = gameSer.getGames();
+            if (gameList.size() > 0) {
+                model.addAttribute("Juegos", gameList);
+            }
             model.addAttribute("game", g);
             return g.name();
         }
     }
+
+    @GetMapping("/game/delete/{id}")
+    public String deleteGame(@PathVariable long id,Model model, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        gameSer.deleteGame(id);
+        if (principal != null) {
+            UserrDTO u = uSer.findByName(principal.getName()).get();
+            model.addAttribute("userLogged", u);
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+            Collection<GameDTO> gameList = gameSer.getGames();
+            if (gameList.size() > 0) {
+                model.addAttribute("Juegos", gameList);
+            }
+            model.addAttribute("hasImage", uAux.image());
+            System.out.println(u.name());
+            return "redirect:/";
+        } else {
+            Collection<GameDTO> gameList = gameSer.getGames();
+            if (gameList.size() > 0) {
+                model.addAttribute("Juegos", gameList);
+            }
+            return "redirect:/";
+        }
+
+    }
+    
 }

@@ -185,6 +185,11 @@ public class UserController {
             model.addAttribute("hasImage", uAux.image());
             model.addAttribute("listGames", aux.playList());
             model.addAttribute("userId", aux.id());
+
+            Collection<GameDTO> gameList = gameSer.getGames();
+            if (gameList.size() > 0) {
+                model.addAttribute("Juegos", gameList);
+            }
             return "profile";
         } else {
             throw new NoSuchElementException();

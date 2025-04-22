@@ -40,3 +40,4 @@ function redirigir_historialD(){
     window.location.href="/diceRecord"
 }
 
+
