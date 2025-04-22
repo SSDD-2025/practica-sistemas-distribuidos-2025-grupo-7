@@ -77,15 +77,14 @@ public class PrizeController {
     @PostMapping("/prizes/{id}/delete")
     public String deletePrize(Model model, @PathVariable long id, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        UserrDTO user = uSer.findByName(principal.getName()).get();
         PrizeDTO prize = prizeSer.findById(id).orElseThrow();
+        UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
 
-        user.prizeList().remove(prize);
-        uSer.save(user);
+        uAux.prizeList().remove(prize);
+        uSer.saveComplete(uAux);
         prizeSer.deletePrizeById(id);
 
-        model.addAttribute("userLogged", user);
-        UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+        model.addAttribute("userLogged", uAux);
 
         model.addAttribute("hasImage", uAux.image());
 

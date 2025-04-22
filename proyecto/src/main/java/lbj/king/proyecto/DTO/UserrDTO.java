@@ -6,7 +6,7 @@ import java.util.List;
 
 public record UserrDTO(
         Long id,
-        String name,   
+        String name,
         float currency,
         boolean imageBool,
         List<String> roles,

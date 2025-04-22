@@ -96,6 +96,11 @@ public class UserService {
         userRep.save(user);
         return toDTO(user);
     }
+    public UserrCompleteDTO saveComplete(UserrCompleteDTO userCompleteDTO) {
+        Userr user = toCompleteDomain(userCompleteDTO);
+        userRep.save(user);
+        return toCompleteDTO(user);
+    }
 
     public Optional<UserrDTO> findByName(String name) {
         return userRep.findByName(name)
@@ -184,6 +189,9 @@ public class UserService {
 
 	private Userr toDomain(UserrDTO userrDTO) {
 		return mapper.toDomain(userrDTO);
+	}
+    private Userr toCompleteDomain(UserrCompleteDTO userCompleteDTO) {
+		return completeMapper.toDomain(userCompleteDTO);
 	}
 
 	private Collection<UserrDTO> toDTOs(Collection<Userr> users) {

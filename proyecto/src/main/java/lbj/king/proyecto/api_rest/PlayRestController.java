@@ -138,25 +138,27 @@ public class PlayRestController {
         boolean victory = false;
         if (req.selectedNumber() == randomNumber) {
             victory = true;
-            play.won();
+
+            // play.won();
+            playService.setWonDTO(savedPlay.id());
             float premio = play.bet() * game.winMultp();
             // user.setCurrency(user.getCurrency() + premio);
             userService.updateCurrencyUser(user.id(), premio);
         }
 
         // Guardar
-        playService.save(play);
-        userService.save(user);
+        // playService.save(play);
+        // userService.save(user);
 
         // Respuesta
-        PlayDTO result = new PlayDTO(
-            play.id(),
-            play.bet(),
-            play.win(),
-            play.won(),
-            play.user(),
-            play.game()
-        );
+        // PlayDTO result = new PlayDTO(
+        //     play.id(),
+        //     play.bet(),
+        //     play.win(),
+        //     play.won(),
+        //     play.user(),
+        //     play.game()
+        // );
         PlayDTO updatedPlay = playService.findById(savedPlay.id()).orElseThrow();
 
 

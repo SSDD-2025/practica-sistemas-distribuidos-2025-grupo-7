@@ -70,8 +70,8 @@ public class SecurityConfiguration {
 			
 					.requestMatchers(HttpMethod.GET,"/api/prizes/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/prizes/**").hasAnyRole("USER","ADMIN")
-                    .requestMatchers(HttpMethod.PUT,"/api/prizes/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT,"/api/prizes/**").hasAnyRole("ADMIN","USER")
+                    .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasAnyRole("ADMIN","USER")
 
 					.requestMatchers(HttpMethod.GET,"/api/plays").permitAll()
 					.requestMatchers(HttpMethod.GET,"/api/plays/**").hasAnyRole("USER","ADMIN")
@@ -83,6 +83,7 @@ public class SecurityConfiguration {
 					.requestMatchers(HttpMethod.GET,"/api/users/**").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.POST, "/api/users/me/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/users/").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.PUT,"/api/users/me/image").hasAnyRole("ADMIN","USER")
                     .requestMatchers(HttpMethod.PUT,"/api/users/**").hasRole("ADMIN")
 					.requestMatchers(HttpMethod.DELETE, "/api/users/me/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.DELETE,"/api/users/**").hasRole("ADMIN")
@@ -136,10 +137,6 @@ public class SecurityConfiguration {
 					// PRIVATE PAGES
                     .requestMatchers("/game/form").hasRole("ADMIN")
                     .requestMatchers("/game/save").hasRole("ADMIN")
-
-					.requestMatchers("/prizes").hasAnyRole("ADMIN", "USER")
-					.requestMatchers("/prizes/new").hasRole("ADMIN")
-					.requestMatchers("/prizes/**").hasRole("ADMIN")
 
 
 

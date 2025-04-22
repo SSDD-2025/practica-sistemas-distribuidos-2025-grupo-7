@@ -5,7 +5,8 @@ import java.util.List;
 
 public record UserrCompleteDTO(
         Long id,
-        String name,   
+        String name,     
+        String password, 
         float currency,
         boolean imageBool,
         List<String> roles,

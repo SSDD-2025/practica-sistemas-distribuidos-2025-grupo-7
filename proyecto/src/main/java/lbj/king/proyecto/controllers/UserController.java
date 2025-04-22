@@ -102,12 +102,13 @@ public class UserController {
 
         for (UserrDTO u : uSer.getUsers()) {
             if (u.name().equals(name)) {
-                model.addAttribute("registered", "true");
+                model.addAttribute("registered", true);
                 return "register";
             }
         }
-        UserrDTO newUser = new UserrDTO(null, name, 0, false, List.of("USER"), List.of(), List.of());
-        uSer.save(newUser);
+        // UserrDTO newUser = new UserrDTO(null, name, 0, false, List.of("USER"), List.of(), List.of());
+        UserrCompleteDTO newUser = new UserrCompleteDTO(null, name, passwordEncoder.encode(psw), 0, false, List.of("USER"), List.of(), List.of(), null);
+        uSer.saveComplete(newUser);
         Collection<GameDTO> gameList = gameSer.getGames();
         if (gameList.size() > 0) {
             model.addAttribute("Juegos", gameList);
@@ -249,19 +250,18 @@ public String deleteGames(Model model, HttpServletRequest request) {
 @PostMapping("/game/{partida_id}/delete")
 public String deleteGame(Model model, @PathVariable long partida_id, HttpServletRequest request) {
     Principal principal = request.getUserPrincipal();
-    UserrDTO u = uSer.findByName(principal.getName()).get();
+    UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
 
     PlayDTO partida = pSer.findById(partida_id).get();
 
-    u.playList().remove(partida);
+    uAux.playList().remove(partida);
     pSer.deletePartidaById(partida_id);
-    uSer.save(u);
+    uSer.saveComplete(uAux);
 
-    model.addAttribute("userLogged", u);
-    UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+    model.addAttribute("userLogged", uAux);
 
     model.addAttribute("hasImage", uAux.image());
-    model.addAttribute("listGames", u.playList());
+    model.addAttribute("listGames", uAux.playList());
 
     return "profile";
 }

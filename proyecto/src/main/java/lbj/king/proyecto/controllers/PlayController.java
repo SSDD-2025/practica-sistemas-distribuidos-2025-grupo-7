@@ -122,7 +122,7 @@ public class PlayController {
             //Used in next step of play
             session.setAttribute("selectedNumber", selectedNumber);
             session.setAttribute("actualPlay", updatedPlay);
-            session.setAttribute("user", u);
+            session.setAttribute("user", uAux);
 
             
 
