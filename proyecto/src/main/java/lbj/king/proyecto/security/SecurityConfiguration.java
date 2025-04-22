@@ -136,8 +136,10 @@ public class SecurityConfiguration {
 					// PRIVATE PAGES
                     .requestMatchers("/game/form").hasRole("ADMIN")
                     .requestMatchers("/game/save").hasRole("ADMIN")
-					.requestMatchers("/prizes/new").hasAnyRole("ADMIN")
-					.requestMatchers("/prizes/**").hasAnyRole("ADMIN")
+
+					.requestMatchers("/prizes").hasAnyRole("ADMIN", "USER")
+					.requestMatchers("/prizes/new").hasRole("ADMIN")
+					.requestMatchers("/prizes/**").hasRole("ADMIN")
 
 
 
