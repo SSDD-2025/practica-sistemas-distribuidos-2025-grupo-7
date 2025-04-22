@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lbj.king.proyecto.DTO.GameDTO;
+import lbj.king.proyecto.DTO.UserrCompleteDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Userr;
@@ -40,7 +41,8 @@ public class GameController {
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+            model.addAttribute("hasImage", uAux.image());
         }
         return "slot";
     }
@@ -50,7 +52,8 @@ public class GameController {
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+            model.addAttribute("hasImage", uAux.image());
         }
         return "dice";
     }
@@ -60,7 +63,9 @@ public class GameController {
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
         }
         return "roulette";
     }
@@ -71,7 +76,9 @@ public class GameController {
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
         }
         GameDTO g= gameSer.findByName("Roulette").orElseThrow();
         model.addAttribute("listGames", g.playList());
@@ -83,7 +90,9 @@ public class GameController {
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
         }
         GameDTO g= gameSer.findByName("Dice").orElseThrow();
         model.addAttribute("listGames", g.playList());//es lista de partidas no de games :(
@@ -132,7 +141,9 @@ public class GameController {
             if (principal != null) {
                 UserrDTO u = uSer.findByName(principal.getName()).get();
                 model.addAttribute("userLogged", u);
-                model.addAttribute("hasImage", u.image());
+                UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+                model.addAttribute("hasImage", uAux.image());
             }
         return "redirect:/";
     }
@@ -144,7 +155,9 @@ public class GameController {
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
             model.addAttribute("game", g);
             System.out.println(u.name());
             return g.name();

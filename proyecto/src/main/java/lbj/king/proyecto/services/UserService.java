@@ -24,6 +24,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.transaction.Transactional;
 import lbj.king.proyecto.DTO.UserrBasicDTO;
 import lbj.king.proyecto.DTO.UserrBasicMapper;
+import lbj.king.proyecto.DTO.UserrCompleteDTO;
+import lbj.king.proyecto.DTO.UserrCompleteDTOMapper;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.DTO.UserrMapper;
 import lbj.king.proyecto.model.Game;
@@ -49,6 +51,8 @@ public class UserService {
     private UserrMapper mapper;
     @Autowired
     private UserrBasicMapper basicMapper;
+    @Autowired
+    private UserrCompleteDTOMapper completeMapper;
 
     // public List<Userr> getUsuarios(){
     //     List<Userr> l = userRep.findAll();
@@ -99,6 +103,9 @@ public class UserService {
     }
     public Optional<UserrBasicDTO> findByNameBasic(String name) {
         return userRep.findByName(name).map(this::toBasicDTO);
+    }
+    public Optional<UserrCompleteDTO> findByNameComplete(String name) {
+        return userRep.findByName(name).map(this::toCompleteDTO);
     }
 
     public Optional<UserrDTO> findById(long id) {
@@ -170,6 +177,9 @@ public class UserService {
 	}
     private UserrBasicDTO toBasicDTO(Userr user) {
 		return basicMapper.toDTO(user);
+	}
+    private UserrCompleteDTO toCompleteDTO(Userr user) {
+		return completeMapper.toDTO(user);
 	}
 
 	private Userr toDomain(UserrDTO userrDTO) {

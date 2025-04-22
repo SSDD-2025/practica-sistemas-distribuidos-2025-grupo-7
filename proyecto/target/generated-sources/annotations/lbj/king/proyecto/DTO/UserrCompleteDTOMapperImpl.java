@@ -1,5 +1,6 @@
 package lbj.king.proyecto.DTO;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,14 +13,14 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-22T18:07:28+0200",
+    date = "2025-04-22T18:04:21+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
-public class UserrMapperImpl implements UserrMapper {
+public class UserrCompleteDTOMapperImpl implements UserrCompleteDTOMapper {
 
     @Override
-    public UserrDTO toDTO(Userr userr) {
+    public UserrCompleteDTO toDTO(Userr userr) {
         if ( userr == null ) {
             return null;
         }
@@ -31,6 +32,7 @@ public class UserrMapperImpl implements UserrMapper {
         List<String> roles = null;
         List<PrizeDTO> prizeList = null;
         List<PlayDTO> playList = null;
+        Blob image = null;
 
         id = userr.getId();
         name = userr.getName();
@@ -42,19 +44,20 @@ public class UserrMapperImpl implements UserrMapper {
         }
         prizeList = prizeListToPrizeDTOList( userr.getPrizeList() );
         playList = playListToPlayDTOList( userr.getPlayList() );
+        image = userr.getImage();
 
-        UserrDTO userrDTO = new UserrDTO( id, name, currency, imageBool, roles, prizeList, playList );
+        UserrCompleteDTO userrCompleteDTO = new UserrCompleteDTO( id, name, currency, imageBool, roles, prizeList, playList, image );
 
-        return userrDTO;
+        return userrCompleteDTO;
     }
 
     @Override
-    public List<UserrDTO> toDTOs(Collection<Userr> userrs) {
+    public List<UserrCompleteDTO> toDTOs(Collection<Userr> userrs) {
         if ( userrs == null ) {
             return null;
         }
 
-        List<UserrDTO> list = new ArrayList<UserrDTO>( userrs.size() );
+        List<UserrCompleteDTO> list = new ArrayList<UserrCompleteDTO>( userrs.size() );
         for ( Userr userr : userrs ) {
             list.add( toDTO( userr ) );
         }
@@ -63,7 +66,7 @@ public class UserrMapperImpl implements UserrMapper {
     }
 
     @Override
-    public Userr toDomain(UserrDTO userrDTO) {
+    public Userr toDomain(UserrCompleteDTO userrDTO) {
         if ( userrDTO == null ) {
             return null;
         }
@@ -82,6 +85,7 @@ public class UserrMapperImpl implements UserrMapper {
         if ( userrDTO.id() != null ) {
             userr.setId( userrDTO.id() );
         }
+        userr.setImage( userrDTO.image() );
         userr.setImageBool( userrDTO.imageBool() );
         if ( userr.getPlayList() != null ) {
             List<Play> list = playDTOListToPlayList( userrDTO.playList() );

@@ -29,6 +29,7 @@ import jakarta.servlet.http.HttpSession;
 import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.PlayDTO;
 import lbj.king.proyecto.DTO.PrizeDTO;
+import lbj.king.proyecto.DTO.UserrCompleteDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
@@ -64,8 +65,9 @@ public class UserController {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).orElseThrow();
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            model.addAttribute("hasImage", uAux.image());
             // System.out.println(u.getName());
             return "main";
         } else {
@@ -104,7 +106,7 @@ public class UserController {
                 return "register";
             }
         }
-        UserrDTO newUser = new UserrDTO(null, name, 0, false, List.of("USER"), List.of(), List.of(), null);
+        UserrDTO newUser = new UserrDTO(null, name, 0, false, List.of("USER"), List.of(), List.of());
         uSer.save(newUser);
         Collection<GameDTO> gameList = gameSer.getGames();
         if (gameList.size() > 0) {
@@ -126,7 +128,9 @@ public class UserController {
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
             System.out.println(u.name());
             if (money > 0) {
                 // u.setCurrency(u.getCurrency() + money);
@@ -175,7 +179,9 @@ public class UserController {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             UserrDTO aux = uSer.findById(u.id()).get();
             model.addAttribute("userLogged", aux);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
             model.addAttribute("listGames", aux.playList());
             model.addAttribute("userId", aux.id());
             return "profile";
@@ -188,13 +194,15 @@ public class UserController {
 public ResponseEntity<Object> downloadImage(HttpServletRequest request) throws SQLException {
     Principal principal = request.getUserPrincipal();
     UserrDTO u = uSer.findByName(principal.getName()).get();
+    UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
 
-    if (u.image() == null) {
+
+    if (uAux.image() == null) {
         System.out.println("El usuario no tiene imagen.");
         return ResponseEntity.notFound().build();
     }
 
-    Blob imag = u.image();
+    Blob imag = uAux.image();
     InputStreamResource file = new InputStreamResource(imag.getBinaryStream());
     return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
@@ -230,7 +238,9 @@ public String deleteGames(Model model, HttpServletRequest request) {
     pSer.deletePartidasByUsuarioId(u.id());
 
     model.addAttribute("userLogged", u);
-    model.addAttribute("hasImage", u.image());
+    UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+    model.addAttribute("hasImage", uAux.image());
     model.addAttribute("listGames", u.playList());
 
     return "redirect:/profile";
@@ -248,7 +258,9 @@ public String deleteGame(Model model, @PathVariable long partida_id, HttpServlet
     uSer.save(u);
 
     model.addAttribute("userLogged", u);
-    model.addAttribute("hasImage", u.image());
+    UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+    model.addAttribute("hasImage", uAux.image());
     model.addAttribute("listGames", u.playList());
 
     return "profile";

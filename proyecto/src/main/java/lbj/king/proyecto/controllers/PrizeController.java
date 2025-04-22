@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import lbj.king.proyecto.DTO.PrizeDTO;
+import lbj.king.proyecto.DTO.UserrCompleteDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
@@ -34,7 +35,9 @@ public class PrizeController {
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
         }
         Collection<PrizeDTO> prizes = prizeSer.getPrizes();
         model.addAttribute("premios", prizes);
@@ -58,12 +61,16 @@ public class PrizeController {
             uSer.updateLessCurrencyUser(user.id(), prize.price());
         } else {
             model.addAttribute("userLogged", user);
-            model.addAttribute("hasImage", user.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
             return "prizeError";
         }
 
         model.addAttribute("userLogged", user);
-        model.addAttribute("hasImage", user.image());
+        UserrCompleteDTO userAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+        model.addAttribute("hasImage", userAux.image());
         return "redirect:/prizes";
     }
 
@@ -78,13 +85,16 @@ public class PrizeController {
         prizeSer.deletePrizeById(id);
 
         model.addAttribute("userLogged", user);
-        model.addAttribute("hasImage", user.image());
+        UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+        model.addAttribute("hasImage", uAux.image());
 
         return "redirect:/prizes";
     }
 
     @PostMapping("/prizes/new")
     public String newPrize(@RequestParam String prizeName, @RequestParam int prizeValue) {
+        // PrizeDTO p = new PrizeDTO(null, prizeName, prizeValue, false, null);
         PrizeDTO p = new PrizeDTO(null, prizeName, prizeValue, false, null);
         prizeSer.save(p);
         return "redirect:/prizes";

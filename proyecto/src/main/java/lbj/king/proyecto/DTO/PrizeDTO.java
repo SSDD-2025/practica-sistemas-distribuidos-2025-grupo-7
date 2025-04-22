@@ -5,11 +5,11 @@ public record PrizeDTO(
     String name,
     int price,
     Boolean owned,
-    UserrBasicDTO user
+    UserrBasicDTO owner
 ) {
-    public int getPrice() { return price; } // Para {{Price}}
+    // public int getPrice() { return price; } // Para {{Price}}
     
-    public UserrBasicDTO getOwner() { return user; } // Para {{Owner.name}}
+    // // public UserrBasicDTO getOwner() { return user; } // Para {{Owner.name}}
     
-    public boolean isOwned() { return owned != null && owned; }
+    // public boolean isOwned() { return owned != null && owned; }
 }

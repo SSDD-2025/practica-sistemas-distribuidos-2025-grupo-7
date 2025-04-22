@@ -14,6 +14,7 @@ import lbj.king.proyecto.DTO.GameBasicDTO;
 import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.PlayDTO;
 import lbj.king.proyecto.DTO.UserrBasicDTO;
+import lbj.king.proyecto.DTO.UserrCompleteDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
@@ -49,7 +50,9 @@ public class PlayController {
         if (principal != null) {
             u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
         }else{
             return "error";
         }
@@ -109,7 +112,9 @@ public class PlayController {
 
             boolean miBool = true;
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
             model.addAttribute("playingGame", miBool);
             model.addAttribute("selectedNumber",selectedNumber);
             model.addAttribute("game", actualGame);
@@ -126,7 +131,9 @@ public class PlayController {
             System.out.println("ERRORRRRRRRRRR");
             model.addAttribute("insufficientBalance", "true");
             model.addAttribute("userLogged",u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
             model.addAttribute("game", actualGame);
 
             return actualGame.name();
@@ -144,7 +151,9 @@ public class PlayController {
         if (principal != null) {
             u = uSer.findByName(principal.getName()).get();
             model.addAttribute("userLogged", u);
-            model.addAttribute("hasImage", u.image());
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+            model.addAttribute("hasImage", uAux.image());
         }else{
             return "error";
         }
@@ -191,7 +200,9 @@ public class PlayController {
         boolean miBool = true;
         model.addAttribute("afterGame", miBool);
         model.addAttribute("randomNumber",randomNumber);
-        model.addAttribute("hasImage", u.image());
+        UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+
+        model.addAttribute("hasImage", uAux.image());
         model.addAttribute("game", actualGame);
         
         session.setAttribute("user", u);

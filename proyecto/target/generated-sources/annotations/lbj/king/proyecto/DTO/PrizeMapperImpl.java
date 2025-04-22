@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-22T14:15:13+0200",
+    date = "2025-04-22T17:33:55+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -26,7 +26,7 @@ public class PrizeMapperImpl implements PrizeMapper {
         String name = null;
         int price = 0;
         Boolean owned = null;
-        UserrBasicDTO user = null;
+        UserrBasicDTO owner = null;
 
         id = prize.getId();
         name = prize.getName();
@@ -34,9 +34,9 @@ public class PrizeMapperImpl implements PrizeMapper {
             price = prize.getPrice();
         }
         owned = prize.getOwned();
-        user = userrToUserrBasicDTO( prize.getUser() );
+        owner = userrToUserrBasicDTO( prize.getOwner() );
 
-        PrizeDTO prizeDTO = new PrizeDTO( id, name, price, owned, user );
+        PrizeDTO prizeDTO = new PrizeDTO( id, name, price, owned, owner );
 
         return prizeDTO;
     }
@@ -69,9 +69,8 @@ public class PrizeMapperImpl implements PrizeMapper {
 
         Prize prize = new Prize( name, price );
 
-        prize.setUser( userrBasicDTOToUserr( prizeDTO.user() ) );
         prize.setOwned( prizeDTO.owned() );
-        prize.setOwner( userrBasicDTOToUserr( prizeDTO.getOwner() ) );
+        prize.setOwner( userrBasicDTOToUserr( prizeDTO.owner() ) );
 
         return prize;
     }

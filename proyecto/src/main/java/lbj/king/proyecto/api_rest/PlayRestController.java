@@ -169,17 +169,30 @@ public class PlayRestController {
 		return playService.replacePlay(id, updatedplayDTO);
 	}
 
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<?> deletePlay(@PathVariable Long id) {
+    //     String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+    //     PlayDTO play = playService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+    //     if (!play.user().name().equals(username)) {
+    //         throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    //     }
+
+    //     playService.deletePlay(id);
+    //     return ResponseEntity.noContent().build();
+    // }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePlay(@PathVariable Long id) {
-    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    public PlayDTO deletePlay(@PathVariable Long id) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-    PlayDTO play = playService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        PlayDTO play = playService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-    if (!play.user().name().equals(username)) {
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        if (!play.user().name().equals(username)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
+        playService.deletePlay(id);
+        return play;
     }
-
-    playService.deletePlay(id);
-    return ResponseEntity.noContent().build();
-}
 }

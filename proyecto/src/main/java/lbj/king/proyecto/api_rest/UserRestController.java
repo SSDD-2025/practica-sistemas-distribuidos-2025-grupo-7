@@ -62,7 +62,7 @@ public class UserRestController {
         // userr.setCurrency(userr.getCurrency() + currency);
         uSer.updateCurrencyUser(userr.id(), currency);
         
-        uSer.save(userr);
+        // uSer.save(userr);
         return uSer.getLoggedUserDTO();
     }
 
