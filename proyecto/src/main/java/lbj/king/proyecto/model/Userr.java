@@ -39,7 +39,10 @@ public class Userr {
     @ElementCollection(fetch= FetchType.EAGER)
     private List<String> roles;
 
-    protected Userr() {}
+    protected Userr() {
+        this.playList=new ArrayList<Play>();
+        this.prizeList=new ArrayList<Prize>();
+    }
 
     public Userr(String name,String psw,String... roles){
         this.name=name;
@@ -73,6 +76,9 @@ public class Userr {
         return this.currency;
     }
     public List<Play> getLista(){
+        return this.playList;
+    }
+    public List<Play> getPlayList(){
         return this.playList;
     }
     public List<Prize> getPrizeList(){

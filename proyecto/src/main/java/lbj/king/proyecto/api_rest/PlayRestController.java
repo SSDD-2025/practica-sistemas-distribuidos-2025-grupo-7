@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lbj.king.proyecto.DTO.GameBasicDTO;
 import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.GameMapper;
 import lbj.king.proyecto.DTO.PlayDTO;
@@ -119,10 +120,13 @@ public class PlayRestController {
         // Crear la partida
         // Play play = new Play(req.bet(), user, game);
         UserrBasicDTO userBasic = userService.findByNameBasic(username).orElseThrow();
-        PlayDTO play = new PlayDTO(null, req.bet(), 0, false, userBasic, game);
+        // PlayDTO play = new PlayDTO(null, req.bet(), 0, false, userBasic, game);
+        GameBasicDTO gameBasic = gameService.findByNameBasic(game.name()).orElseThrow();
+        PlayDTO play = new PlayDTO(null, req.bet(), 0, false, userBasic, gameBasic);
+        PlayDTO savedPlay = playService.save(play);
 
         // play.setWin(req.bet() * game.getWinMultp());
-        playService.setWinDTO(play.id(), game.winMultp(), req.bet());
+        playService.setWinDTO(savedPlay.id(), game.winMultp(), req.bet());
 
         // Restar apuesta
         // user.setCurrency(user.getCurrency() - req.bet());
@@ -153,9 +157,10 @@ public class PlayRestController {
             play.user(),
             play.game()
         );
+        PlayDTO updatedPlay = playService.findById(savedPlay.id()).orElseThrow();
 
 
-    return ResponseEntity.ok(result);
+    return ResponseEntity.ok(updatedPlay);
     }
 
     @PutMapping("/{id}")

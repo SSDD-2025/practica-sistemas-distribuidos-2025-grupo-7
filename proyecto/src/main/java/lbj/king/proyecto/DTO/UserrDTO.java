@@ -1,6 +1,7 @@
 package lbj.king.proyecto.DTO;
 
 import java.sql.Blob;
+import java.util.Collections;
 import java.util.List;
 
 public record UserrDTO(
@@ -14,4 +15,16 @@ public record UserrDTO(
         Blob image
 
         ) {
+                // public UserrDTO {
+                //         prizeList = prizeList != null ? prizeList : Collections.emptyList();
+                //         playList = playList != null ? playList : Collections.emptyList();
+                //         roles = roles != null ? roles : Collections.emptyList();
+                // }
+
+                // public List<PlayDTO> getLista(){
+                //         return playList;
+                // }
+                // public List<PlayDTO> getPlayList(){
+                //         return playList;
+                // }
 }

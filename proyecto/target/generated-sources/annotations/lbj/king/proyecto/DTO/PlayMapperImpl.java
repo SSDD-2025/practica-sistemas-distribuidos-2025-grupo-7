@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-21T21:33:57+0200",
+    date = "2025-04-22T14:15:13+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -28,14 +28,14 @@ public class PlayMapperImpl implements PlayMapper {
         float win = 0.0f;
         boolean won = false;
         UserrBasicDTO user = null;
-        GameDTO game = null;
+        GameBasicDTO game = null;
 
         id = play.getId();
         bet = play.getBet();
         win = play.getWin();
         won = play.getWon();
         user = userrToUserrBasicDTO( play.getUser() );
-        game = gameToGameDTO( play.getGame() );
+        game = gameToGameBasicDTO( play.getGame() );
 
         PlayDTO playDTO = new PlayDTO( id, bet, win, won, user, game );
 
@@ -71,7 +71,7 @@ public class PlayMapperImpl implements PlayMapper {
         play.setBet( playDTO.bet() );
         play.setwon( playDTO.won() );
         play.setUser( userrBasicDTOToUserr( playDTO.user() ) );
-        play.setGame( gameDTOToGame( playDTO.game() ) );
+        play.setGame( gameBasicDTOToGame( playDTO.game() ) );
 
         return play;
     }
@@ -101,7 +101,7 @@ public class PlayMapperImpl implements PlayMapper {
         return userrBasicDTO;
     }
 
-    protected GameDTO gameToGameDTO(Game game) {
+    protected GameBasicDTO gameToGameBasicDTO(Game game) {
         if ( game == null ) {
             return null;
         }
@@ -119,11 +119,10 @@ public class PlayMapperImpl implements PlayMapper {
         maxPossibleNumber = game.getMaxPossibleNumber();
 
         boolean hasFich = false;
-        List<PlayDTO> playList = null;
 
-        GameDTO gameDTO = new GameDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, hasFich, playList );
+        GameBasicDTO gameBasicDTO = new GameBasicDTO( id, name, winMultp, minPossibleNumber, maxPossibleNumber, hasFich );
 
-        return gameDTO;
+        return gameBasicDTO;
     }
 
     protected String[] stringListToStringArray(List<String> list) {
@@ -165,21 +164,21 @@ public class PlayMapperImpl implements PlayMapper {
         return userr;
     }
 
-    protected Game gameDTOToGame(GameDTO gameDTO) {
-        if ( gameDTO == null ) {
+    protected Game gameBasicDTOToGame(GameBasicDTO gameBasicDTO) {
+        if ( gameBasicDTO == null ) {
             return null;
         }
 
         Game game = new Game();
 
-        if ( gameDTO.id() != null ) {
-            game.setId( gameDTO.id() );
+        if ( gameBasicDTO.id() != null ) {
+            game.setId( gameBasicDTO.id() );
         }
-        game.setHasFich( gameDTO.hasFich() );
-        game.setName( gameDTO.name() );
-        game.setWinMultp( gameDTO.winMultp() );
-        game.setMinPossibleNumber( gameDTO.minPossibleNumber() );
-        game.setMaxPossibleNumber( gameDTO.maxPossibleNumber() );
+        game.setHasFich( gameBasicDTO.hasFich() );
+        game.setName( gameBasicDTO.name() );
+        game.setWinMultp( gameBasicDTO.winMultp() );
+        game.setMinPossibleNumber( gameBasicDTO.minPossibleNumber() );
+        game.setMaxPossibleNumber( gameBasicDTO.maxPossibleNumber() );
 
         return game;
     }

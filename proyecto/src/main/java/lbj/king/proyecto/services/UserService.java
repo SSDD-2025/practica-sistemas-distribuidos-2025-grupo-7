@@ -193,13 +193,15 @@ public class UserService {
         return toDTO(userRep.findById(id).orElseThrow());
     }
 
-    public Userr getLoggedUser() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRep.findByName(username).get();
-    }
+    // public Userr getLoggedUser() {
+    //     String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    //     return userRep.findByName(username).get();
+    // }
 
     public UserrDTO getLoggedUserDTO() {
-        return mapper.toDTO(getLoggedUser());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return toDTO(userRep.findByName(username).get());
+        // return mapper.toDTO(getLoggedUser());
     }
 
     public UserrDTO createUser(UserrDTO userrDTO) {       

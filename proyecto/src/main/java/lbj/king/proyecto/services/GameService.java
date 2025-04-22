@@ -12,11 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.transaction.Transactional;
+import lbj.king.proyecto.DTO.GameBasicDTO;
+import lbj.king.proyecto.DTO.GameBasicMapper;
 import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.GameMapper;
 import lbj.king.proyecto.DTO.PlayDTO;
+import lbj.king.proyecto.DTO.UserrBasicDTO;
+import lbj.king.proyecto.DTO.UserrBasicMapper;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
+import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.GameRepository;
 import lbj.king.proyecto.repositories.PlayRepository;
 
@@ -29,6 +34,8 @@ public class GameService {
     private PlayRepository playRep;
     @Autowired
     private GameMapper mapper;
+    @Autowired
+    private GameBasicMapper basicMapper;
 
     // public Game findByName(String n){
     //     return gameRep.findByName(n);
@@ -46,6 +53,9 @@ public class GameService {
     public Optional<GameDTO> findByName(String name) {
         return gameRep.findByName(name)
                 .map(this::toDTO);
+    }
+    public Optional<GameBasicDTO> findByNameBasic(String name) {
+        return gameRep.findByName(name).map(this::toBasicDTO);
     }
 
     public Optional<GameDTO> findById(long id) {
@@ -85,6 +95,10 @@ public class GameService {
     private GameDTO toDTO(Game game) {
         return mapper.toDTO(game);
     }
+
+    private GameBasicDTO toBasicDTO(Game game) {
+		return basicMapper.toDTO(game);
+	}
 
 
     private Game toDomain(GameDTO gameDTO) {

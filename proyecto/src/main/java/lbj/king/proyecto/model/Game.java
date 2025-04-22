@@ -56,6 +56,9 @@ public class Game {
     public List<Play> getList(){
         return this.bets;
     }
+    public List<Play> getPlayList(){
+        return this.bets;
+    }
     public void setFich(byte[] contenidoA){
         this.fich=contenidoA;
     }
