@@ -176,16 +176,16 @@ public class PlayController {
             // p.won();
             playSer.setWonDTO(p.id());
 
-            playSer.save(p);
-            uSer.save(u);
+            // playSer.save(p);
+            // uSer.save(u);
         }
         //model and session
         session.setAttribute("user", u);
 
         // gameSer.findById(id).get().addPlay(p);  
 
-        GameDTO game = gameSer.findById(id).get();
-        gameSer.addPlayDTO(game.id(), p.id());
+        // GameDTO game = gameSer.findById(id).get();
+        gameSer.addPlayDTO(actualGame.id(), p.id());
 
         model.addAttribute("userLogged", session.getAttribute("user"));
         boolean miBool = true;
@@ -193,6 +193,8 @@ public class PlayController {
         model.addAttribute("randomNumber",randomNumber);
         model.addAttribute("hasImage", u.image());
         model.addAttribute("game", actualGame);
+        
+        session.setAttribute("user", u);
 
 
         return actualGame.name();
