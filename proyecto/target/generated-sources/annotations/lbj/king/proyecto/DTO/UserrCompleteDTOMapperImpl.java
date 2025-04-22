@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-22T18:04:21+0200",
+    date = "2025-04-22T18:47:24+0200",
     comments = "version: 1.6.3, compiler: Eclipse JDT (IDE) 3.42.0.z20250331-1358, environment: Java 21.0.6 (Eclipse Adoptium)"
 )
 @Component
@@ -85,8 +85,8 @@ public class UserrCompleteDTOMapperImpl implements UserrCompleteDTOMapper {
         if ( userrDTO.id() != null ) {
             userr.setId( userrDTO.id() );
         }
-        userr.setImage( userrDTO.image() );
         userr.setImageBool( userrDTO.imageBool() );
+        userr.setImage( userrDTO.image() );
         if ( userr.getPlayList() != null ) {
             List<Play> list = playDTOListToPlayList( userrDTO.playList() );
             if ( list != null ) {
@@ -226,25 +226,6 @@ public class UserrCompleteDTOMapperImpl implements UserrCompleteDTOMapper {
         return list1;
     }
 
-    protected Game gameBasicDTOToGame(GameBasicDTO gameBasicDTO) {
-        if ( gameBasicDTO == null ) {
-            return null;
-        }
-
-        Game game = new Game();
-
-        game.setHasFich( gameBasicDTO.hasFich() );
-        if ( gameBasicDTO.id() != null ) {
-            game.setId( gameBasicDTO.id() );
-        }
-        game.setMaxPossibleNumber( gameBasicDTO.maxPossibleNumber() );
-        game.setMinPossibleNumber( gameBasicDTO.minPossibleNumber() );
-        game.setName( gameBasicDTO.name() );
-        game.setWinMultp( gameBasicDTO.winMultp() );
-
-        return game;
-    }
-
     protected String[] stringListToStringArray(List<String> list) {
         if ( list == null ) {
             return null;
@@ -284,6 +265,25 @@ public class UserrCompleteDTOMapperImpl implements UserrCompleteDTOMapper {
         return userr;
     }
 
+    protected Game gameBasicDTOToGame(GameBasicDTO gameBasicDTO) {
+        if ( gameBasicDTO == null ) {
+            return null;
+        }
+
+        Game game = new Game();
+
+        if ( gameBasicDTO.id() != null ) {
+            game.setId( gameBasicDTO.id() );
+        }
+        game.setHasFich( gameBasicDTO.hasFich() );
+        game.setName( gameBasicDTO.name() );
+        game.setWinMultp( gameBasicDTO.winMultp() );
+        game.setMinPossibleNumber( gameBasicDTO.minPossibleNumber() );
+        game.setMaxPossibleNumber( gameBasicDTO.maxPossibleNumber() );
+
+        return game;
+    }
+
     protected Play playDTOToPlay(PlayDTO playDTO) {
         if ( playDTO == null ) {
             return null;
@@ -291,14 +291,14 @@ public class UserrCompleteDTOMapperImpl implements UserrCompleteDTOMapper {
 
         Play play = new Play();
 
-        play.setBet( playDTO.bet() );
-        play.setGame( gameBasicDTOToGame( playDTO.game() ) );
         if ( playDTO.id() != null ) {
             play.setId( playDTO.id() );
         }
-        play.setUser( userrBasicDTOToUserr( playDTO.user() ) );
         play.setWin( playDTO.win() );
+        play.setBet( playDTO.bet() );
         play.setwon( playDTO.won() );
+        play.setUser( userrBasicDTOToUserr( playDTO.user() ) );
+        play.setGame( gameBasicDTOToGame( playDTO.game() ) );
 
         return play;
     }

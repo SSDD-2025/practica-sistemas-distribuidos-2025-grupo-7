@@ -186,7 +186,7 @@ public class PlayRestController {
     public PlayDTO deletePlay(@PathVariable Long id) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        PlayDTO play = playService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        PlayDTO play = playService.findById(id).orElseThrow();
 
         if (!play.user().name().equals(username)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);

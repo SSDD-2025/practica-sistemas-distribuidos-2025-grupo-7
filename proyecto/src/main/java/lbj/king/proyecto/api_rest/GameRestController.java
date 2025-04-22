@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.http.HttpServletRequest;
 import lbj.king.proyecto.DTO.GameDTO;
+import lbj.king.proyecto.DTO.PlayDTO;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.services.GameService;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
@@ -72,11 +73,12 @@ public class GameRestController {
 
             // Game g = new Game(name, mult, min, max);
             GameDTO g = new GameDTO(null, name, mult, min, max, false, List.of());
+            GameDTO savedGame = gameService.save(g);
 
             // g.setFich(file.getBytes());
             // g.setHasFich(true);
             // gameService.save(g);
-            gameService.updateGameFile(g.id(), file);
+            gameService.updateGameFile(savedGame.id(), file);
 
             File f = new File(filePath);
             file.transferTo(f);
