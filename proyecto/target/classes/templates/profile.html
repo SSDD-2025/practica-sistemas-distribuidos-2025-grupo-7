@@ -66,15 +66,6 @@
                       <div id="spinner" style="display: none;">⏳ Cargando...</div>
                     </div>
                   </div>
-                
-                <div style="width: 10%; margin-top: 50px; margin-right: 50px;">
-                    <form action="/deleteGames" method="post" onsubmit="return confirm('Ahora nadie sabra que eres ludopata')">
-                        <input type="hidden" name="userId" value="{{userLogged}}">
-                        <button type="submit" class="btn btn-danger" style="background-color: purple; color: yellow; font-size: 30px;">Borrar Historial</button>
-                        <input type="hidden" name="_csrf" value="{{token}}"/>
-                    </form>                    
-                </div>
-
                 <div style="width: 10%; margin-top: 50px; margin-right: 50px;">
                     <form action="/deleteUser" method="post" onsubmit="return confirm('Lebron estaria decepcionado')">
                         <input type="hidden" name="userId" value="{{userLogged}}">
