@@ -289,14 +289,14 @@ Todos hemos aportado a todas las partes, ya sea para implementación de nuevo c�
 ### Héctor González Viñas
 
 - **5 commits más significativos:**
-  1. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/c593af9370ff2a99745b5e160401b5944b4f8b48)
-  2. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/f3ca6de8697152f7107e8396bc18bf7e98bfb9af)
-  3. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/da7fc94c9794862afbccebb1ddca508e1e278e6c)
-  4. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/ea9d2dc7b1ab49dc26cfea5739158ac431bbb27b)
-  5. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/6fd5d45e988710f7cae643e205364b3eea1c2d3b)
+  1. [springSecurity 1](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/38daa8ee87f2017d1f8c8a77350876be7f154f5c)
+  2. [springSecurity2](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/29d60c00ebd46592d2bf42f97eeca9e7a8ae6491)
+  3. [funcionalidad juego con fichero](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/b0eecc2e02498b7ab4c9564e26af4293a378fb5b)
+  4. [creacion dtos y mappers](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/5e9caa4fa1f984fdd1febac154b9272442448834)
+  5. [editar juegos](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/897990ab9d1d994686367515b87a98df528d3569)
 - **5 ficheros en los que se ha participado:**
-  1. `UserRestController.java`
-  2. `PrizeRestController.html`
+  1. `UserController.java`
+  2. `SecurityConfiguration.java`
   3. `GameRestController.html`
-  4. `PlayRestConrtoller.java`
+  4. `PlayConrtoller.java`
   5. `GameController.java`
