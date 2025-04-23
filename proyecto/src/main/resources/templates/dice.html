@@ -156,7 +156,12 @@
             {{/saldoInsuficiente}}
           </div>
           {{/playingGame}}
-          <div onclick="redirigir_historialD()" id="boton-ini">Historial</div>
+          <script>
+            goRecord=function(){
+                window.location.href="/game/record/{{game.id}}"
+            }
+          </script>
+          <div onclick="goRecord()" id="boton-ini">Historial</div>
           <script>
             deleteGame=function(){
                 window.location.href="/game/delete/{{game.id}}"

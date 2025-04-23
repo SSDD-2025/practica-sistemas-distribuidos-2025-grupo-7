@@ -69,8 +69,8 @@ public class GameController {
         return "roulette";
     }
 
-    @GetMapping("/rouletteRecord")
-    public String getHR(Model model, HttpServletRequest request) {
+    @GetMapping("/game/record/{id}")
+    public String watchGameRecord(@PathVariable long id,Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
             UserrDTO u = uSer.findByName(principal.getName()).get();
@@ -79,22 +79,8 @@ public class GameController {
 
             model.addAttribute("hasImage", uAux.image());
         }
-        GameDTO g= gameSer.findByName("Roulette").orElseThrow();
+        GameDTO g= gameSer.findById(id).orElseThrow();
         model.addAttribute("listGames", g.playList());
-        return "record";
-    }
-    @GetMapping("/diceRecord")
-    public String getHD(Model model, HttpServletRequest request) {
-        Principal principal = request.getUserPrincipal();
-        if (principal != null) {
-            UserrDTO u = uSer.findByName(principal.getName()).get();
-            model.addAttribute("userLogged", u);
-            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
-
-            model.addAttribute("hasImage", uAux.image());
-        }
-        GameDTO g= gameSer.findByName("Dice").orElseThrow();
-        model.addAttribute("listGames", g.playList());//es lista de partidas no de games :(
         return "record";
     }
 
