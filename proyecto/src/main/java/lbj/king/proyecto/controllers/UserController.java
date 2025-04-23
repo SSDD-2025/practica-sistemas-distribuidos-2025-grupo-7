@@ -113,7 +113,7 @@ public class UserController {
     @GetMapping("/procesarLogout")
     public String getMethodName(HttpSession sesion) {
         sesion.invalidate();
-        return "main";
+        return "redirect:/";
     }
 
     @PostMapping("/balanceProcess")
