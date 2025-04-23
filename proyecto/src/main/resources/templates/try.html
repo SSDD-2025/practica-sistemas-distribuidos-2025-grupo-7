@@ -146,7 +146,12 @@
                 
             </div>
             {{#userLogged}}
-            <div onclick="redirigir_historialR()" id="boton-ini" style="align-self: center;display: flex;">Historial</div>
+            <script>
+                goRecord=function(){
+                    window.location.href="/game/record/{{game.id}}"
+                }
+            </script>
+            <div onclick="goRecord()" id="boton-ini" style="align-self: center;display: flex;">Historial</div>
                 <script>
                     deleteGame=function(){
                         window.location.href="/game/delete/{{game.id}}"

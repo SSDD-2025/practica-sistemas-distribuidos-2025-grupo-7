@@ -81,6 +81,10 @@ public class GameController {
         }
         GameDTO g= gameSer.findById(id).orElseThrow();
         model.addAttribute("listGames", g.playList());
+        Collection<GameDTO> gameList = gameSer.getGames();
+        if (gameList.size() > 0) {
+            model.addAttribute("Juegos", gameList);
+        }
         return "record";
     }
 

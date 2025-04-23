@@ -11,7 +11,7 @@
   <div style="display: flex; height: 100vh;">
     {{>barraIzq}}
     <div style="background-color: rgb(71, 71, 71);width: 20%;"></div>
-    <div class="container-main" style="height: 100vh;">
+    <div class="container-main" style="height: 110vh;">
       <div class="barra-arriba" style="display: flex;justify-content: end;">
         <div onclick="redirigir_perfil()" id="boton-ini">Perfil</div>
         <div onclick="redirigir_inicio()" id="boton-ini">inicio</div>
@@ -168,7 +168,8 @@
             }
         </script>
           <div onclick="deleteGame()" id="boton-ini" style="background-color: red;height: 40px;">Eliminar juego</div>
-        {{/userLogged}}
+          <div id="boton-ini" style="background-color: green; height: 40px;">Editar juego</div>
+        {{/userLogged}} 
         {{^userLogged}}
         <p style="margin-left: 50px; color: white;">Inicie sesión para jugar</p>
         {{/userLogged}}
