@@ -251,7 +251,7 @@ Hemos actualizado el diagrama de templates y añadido funcinonalidades para hace
   El diagrama de clases representa la estructura de las clases en el código, incluyendo sus atributos, métodos y relaciones. Este diagrama es útil para entender la arquitectura del software.
 
 ### Diagrama de Navegación
-![Diagrama de Navegación](/Diagrams/navigationDiagram2.png)
+![Diagrama de Navegación](/Diagrams/navigationDiagram2.jpeg)
 
   Este diagrama ilustra la estructura de navegación de la aplicación, mostrando cómo los usuarios pueden moverse entre las diferentes secciones del casino, como los juegos, los premios y su perfil, todo esto desde el inicio, ya que le hemos dado un enfoque para que principalmente se tenga que acceder al menú principal para reañizar las acciones. Cabe destacar, que las barras de la izquierda y de arriba, se mantienen en las pantallas de los juegos, los premios y perfil.
 
