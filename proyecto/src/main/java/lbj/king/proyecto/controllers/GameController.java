@@ -124,11 +124,13 @@ public class GameController {
                 String filePath = templatesDir + "/"+name+".html";
                 // save it in games
                 GameDTO g = new GameDTO(null, name, mult,minPossibleNumber,maxPossibleNumber, true, List.of());
+                GameDTO updatedGame = gameSer.save(g);
+                // GameDTO updatedGame = gameSer.findByName(name).orElseThrow();
                 
                 // g.setFich(file.getBytes());
                 // g.setHasFich(true);
                 // gameSer.save(g);
-                gameSer.updateGameFile(g.id(), file);
+                gameSer.updateGameFile(updatedGame.id(), file);
                 // Pass the html code introduced to the new file
                 File f = new File(filePath);
                 file.transferTo(f);
@@ -139,13 +141,9 @@ public class GameController {
                 return "error";
             }
             Principal principal = request.getUserPrincipal();
-            if (principal != null) {
-                UserrDTO u = uSer.findByName(principal.getName()).get();
-                model.addAttribute("userLogged", u);
-                UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
-
-                model.addAttribute("hasImage", uAux.image());
-            }
+            UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
+            model.addAttribute("userLogged", uAux);
+            model.addAttribute("hasImage", uAux.image());
         return "redirect:/";
     }
 
