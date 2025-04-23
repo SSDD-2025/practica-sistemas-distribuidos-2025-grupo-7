@@ -243,7 +243,7 @@ Después me centré en el PlayController en el que se crean partidas para los da
 
 
 # Parte 2
-Hemos actualizado el diagrama de templates y añadido funcinonalidades para hacer uso de la api rest.
+Hemos actualizado el diagrama de templates y añadido funcinonalidades para hacer uso de la api rest. También hemos añadido SpringSecurity para que nuestra aplicación web esté protegida con https.
 
 ### Diagrama de Clases
 ![Diagrama de Clases](/Diagrams/templateDiagram2.jpg)
