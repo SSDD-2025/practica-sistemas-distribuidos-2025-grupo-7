@@ -71,6 +71,8 @@ public class DatabaseInitializer {
         Play play2 = new Play(20f, u1, g2); // Ruleta
         playRep.save(play2);
 
+        Play play3 = new Play(20f, u1, g2); // Ruleta
+        playRep.save(play3);
 
         Play play4 = new Play(5f, u1, g1);
         playRep.save(play4);
@@ -84,6 +86,8 @@ public class DatabaseInitializer {
         Play play7 = new Play(30f, u1, g2);
         playRep.save(play7);
 
+        Play play8 = new Play(13f, u1, g1); // Ruleta
+        playRep.save(play8);
 
         Play play9 = new Play(8f, u1, g1);
         playRep.save(play9);
