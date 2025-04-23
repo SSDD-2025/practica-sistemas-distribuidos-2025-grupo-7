@@ -62,14 +62,15 @@ public class GameRestController {
             HttpServletRequest request) throws IllegalStateException, java.io.IOException {
 
         try {
-            String templatesDir = new File("src/main/resources/templates").getAbsolutePath();
+            String templatesDir = new File("proyecto\\src\\main\\resources\\templates").getAbsolutePath();
 
             File directory = new File(templatesDir);
-            if (!directory.exists()) directory.mkdirs();
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            String filePath = templatesDir + "/"+name+".html";
 
-            String filePath = templatesDir + "/" + name + ".html";
-
-            GameDTO g = new GameDTO(null, name, mult, min, max, false, List.of());
+            GameDTO g = new GameDTO(null, name, mult, min, max, true, List.of());
             GameDTO savedGame = gameService.save(g);
 
 
@@ -77,6 +78,7 @@ public class GameRestController {
 
             File f = new File(filePath);
             file.transferTo(f);
+            System.out.println("COrrect file gen: " + filePath);
 
             return ResponseEntity.ok("Juego subido correctamente: " + name);
 

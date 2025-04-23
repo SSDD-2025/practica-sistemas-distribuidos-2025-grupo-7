@@ -127,6 +127,8 @@
                         <input type="number" name="selectedNumber" placeholder="Ingresa un número">
                         <br>
                         <input type="submit" value="Apostar">
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
+
                     </form>
                     {{/userLogged}}
                     {{^userLogged}}
@@ -145,6 +147,12 @@
             </div>
             {{#userLogged}}
             <div onclick="redirigir_historialR()" id="boton-ini" style="align-self: center;display: flex;">Historial</div>
+                <script>
+                    deleteGame=function(){
+                        window.location.href="/game/delete/{{game.id}}"
+                    }
+                </script>
+              <div onclick="deleteGame()" id="boton-ini" style="background-color: red;height: 40px;">Eliminar juego</div>
             {{/userLogged}}
         </div>
     </div>
