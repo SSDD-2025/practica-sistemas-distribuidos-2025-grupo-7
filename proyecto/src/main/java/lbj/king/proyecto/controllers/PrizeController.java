@@ -7,9 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.UserrCompleteDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
+import lbj.king.proyecto.services.GameService;
 import lbj.king.proyecto.services.PrizeService;
 import lbj.king.proyecto.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +28,9 @@ public class PrizeController {
     @Autowired
     private UserService uSer;
 
+    @Autowired
+    private GameService gameSer;
+
     @GetMapping("/prizes")
     public String showPremios(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
@@ -38,6 +43,10 @@ public class PrizeController {
         }
         Collection<PrizeDTO> prizes = prizeSer.getPrizes();
         model.addAttribute("premios", prizes);
+        Collection<GameDTO> gameList = gameSer.getGames();
+        if (gameList.size() > 0) {
+            model.addAttribute("Juegos", gameList);
+        }
         return "prizes";
     }
 

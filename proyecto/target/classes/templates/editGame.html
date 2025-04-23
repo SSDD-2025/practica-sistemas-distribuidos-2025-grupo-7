@@ -1,3 +1,4 @@
+
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,11 +12,12 @@
             </div>
             <div id="content">
                 <div id="inside">
-                    <p style="font-size: 40px; margin-bottom: 1px; margin-top: 5px;">Ha ocurrido un error inesperado.</p>
-                    <p style="font-size: 30px; margin-top: 10px;"><a href="/">Volver a inicio</a></p>
-                    <div style="text-align: center; margin-top: 5px;">
-                        <img src="/imagenes/lebron triste.jpg" style="width: 495px; height: 280px;">
-                    </div>
+                    <h2> Introduce el nuevo multiplicador de ganancia del juego</h2>
+                    <form action = "/game/watch/{{game.id}}/edit/process" method="post">
+                        <input type="number" name="newWinMult">
+                        <button type="submit">Actualizar mult</button>
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
+                    </form>
                 </div>
             </div>
         </div>

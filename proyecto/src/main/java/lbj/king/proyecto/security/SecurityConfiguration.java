@@ -138,6 +138,8 @@ public class SecurityConfiguration {
                     .requestMatchers("/game/form").hasRole("ADMIN")
                     .requestMatchers("/game/save").hasRole("ADMIN")
 					.requestMatchers("/game/delete/**").hasRole("ADMIN")
+					.requestMatchers("/game/watch/{id}/edit").hasRole("ADMIN")
+
 
 
 
