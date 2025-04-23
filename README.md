@@ -237,3 +237,66 @@ Después me centré en el PlayController en el que se crean partidas para los da
       spring.datasource.password=password
       spring.jpa.hibernate.ddl-auto=create-drop
       ```
+
+
+
+
+
+# Parte 2
+Hemos actualizado el diagrama de templates y añadido funcinonalidades para hacer uso de la api rest.
+
+### Diagrama de Clases
+![Diagrama de Clases](/Diagrams/templateDiagram2.jpg)
+
+  El diagrama de clases representa la estructura de las clases en el código, incluyendo sus atributos, métodos y relaciones. Este diagrama es útil para entender la arquitectura del software.
+
+
+
+## Participación
+
+Todos hemos aportado a todas las partes, ya sea para implementación de nuevo código o para arreglo de errores.
+
+### Raúl Sánchez Benítez
+
+- **5 commits más significativos:**
+  1. [Creación PlayRestController](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/2736d73ec4250a874445c2591cbcb27f815191ab)
+  2. [Creación PriceRestController](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/3b335e06ca32df7958c3e85718dc65c3f73c3e34)
+  3. [securityConfig changes to accept api](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/1cadbf81980a8f4fbe31be8a6a2db715a1e901ca)
+  4. [Actualizacion de permisos, csrf y paginacion con AJAX en historial personal](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/b4e42f9f9b1e16e690d2d2fa6e79926927529928)
+  5. [Play desde PostMan](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/d88f55891490f4cf4f8b0ac4a9e9e530d5374d66)
+- **5 ficheros en los que se ha participado:**
+  1. `UserRestController.java`
+  2. `PrizeRestController.html`
+  3. `GameRestController.html`
+  4. `PlayRestConrtoller.java`
+  5. `PlayController.java`
+
+### Andrés Muñoz Muñoz
+
+- **5 commits más significativos:**
+  1. [Creación UserrRestController](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/8ac72f56b1bc3d8944e129bb24de20d565cf5268)
+  2. [Todo a DTOs](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/461e4fad7f965cf4edd2ec58b99b7798352adfb9)
+  3. [Arreglo de DTOs](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/f0762c1b3d53fbb91ae447b67335bad3d7014262)
+  4. [Arreglo gameSave](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/9d3c57b66a2d66641e85eabf59a3f2fbdd104bc1)
+  5. [Arreglo mySQL](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/68c5c4a636344711fe6f18239ba0685c08f06f5f)
+- **5 ficheros en los que se ha participado:**
+  1. `UserRestController.java`
+  2. `PrizeRestController.html`
+  3. `GameRestController.html`
+  4. `PlayRestConrtoller.java`
+  5. `UserrDTO.java`
+
+### Héctor González Viñas
+
+- **5 commits más significativos:**
+  1. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/c593af9370ff2a99745b5e160401b5944b4f8b48)
+  2. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/f3ca6de8697152f7107e8396bc18bf7e98bfb9af)
+  3. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/da7fc94c9794862afbccebb1ddca508e1e278e6c)
+  4. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/ea9d2dc7b1ab49dc26cfea5739158ac431bbb27b)
+  5. [](https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7/commit/6fd5d45e988710f7cae643e205364b3eea1c2d3b)
+- **5 ficheros en los que se ha participado:**
+  1. `UserRestController.java`
+  2. `PrizeRestController.html`
+  3. `GameRestController.html`
+  4. `PlayRestConrtoller.java`
+  5. `GameController.java`
