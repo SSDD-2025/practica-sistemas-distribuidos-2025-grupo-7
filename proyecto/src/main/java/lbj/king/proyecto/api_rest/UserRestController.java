@@ -15,9 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
-import lbj.king.proyecto.DTO.UserrMapper;
-import lbj.king.proyecto.model.Prize;
-import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PrizeService;
 import lbj.king.proyecto.services.UserService;
 
@@ -43,8 +40,6 @@ public class UserRestController {
     @Autowired
     private UserService uSer;
     @Autowired
-    private UserrMapper mapper;
-    @Autowired
     private PrizeService prizeSer;
 
 
@@ -59,10 +54,8 @@ public class UserRestController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserrDTO userr = uSer.findByName(username).orElseThrow();
 
-        // userr.setCurrency(userr.getCurrency() + currency);
         uSer.updateCurrencyUser(userr.id(), currency);
         
-        // uSer.save(userr);
         return uSer.getLoggedUserDTO();
     }
 
@@ -80,7 +73,6 @@ public class UserRestController {
                 }
         }
         uSer.deleteUserById(user.id());
-        // return mapper.toDTO(user);
         return user;
     }
 
@@ -117,7 +109,6 @@ public class UserRestController {
                 }
         }
         uSer.deleteUserById(id);
-        // return mapper.toDTO(userr);
         return userr;
     }
 

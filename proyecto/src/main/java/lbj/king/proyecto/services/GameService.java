@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,11 +17,8 @@ import lbj.king.proyecto.DTO.GameBasicMapper;
 import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.GameMapper;
 import lbj.king.proyecto.DTO.PlayDTO;
-import lbj.king.proyecto.DTO.UserrBasicDTO;
-import lbj.king.proyecto.DTO.UserrBasicMapper;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
-import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.GameRepository;
 import lbj.king.proyecto.repositories.PlayRepository;
 
@@ -37,19 +33,6 @@ public class GameService {
     private GameMapper mapper;
     @Autowired
     private GameBasicMapper basicMapper;
-
-    // public Game findByName(String n){
-    //     return gameRep.findByName(n);
-    // }
-    // public Optional<Game> findById(long id){
-    //     return gameRep.findById(id);
-    // }
-    // public void save(Game j){
-    //     gameRep.save(j);
-    // }
-    // public List<Game> getGames(){
-    //     return gameRep.findAll();
-    // }
 
     public Optional<GameDTO> findByName(String name) {
         return gameRep.findByName(name)
@@ -111,16 +94,10 @@ public class GameService {
         return mapper.toDTOs(games);
     }
 
-    
-    // public Collection<GameDTO> getGamesR() {
-    //     return toDTOs(gameRep.findAll());
-    // }
-
     public Page<GameDTO> getGamesPageable(Pageable pageable) {
 		return gameRep.findAll(pageable).map(this::toDTO);
 	}
     public List<PlayDTO> getPlaysByGame(long id) {
-        // return gameRep.findPageByGame(id, pageable).map(this::toDTO);
         GameDTO game = toDTO(gameRep.findById(id).orElseThrow());
         List<PlayDTO> list = game.playList();
         return list;

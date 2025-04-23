@@ -31,10 +31,6 @@ import lbj.king.proyecto.DTO.PlayDTO;
 import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.UserrCompleteDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
-import lbj.king.proyecto.model.Game;
-import lbj.king.proyecto.model.Play;
-import lbj.king.proyecto.model.Prize;
-import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.GameService;
 import lbj.king.proyecto.services.PlayService;
 import lbj.king.proyecto.services.PrizeService;
@@ -68,7 +64,6 @@ public class UserController {
             UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
             model.addAttribute("userLogged", u);
             model.addAttribute("hasImage", uAux.image());
-            // System.out.println(u.getName());
             return "main";
         } else {
             return "main";
@@ -106,7 +101,6 @@ public class UserController {
                 return "register";
             }
         }
-        // UserrDTO newUser = new UserrDTO(null, name, 0, false, List.of("USER"), List.of(), List.of());
         UserrCompleteDTO newUser = new UserrCompleteDTO(null, name, passwordEncoder.encode(psw), 0, false, List.of("USER"), List.of(), List.of(), null);
         uSer.saveComplete(newUser);
         Collection<GameDTO> gameList = gameSer.getGames();
@@ -134,8 +128,6 @@ public class UserController {
             model.addAttribute("hasImage", uAux.image());
             System.out.println(u.name());
             if (money > 0) {
-                // u.setCurrency(u.getCurrency() + money);
-                // uSer.save(u);
                 uSer.updateCurrencyUser(u.id(), money);
                 return "redirect:/";
             } else {
@@ -162,9 +154,6 @@ public class UserController {
 
         if (!image.isEmpty()) {
             Blob imag = new SerialBlob(image.getBytes());
-            // u.setImage(imag);
-            // u.setImageBool(true);
-            // uSer.save(u);
             uSer.setImageUser(u.id(), imag);
             
             session.setAttribute("user", u);
@@ -199,7 +188,6 @@ public class UserController {
     @GetMapping("/profile/image")
 public ResponseEntity<Object> downloadImage(HttpServletRequest request) throws SQLException {
     Principal principal = request.getUserPrincipal();
-    UserrDTO u = uSer.findByName(principal.getName()).get();
     UserrCompleteDTO uAux = uSer.findByNameComplete(principal.getName()).orElseThrow();
 
 
@@ -227,11 +215,11 @@ public String deleteUser(HttpServletRequest request) {
     }
 
     for (PrizeDTO p : u.prizeList()) {
-        prizeSer.changePrize(p); // Suelto premios
+        prizeSer.changePrize(p); 
     }
 
     uSer.deleteUserById(u.id());
-    request.getSession().invalidate(); // Cerramos sesión
+    request.getSession().invalidate(); 
 
     return "redirect:/";
 }

@@ -30,7 +30,6 @@ import lbj.king.proyecto.DTO.UserrDTO;
 import lbj.king.proyecto.DTO.UserrMapper;
 import lbj.king.proyecto.model.Game;
 import lbj.king.proyecto.model.Play;
-import lbj.king.proyecto.model.Prize;
 import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.repositories.GameRepository;
 import lbj.king.proyecto.repositories.PlayRepository;
@@ -54,38 +53,6 @@ public class UserService {
     @Autowired
     private UserrCompleteDTOMapper completeMapper;
 
-    // public List<Userr> getUsuarios(){
-    //     List<Userr> l = userRep.findAll();
-    //     return l;
-    // }
-
-    // public void save(Userr u){
-    //     userRep.save(u);
-    // }
-
-    // public Optional<Userr> findByName(String n){
-    //     return userRep.findByName(n);
-    // }
-    // public Optional<Userr> findById(long n){
-    //     return userRep.findById(n);
-    // }
-
-    // public void save(Userr u, MultipartFile imag) throws IOException{
-	// 	if(!imag.isEmpty()) {
-	// 		u.setImage(BlobProxy.generateProxy(imag.getInputStream(), imag.getSize()));
-	// 	}
-	// 	this.save(u);
-	// }
-    // public List<Userr> findAll(){
-    //     return userRep.findAll();
-    // }
-
-
-    // @Transactional
-    // public void deleteUserById(Long userId) {
-    //     pRep.deleteByUserId(userId);
-    //     userRep.deleteById(userId);
-    // }
 
     public Collection<UserrDTO> getUsers(){
         return toDTOs(userRep.findAll());
@@ -198,11 +165,6 @@ public class UserService {
 		return mapper.toDTOs(users);
 	}
 
-
-    // public Collection<UserrDTO> getUsers(){
-    //     return toDTOs(userRep.findAll());
-    // }
-
 	public Page<UserrDTO> getUsersPageable(Pageable pageable) {
 		return userRep.findAll(pageable).map(this::toDTO);
 	}
@@ -211,15 +173,9 @@ public class UserService {
         return toDTO(userRep.findById(id).orElseThrow());
     }
 
-    // public Userr getLoggedUser() {
-    //     String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    //     return userRep.findByName(username).get();
-    // }
-
     public UserrDTO getLoggedUserDTO() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return toDTO(userRep.findByName(username).get());
-        // return mapper.toDTO(getLoggedUser());
     }
 
     public UserrDTO createUser(UserrDTO userrDTO) {       

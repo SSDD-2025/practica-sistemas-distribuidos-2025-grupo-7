@@ -13,8 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lbj.king.proyecto.DTO.GameDTO;
 import lbj.king.proyecto.DTO.UserrCompleteDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
-import lbj.king.proyecto.model.Game;
-import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.GameService;
 import lbj.king.proyecto.services.UserService;
 
@@ -125,11 +123,7 @@ public class GameController {
                 // save it in games
                 GameDTO g = new GameDTO(null, name, mult,minPossibleNumber,maxPossibleNumber, true, List.of());
                 GameDTO updatedGame = gameSer.save(g);
-                // GameDTO updatedGame = gameSer.findByName(name).orElseThrow();
-                
-                // g.setFich(file.getBytes());
-                // g.setHasFich(true);
-                // gameSer.save(g);
+
                 gameSer.updateGameFile(updatedGame.id(), file);
                 // Pass the html code introduced to the new file
                 File f = new File(filePath);

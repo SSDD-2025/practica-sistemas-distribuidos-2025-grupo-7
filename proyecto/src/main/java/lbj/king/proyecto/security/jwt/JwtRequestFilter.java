@@ -20,7 +20,6 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 	
-	private static final Logger log = LoggerFactory.getLogger(JwtRequestFilter.class);
 
 	private final UserDetailsService userDetailsService;
 
@@ -47,7 +46,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		} catch (Exception ex) {
 			//Avoid logging when no token is found
 			if(!ex.getMessage().equals("No access token cookie found in request")) {
-				// log.error("Exception processing JWT Token: ", ex);
 			}			
 		}
 

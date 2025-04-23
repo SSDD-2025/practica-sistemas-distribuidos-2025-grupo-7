@@ -1,7 +1,6 @@
 package lbj.king.proyecto.controllers;
 import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import lbj.king.proyecto.DTO.PrizeDTO;
 import lbj.king.proyecto.DTO.UserrCompleteDTO;
 import lbj.king.proyecto.DTO.UserrDTO;
-import lbj.king.proyecto.model.Prize;
-import lbj.king.proyecto.model.Userr;
 import lbj.king.proyecto.services.PrizeService;
 import lbj.king.proyecto.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,13 +48,8 @@ public class PrizeController {
         PrizeDTO prize = prizeSer.findById(id).orElseThrow();
 
         if (user.currency() >= prize.price() && !prize.owned()) {
-            // premio.setOwner(user);
-            // premio.setOwned(true);
-            // prizeSer.save(premio);
             prizeSer.setOwnerPrize(prize.id(), user.id());
 
-            // user.setCurrency(user.getCurrency() - premio.getPrice());
-            // uSer.save(user);
             uSer.updateLessCurrencyUser(user.id(), prize.price());
         } else {
             model.addAttribute("userLogged", user);
@@ -93,7 +85,6 @@ public class PrizeController {
 
     @PostMapping("/prizes/new")
     public String newPrize(@RequestParam String prizeName, @RequestParam int prizeValue) {
-        // PrizeDTO p = new PrizeDTO(null, prizeName, prizeValue, false, null);
         PrizeDTO p = new PrizeDTO(null, prizeName, prizeValue, false, null);
         prizeSer.save(p);
         return "redirect:/prizes";

@@ -1,6 +1,5 @@
 package lbj.king.proyecto.DTO;
 
-import java.util.List;
 
 public record GameBasicDTO(
     Long id,
