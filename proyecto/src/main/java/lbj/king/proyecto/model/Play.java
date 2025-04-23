@@ -29,6 +29,7 @@ public class Play {
         this.bet=bet;
         this.user=u;
         this.game=j;
+        this.win= bet * j.getWinMultp();
     }
 
     public void setId(long id){
