@@ -136,4 +136,12 @@ public class GameService {
 
 		return gameDTO;
     }
+
+    public void editGame(long id, float n) throws SQLException{
+        Game game = gameRep.findById(id).orElseThrow();
+		game.setWinMultp(n);
+
+		gameRep.save(game);
+    }
+
 }

@@ -166,9 +166,14 @@
             deleteGame=function(){
                 window.location.href="/game/delete/{{game.id}}"
             }
-        </script>
+          </script>
           <div onclick="deleteGame()" id="boton-ini" style="background-color: red;height: 40px;">Eliminar juego</div>
-          <div id="boton-ini" style="background-color: green; height: 40px;">Editar juego</div>
+          <script>
+            editGame=function(){
+                window.location.href="/game/watch/{{game.id}}/edit"
+            }
+          </script>
+          <div onclick="editGame()" id="boton-ini" style="background-color: green; height: 40px;">Editar juego</div>
         {{/userLogged}} 
         {{^userLogged}}
         <p style="margin-left: 50px; color: white;">Inicie sesión para jugar</p>

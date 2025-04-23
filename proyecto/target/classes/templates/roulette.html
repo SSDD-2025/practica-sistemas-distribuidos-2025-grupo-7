@@ -111,6 +111,12 @@
                 }
             </script>
               <div onclick="deleteGame()" id="boton-ini" style="background-color: red;height: 40px;">Eliminar juego</div>
+              <script>
+                editGame=function(){
+                    window.location.href="/game/watch/{{game.id}}/edit"
+                }
+              </script>
+              <div onclick="editGame()" id="boton-ini" style="background-color: green; height: 40px;">Editar juego</div>
             {{/userLogged}}
         </div>
     </div>

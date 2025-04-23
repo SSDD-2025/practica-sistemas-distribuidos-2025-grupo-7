@@ -2,6 +2,7 @@ package lbj.king.proyecto.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class GameController {
@@ -181,5 +184,20 @@ public class GameController {
         }
 
     }
+
+    @GetMapping("/game/watch/{id}/edit")
+    public String getEditPage(@PathVariable long id, Model model) {
+        GameDTO g=gameSer.findById(id).get();
+        model.addAttribute("game", g);
+        return "editGame";
+    }
+
+    @PostMapping("/game/watch/{id}/edit/process")
+    public String postMethodName(@PathVariable long id, @RequestParam float newWinMult) throws SQLException {
+        gameSer.editGame(id, newWinMult);
+        return "redirect:/";
+    }
+    
+    
     
 }
