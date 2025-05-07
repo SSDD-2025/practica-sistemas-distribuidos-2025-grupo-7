@@ -247,9 +247,11 @@ public String deleteGame(Model model, @PathVariable long partida_id, HttpServlet
 
     PlayDTO partida = pSer.findById(partida_id).get();
 
-    uAux.playList().remove(partida);
-    pSer.deletePartidaById(partida_id);
-    uSer.saveComplete(uAux);
+    if(uAux.playList().contains(partida) || uAux.roles().contains("ADMIN")){
+        uAux.playList().remove(partida);
+        pSer.deletePartidaById(partida_id);
+        uSer.saveComplete(uAux);
+    }
 
     model.addAttribute("userLogged", uAux);
 

@@ -71,7 +71,7 @@ public class SecurityConfiguration {
 					.requestMatchers(HttpMethod.GET,"/api/prizes/**").hasAnyRole("USER","ADMIN")
 					.requestMatchers(HttpMethod.POST,"/api/prizes/**").hasAnyRole("USER","ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/prizes/**").hasAnyRole("ADMIN","USER")
-                    .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasAnyRole("ADMIN","USER")
+                    .requestMatchers(HttpMethod.DELETE,"/api/prizes/**").hasAnyRole("ADMIN")
 
 					.requestMatchers(HttpMethod.GET,"/api/plays").permitAll()
 					.requestMatchers(HttpMethod.GET,"/api/plays/**").hasAnyRole("USER","ADMIN")
@@ -139,6 +139,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/game/save").hasRole("ADMIN")
 					.requestMatchers("/game/delete/**").hasRole("ADMIN")
 					.requestMatchers("/game/watch/{id}/edit").hasRole("ADMIN")
+					.requestMatchers("/prizes/{id}/delete").hasRole("ADMIN")
 
 
 
