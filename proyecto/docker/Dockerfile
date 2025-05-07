@@ -5,13 +5,13 @@ FROM maven:3.9.9-eclipse-temurin-21-jammy AS builder
 WORKDIR /project
 
 # Copia las dependencias del proyecto
-COPY ../proyecto/pom.xml /project/
+COPY pom.xml /project/
 
 # Descarga las dependencias del proyecto
 RUN mvn dependency:go-offline
 
 # Copia el código del proyecto
-COPY ../proyecto/src /project/src
+COPY src /project/src
 
 # Compila proyecto
 RUN mvn -B package -DskipTests
