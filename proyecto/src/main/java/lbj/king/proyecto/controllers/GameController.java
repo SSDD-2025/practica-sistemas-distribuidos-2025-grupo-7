@@ -148,7 +148,11 @@ public class GameController {
             }
             model.addAttribute("hasImage", uAux.image());
             model.addAttribute("game", g);
-            System.out.println(u.name());
+            System.out.println("*************************************");
+            System.out.println(g.name());
+            
+            System.out.println("*************************************");
+
             return g.name();
         } else {
             Collection<GameDTO> gameList = gameSer.getGames();
@@ -160,6 +164,11 @@ public class GameController {
         }
     }
 
+    @GetMapping("/game/watch/Roulette")
+    public String ilegalidad(){
+        return "roulette";
+    }
+    
     @GetMapping("/game/delete/{id}")
     public String deleteGame(@PathVariable long id,Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();

@@ -37,7 +37,7 @@ public class DatabaseInitializer {
         ClassPathResource resource = new ClassPathResource("templates/roulette.html");
         InputStream inputStream = resource.getInputStream();
         byte[] fileBytes = inputStream.readAllBytes();
-        Game g1=new Game("Roulette",36,0,36);
+        Game g1=new Game("roulette",36,0,36);
         g1.setFich(fileBytes);
         gameRep.save(g1);
 
@@ -45,7 +45,7 @@ public class DatabaseInitializer {
         resource = new ClassPathResource("templates/dice.html");
         inputStream = resource.getInputStream();
         fileBytes = inputStream.readAllBytes();
-        Game g2=new Game("Dice",4,1,6);
+        Game g2=new Game("dice",4,1,6);
         g2.setFich(fileBytes);
         gameRep.save(g2);
 
