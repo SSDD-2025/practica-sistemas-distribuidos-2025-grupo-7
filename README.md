@@ -303,3 +303,69 @@ Todos hemos aportado a todas las partes, ya sea para implementación de nuevo c�
   3. `GameRestController.html`
   4. `PlayConrtoller.java`
   5. `GameController.java`
+
+
+
+
+
+# Parte 3
+
+ESTO ES UN SUCIO
+
+ssh -i ~/.ssh/sidi07.key vmuser@193.147.60.47
+
+dentro de sidi07-1 pongo ssh sidi07-2
+
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+
+# Crear volumen
+docker volume create mysql_data_v2
+
+# Ejecutar contenedor
+docker run -d %
+  --name mysql-db_v2 %
+  -v mysql_data_v2:/var/lib/mysql %
+  -e MYSQL_ROOT_PASSWORD=password %
+  -e MYSQL_DATABASE=bbdd %
+  -p 3306:3306 %
+  mysql:9.2
+
+
+
+
+lo necesito para tener permisos y poder hacer pull de la imagen:
+
+sudo usermod -aG docker $USER  # Añade tu usuario al grupo "docker"
+newgrp docker  # Actualiza los grupos sin reiniciar sesión
+
+
+docker pull andresmunoz2/lkj:1.0.0
+
+
+git clone https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7.git
+
+
+cd ./docker/
+
+
+docker compose -f docker-compose.prod.yml up -d
+
+
