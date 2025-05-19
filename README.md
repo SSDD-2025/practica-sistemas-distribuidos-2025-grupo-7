@@ -311,7 +311,6 @@ Todos hemos aportado a todas las partes, ya sea para implementación de nuevo c�
 # Parte 3
 
 ESTO ES UN SUCIO
-
 ssh -i ~/.ssh/sidi07.key vmuser@193.147.60.47
 
 dentro de sidi07-1 pongo ssh sidi07-2
@@ -357,15 +356,13 @@ sudo usermod -aG docker $USER  # Añade tu usuario al grupo "docker"
 newgrp docker  # Actualiza los grupos sin reiniciar sesión
 
 
-docker pull andresmunoz2/lkj:1.0.0
+docker pull hhectorgonzlez/lkj-casino:1.0.0
 
 
-git clone https://github.com/SSDD-2025/practica-sistemas-distribuidos-2025-grupo-7.git
-
-
-cd ./docker/
-
-
-docker compose -f docker-compose.prod.yml up -d
-
+docker run -d \
+  -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.90:3306/bbdd \
+  -e SPRING_DATASOURCE_USERNAME=root \
+  -e SPRING_DATASOURCE_PASSWORD=password \
+  -p 8443:8443 \
+  hhectorgonzlez/lkj-casino:1.0.0
 
