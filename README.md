@@ -349,7 +349,7 @@ Utiliza la imagen publicada en DockerHub, levanta la app configurada en el puert
 ### Ejecución en entorno de producción
 
 ```bash
-docker compose -f docker/docker-compose.prod.yml up -d
+docker compose -f ./docker/docker-compose.prod.yml up -d
 ```
 
 
