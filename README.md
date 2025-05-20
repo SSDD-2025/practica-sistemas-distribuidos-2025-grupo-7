@@ -305,17 +305,14 @@ Todos hemos aportado a todas las partes, ya sea para implementación de nuevo c�
   5. `GameController.java`
 
 
-# Parte 3
-
-ESTO ES UN SUCIO
 
 # Práctica 3 – Construcción y Despliegue con Docker
 
-## 🐳 Construcción y publicación de la imagen Docker
+## Construcción y publicación de la imagen Docker
 
 La imagen Docker se construye a partir del `Dockerfile` ubicado en la carpeta `/docker`. La etapa final de la imagen contiene únicamente la aplicación compilada y sus dependencias.
 
-### 🔨 Crear imagen Docker
+### Crear imagen Docker
 
 ```bash
 ./proyecto/docker/create_image.sh
@@ -324,25 +321,24 @@ Esto genera una imagen con la etiqueta: lkj-casino:1.0.0
 
 La apliación se compila en Maven durante este proceso.
 
-### 📤 Publicar imagen en DockerHub
+### Publicar imagen en DockerHub
 
 ```bash
 ./proyecto/docker/publish_image.sh
 ```
 La imagen se publica bajo el nombre: docker.io/hhectorgonzlez/lkj-casino:1.0.0
 
-###🔧 Crear imagen con Buildpacks (opcional) ESTO NO TENGO NI IDEA
-
+### Crear imagen con Buildpacks (opcional) 
 ```bash
 mvn spring-boot:build-image -DskipTests
 ```
 
 
-## 🧪 Docker Compose
+## Docker Compose
 
 Puedes levantar la aplicación junto a una base de datos MySQL local utilizando Docker Compose.
 
-### ▶️ Ejecución en entorno local
+### Ejecución en entorno local
 
 ```bash
 docker compose -f ./docker/docker-compose.local.yml up
@@ -350,14 +346,14 @@ docker compose -f ./docker/docker-compose.local.yml up
 
 Utiliza la imagen publicada en DockerHub, levanta la app configurada en el puerto 8443 con HTTPS con Base de datos MySQL (imagen oficial mysql:9.2)
 
-### 🚀 Ejecución en entorno de producción
+### Ejecución en entorno de producción
 
 ```bash
 docker compose -f docker/docker-compose.prod.yml up -d
 ```
 
 
-## 🌐 Despliegue en máquinas virtuales
+## Despliegue en máquinas virtuales
 
 Pasos para desplegar en las máquinas virtuales proporcionadas por la universidad:
 
@@ -381,6 +377,6 @@ docker run -d \
 ```
 
 
-## 🔗 URL del despliegue
+## URL del despliegue
 
 Puedes acceder a la aplicación desde: https://193.147.60.47:8443/
