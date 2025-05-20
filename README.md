@@ -309,30 +309,78 @@ Todos hemos aportado a todas las partes, ya sea para implementación de nuevo c�
 
 ESTO ES UN SUCIO
 
-Práctica 3
-Construcción y publicación de la imagen Docker
-La imagen Docker se construye con un Dockerfile /docker, la etapa final contiene solo la aplicación compilada y sus dependencias.
-    • Crear imagen Docker: ./proyecto/docker/create_image.sh 
-Con esto se genera la imagen con la etiqueta lkj-casino:1.0.0, compilandolo con Maven
+# Práctica 3 – Construcción y Despliegue con Docker
 
-    • Publicar imagen en DockerHub: ./proyecto/docker/publish_image.sh 
-La imagen se publica con el nombre: docker.io/hhectorgonzlez/lkj-casino:1.0.0
+## 🐳 Construcción y publicación de la imagen Docker
 
-    • Crear imagen con Buildpacks: en caso de usar Buildpacks, compilamos la aplicación con:
-mvn spring-boot:build-image -DskipTests #NO SE TENGO NI IDEA DE QUE ES ESTO
-Docker Compose
-Para contruir la imagen localmente, y levantar la aplicación junto con las base de datos MySQL(usando la imagen oficial mysql:9.2).
-    • Ejecución en entorno local: docker compose -f ./docker/docker-compose.local.yml up
-Este archivo utiliza la imagen ya publicada en DockerHub y arranca la aplicación configurada en el puerto 8443 con HTTPS.
-    • Ejecución en entorno de producción: docker compose -f docker/docker-compose.prod.yml up -d
-Despliegue en máquinas virtuales
-Para desplegar en las máquinas proporcionadas por la universidad tenemos que:
-    • Subir la imagen a DockerHub (publish_image.sh)
-    • Acceder por SSH a sidiXX-2 y ejecutar el siguiente comando para levantar la base de datos:
-docker run -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=bbdd -p 3306:3306 -d -v ./mysql:/var/lib/mysql mysql:9.2
-    • Asegurarse de que la base de datos está activa y accesible desde sidi07-1
-    • Acceder a sidi07-1 y ejecutar :
-docker run -d 
--e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.90 :3306/bbdd -p 8443:8443 hhectorgonzlez/lkj-casino:1.0.0
-URL del despliegue:
-https://193.147.60.47:8443/
+La imagen Docker se construye a partir del `Dockerfile` ubicado en la carpeta `/docker`. La etapa final de la imagen contiene únicamente la aplicación compilada y sus dependencias.
+
+### 🔨 Crear imagen Docker
+
+```bash
+./proyecto/docker/create_image.sh
+```
+Esto genera una imagen con la etiqueta: lkj-casino:1.0.0
+
+La apliación se compila en Maven durante este proceso.
+
+### 📤 Publicar imagen en DockerHub
+
+```bash
+./proyecto/docker/publish_image.sh
+```
+La imagen se publica bajo el nombre: docker.io/hhectorgonzlez/lkj-casino:1.0.0
+
+###🔧 Crear imagen con Buildpacks (opcional) ESTO NO TENGO NI IDEA
+
+```bash
+mvn spring-boot:build-image -DskipTests
+```
+
+
+## 🧪 Docker Compose
+
+Puedes levantar la aplicación junto a una base de datos MySQL local utilizando Docker Compose.
+
+### ▶️ Ejecución en entorno local
+
+```bash
+docker compose -f ./docker/docker-compose.local.yml up
+```
+
+Utiliza la imagen publicada en DockerHub, levanta la app configurada en el puerto 8443 con HTTPS con Base de datos MySQL (imagen oficial mysql:9.2)
+
+### 🚀 Ejecución en entorno de producción
+
+```bash
+docker compose -f docker/docker-compose.prod.yml up -d
+```
+
+
+## 🌐 Despliegue en máquinas virtuales
+
+Pasos para desplegar en las máquinas virtuales proporcionadas por la universidad:
+
+1.Sube la imagen a DockerHub (publish_image.sh)
+2.Accede por SSH a sidiXX-2 y levanta la base de datos:
+```bash
+docker run -e MYSQL_ROOT_PASSWORD=password \
+           -e MYSQL_DATABASE=bbdd \
+           -p 3306:3306 \
+           -d -v ./mysql:/var/lib/mysql \
+           mysql:9.2
+```
+Asegúrate de que la base de datos está activa y accesible desde sidi07-1.
+Accede a sidi07-1 y ejecuta la aplicación:
+
+```bash
+docker run -d \
+  -e SPRING_DATASOURCE_URL=jdbc:mysql://192.168.110.90:3306/bbdd \
+  -p 8443:8443 \
+  hhectorgonzlez/lkj-casino:1.0.0
+```
+
+
+## 🔗 URL del despliegue
+
+Puedes acceder a la aplicación desde: https://193.147.60.47:8443/
