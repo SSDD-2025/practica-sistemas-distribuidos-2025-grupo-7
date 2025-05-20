@@ -337,6 +337,7 @@ mvn spring-boot:build-image -DskipTests
 ## Docker Compose
 
 Puedes levantar la aplicación junto a una base de datos MySQL local utilizando Docker Compose.
+Se debe ejecutar desde la carpeta raiz del proyecto.
 
 ### Ejecución en entorno local
 
